@@ -1,6 +1,5 @@
-
 import { Link } from 'react-router-dom';
-import { Book, Code, Flask, Users, ArrowRight, Sparkles, ChevronRight } from 'lucide-react';
+import { Book, Code, Sparkles, Users, ArrowRight, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Navbar from '@/components/Navbar';
 import FeatureCard from '@/components/FeatureCard';
@@ -70,7 +69,7 @@ const Index = () => {
               color="bg-workbbench-blue/20"
             />
             <FeatureCard 
-              icon={<Flask className="h-6 w-6 text-white" />}
+              icon={<Sparkles className="h-6 w-6 text-white" />}
               title="AI Lab"
               description="Experiment with models, datasets, and simulations in a secure cloud environment."
               color="bg-workbbench-green/20"
