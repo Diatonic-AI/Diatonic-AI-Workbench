@@ -34,6 +34,14 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Workbbench color variables */
+    --workbbench-purple: 252 87% 74%;
+    --workbbench-blue: 217 91% 60%;
+    --workbbench-green: 142 71% 45%;
+    --workbbench-orange: 27 96% 61%;
+    --workbbench-red: 0 84% 60%;
+    --workbbench-dark-purple: 240 20% 13%;
   }
 }
 
@@ -89,4 +97,49 @@
   .connection-point {
     @apply w-3 h-3 rounded-full bg-workbbench-purple border border-white/30;
   }
+  
+  /* Dashboard-specific utilities */
+  .dashboard-card {
+    @apply bg-card border border-border/50 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+  
+  .dashboard-card-hover {
+    @apply hover:border-primary/50 hover:shadow-[0_0_0_1px_theme(colors.primary.DEFAULT/0.1)] transition-all duration-200;
+  }
+  
+  .dashboard-gradient {
+    @apply bg-gradient-to-br from-workbbench-dark-purple to-black;
+  }
+  
+  .dashboard-section {
+    @apply py-6;
+  }
+  
+  .dashboard-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Animation Utilities */
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-flow {
+  background: linear-gradient(-45deg, #9b87f5, #0ea5e9, #8b5cf6, #d946ef);
+  background-size: 400% 400%;
+  animation: gradient-flow 15s ease infinite;
+}
+
+.bg-gradient-flow {
+  background: linear-gradient(-45deg, #9b87f5, #0ea5e9, #8b5cf6, #d946ef);
+  background-size: 400% 400%;
 }

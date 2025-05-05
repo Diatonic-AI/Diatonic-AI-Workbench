@@ -1,5 +1,6 @@
+
 import { Link } from 'react-router-dom';
-import { Book, Code, Sparkles, Users, ArrowRight, ChevronRight } from 'lucide-react';
+import { Book, Code, Sparkles, Users, ArrowRight, ChevronRight, BarChart2, Play } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import Navbar from '@/components/Navbar';
 import FeatureCard from '@/components/FeatureCard';
@@ -22,10 +23,12 @@ const Index = () => {
                 Build, learn, experiment, and connect with the AI community in one powerful platform.
               </p>
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <Button size="lg" className="bg-workbbench-purple hover:bg-workbbench-purple/90">
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <Link to="/dashboard">
+                  <Button size="lg" className="bg-workbbench-purple hover:bg-workbbench-purple/90">
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
                 <Button size="lg" variant="outline" className="border-white/20">
                   Tour the Features
                 </Button>
@@ -56,30 +59,38 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <FeatureCard 
-              icon={<Book className="h-6 w-6 text-white" />}
-              title="AI Education"
-              description="Learn AI concepts through guided paths and interactive content designed for all skill levels."
-              color="bg-workbbench-purple/20"
-            />
-            <FeatureCard 
-              icon={<Code className="h-6 w-6 text-white" />}
-              title="AI Toolset"
-              description="Build powerful AI agents with our intuitive drag-and-drop interface and professional-grade tools."
-              color="bg-workbbench-blue/20"
-            />
-            <FeatureCard 
-              icon={<Sparkles className="h-6 w-6 text-white" />}
-              title="AI Lab"
-              description="Experiment with models, datasets, and simulations in a secure cloud environment."
-              color="bg-workbbench-green/20"
-            />
-            <FeatureCard 
-              icon={<Users className="h-6 w-6 text-white" />}
-              title="Community Hub"
-              description="Connect with AI enthusiasts, share your projects, and collaborate with experts."
-              color="bg-workbbench-orange/20"
-            />
+            <Link to="/education" className="block">
+              <FeatureCard 
+                icon={<Book className="h-6 w-6 text-white" />}
+                title="AI Education"
+                description="Learn AI concepts through guided paths and interactive content designed for all skill levels."
+                color="bg-workbbench-purple/20"
+              />
+            </Link>
+            <Link to="/toolset" className="block">
+              <FeatureCard 
+                icon={<Code className="h-6 w-6 text-white" />}
+                title="AI Toolset"
+                description="Build powerful AI agents with our intuitive drag-and-drop interface and professional-grade tools."
+                color="bg-workbbench-blue/20"
+              />
+            </Link>
+            <Link to="/lab" className="block">
+              <FeatureCard 
+                icon={<Sparkles className="h-6 w-6 text-white" />}
+                title="AI Lab"
+                description="Experiment with models, datasets, and simulations in a secure cloud environment."
+                color="bg-workbbench-green/20"
+              />
+            </Link>
+            <Link to="/community" className="block">
+              <FeatureCard 
+                icon={<Users className="h-6 w-6 text-white" />}
+                title="Community Hub"
+                description="Connect with AI enthusiasts, share your projects, and collaborate with experts."
+                color="bg-workbbench-orange/20"
+              />
+            </Link>
           </div>
         </div>
       </section>
@@ -97,7 +108,7 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="glass-morphism rounded-xl p-6">
               <div className="text-workbbench-purple mb-4">
-                <Sparkles className="h-8 w-8" />
+                <Code className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Intuitive Interface</h3>
               <p className="text-gray-300 mb-4">
@@ -111,13 +122,13 @@ const Index = () => {
             
             <div className="glass-morphism rounded-xl p-6">
               <div className="text-workbbench-blue mb-4">
-                <Sparkles className="h-8 w-8" />
+                <Play className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Professional Tools</h3>
               <p className="text-gray-300 mb-4">
                 DaVinci Resolve-inspired professional-grade tools for serious AI development and experimentation.
               </p>
-              <Link to="/toolset" className="text-workbbench-blue flex items-center hover:underline">
+              <Link to="/lab" className="text-workbbench-blue flex items-center hover:underline">
                 See the Tools
                 <ChevronRight className="h-4 w-4 ml-1" />
               </Link>
@@ -125,14 +136,14 @@ const Index = () => {
             
             <div className="glass-morphism rounded-xl p-6">
               <div className="text-workbbench-orange mb-4">
-                <Sparkles className="h-8 w-8" />
+                <BarChart2 className="h-8 w-8" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Social Collaboration</h3>
+              <h3 className="text-xl font-semibold mb-2">Data Visualization</h3>
               <p className="text-gray-300 mb-4">
-                TikTok-style micro-learning videos, Reddit-like discussions, and powerful collaboration features.
+                Powerful visualization tools to understand your data and model performance at a glance.
               </p>
-              <Link to="/community" className="text-workbbench-orange flex items-center hover:underline">
-                Join the Community
+              <Link to="/observatory" className="text-workbbench-orange flex items-center hover:underline">
+                Explore Visualizations
                 <ChevronRight className="h-4 w-4 ml-1" />
               </Link>
             </div>
@@ -148,10 +159,12 @@ const Index = () => {
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
               Start your journey with Workbbench today and become part of the global AI community.
             </p>
-            <Button size="lg" className="bg-workbbench-purple hover:bg-workbbench-purple/90">
-              Get Started Now
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <Link to="/dashboard">
+              <Button size="lg" className="bg-workbbench-purple hover:bg-workbbench-purple/90">
+                Get Started Now
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -174,10 +187,10 @@ const Index = () => {
               <div>
                 <h4 className="text-lg font-semibold mb-4">Platform</h4>
                 <ul className="space-y-2">
+                  <li><Link to="/dashboard" className="text-gray-400 hover:text-white">Dashboard</Link></li>
                   <li><Link to="/education" className="text-gray-400 hover:text-white">Education</Link></li>
                   <li><Link to="/toolset" className="text-gray-400 hover:text-white">Toolset</Link></li>
                   <li><Link to="/lab" className="text-gray-400 hover:text-white">AI Lab</Link></li>
-                  <li><Link to="/community" className="text-gray-400 hover:text-white">Community</Link></li>
                 </ul>
               </div>
               
