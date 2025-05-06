@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Book, Code, Sparkles, Users, ArrowRight, ChevronRight, BarChart2, Play } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -35,8 +34,8 @@ const Index = () => {
               </div>
             </div>
             <div className="md:w-1/2 md:pl-10">
-              <div className="relative glass-morphism rounded-xl p-4">
-                <div className="absolute top-4 right-4 flex space-x-2">
+              <div className="relative glass-morphism rounded-xl p-4 overflow-hidden">
+                <div className="absolute top-4 right-4 flex space-x-2 z-10">
                   <div className="w-3 h-3 rounded-full bg-workbbench-red"></div>
                   <div className="w-3 h-3 rounded-full bg-workbbench-orange"></div>
                   <div className="w-3 h-3 rounded-full bg-workbbench-green"></div>
