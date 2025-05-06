@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -156,6 +157,12 @@
   50% { stroke-opacity: 1; }
 }
 
+@keyframes scale {
+  0% { transform: scale(0.9); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
 .animate-fade-in {
   animation: fade-in 0.3s ease-out forwards;
 }
@@ -163,3 +170,4 @@
 .animate-pulse-connection {
   animation: pulse-connection 1.5s ease-in-out infinite;
 }
+

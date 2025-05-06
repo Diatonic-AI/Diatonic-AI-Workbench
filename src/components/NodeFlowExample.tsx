@@ -10,6 +10,17 @@ type AnimationState = 'adding-node' | 'connecting' | 'editing-prompt' | 'idle';
 type ConnectionState = { source: string; target: string; active: boolean }[];
 type NodePosition = { x: number; y: number };
 
+// Call to action messages that will rotate
+const callToActionMessages = [
+  "Try It Yourself",
+  "Drag & Drop Agent Creation",
+  "Custom Prompt Chains",
+  "Community Templates",
+  "Agent Marketplace",
+  "Agent Showcase",
+  "Weekly Competitions"
+];
+
 const NodeFlowExample = () => {
   const [activeNode, setActiveNode] = useState<string | null>(null);
   const [animationState, setAnimationState] = useState<AnimationState>('idle');
@@ -27,22 +38,106 @@ const NodeFlowExample = () => {
     node3: { x: 500, y: 120 },
     node4: { x: 500, y: 250 }
   });
+  const [displayedMessage, setDisplayedMessage] = useState("");
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [typingState, setTypingState] = useState<'typing' | 'deleting' | 'pausing'>('typing');
+  const [isHovering, setIsHovering] = useState(false);
+  const [showTryForFreeButton, setShowTryForFreeButton] = useState(false);
+  const [buttonAnimating, setButtonAnimating] = useState(false);
   
   const animationTimer = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const dragNode = useRef<string | null>(null);
   const dragOffset = useRef({ x: 0, y: 0 });
+  const charIndex = useRef(0);
+  const typingTimer = useRef<NodeJS.Timeout | null>(null);
+  
+  // Golden ratio for aesthetically pleasing spacing
+  const goldenRatio = 1.618;
+  
+  // Adjust node positions based on container size and golden ratio
+  useEffect(() => {
+    const updatePositions = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.clientWidth;
+        const height = containerRef.current.clientHeight;
+        
+        const centerX = width / 2;
+        const centerY = height / 2;
+        
+        // Using golden ratio for spacing
+        const horizontalSpacing = width / (goldenRatio * 3);
+        const verticalOffset = height / (goldenRatio * 4);
+        
+        setNodePositions({
+          node1: { x: centerX - horizontalSpacing * 1.2, y: centerY - verticalOffset },
+          node2: { x: centerX, y: centerY },
+          node3: { x: centerX + horizontalSpacing * 1.2, y: centerY - verticalOffset },
+          node4: { x: centerX + horizontalSpacing * 1.2, y: centerY + verticalOffset }
+        });
+      }
+    };
+    
+    updatePositions();
+    window.addEventListener('resize', updatePositions);
+    return () => window.removeEventListener('resize', updatePositions);
+  }, []);
+  
+  // Typing animation for call to action messages
+  useEffect(() => {
+    const currentMessage = callToActionMessages[currentMessageIndex];
+    
+    const handleTyping = () => {
+      if (typingState === 'typing') {
+        if (charIndex.current < currentMessage.length) {
+          setDisplayedMessage(currentMessage.substring(0, charIndex.current + 1));
+          charIndex.current += 1;
+          typingTimer.current = setTimeout(handleTyping, 100); // typing speed
+        } else {
+          setTypingState('pausing');
+          typingTimer.current = setTimeout(handleTyping, 2000); // pause at the end
+        }
+      } else if (typingState === 'pausing') {
+        setTypingState('deleting');
+        typingTimer.current = setTimeout(handleTyping, 100);
+      } else if (typingState === 'deleting') {
+        if (charIndex.current > 0) {
+          charIndex.current -= 1;
+          setDisplayedMessage(currentMessage.substring(0, charIndex.current));
+          typingTimer.current = setTimeout(handleTyping, 50); // deleting speed
+        } else {
+          setTypingState('typing');
+          setCurrentMessageIndex((currentMessageIndex + 1) % callToActionMessages.length);
+          typingTimer.current = setTimeout(handleTyping, 500); // pause before next message
+        }
+      }
+    };
+    
+    if (isAnimating && !isHovering) {
+      typingTimer.current = setTimeout(handleTyping, 500);
+    }
+    
+    return () => {
+      if (typingTimer.current) {
+        clearTimeout(typingTimer.current);
+      }
+    };
+  }, [currentMessageIndex, typingState, isAnimating, isHovering]);
   
   // Animation sequence
   const runAnimationSequence = useCallback(() => {
     if (!isAnimating) return;
     
+    // Musical timing: 6/8 time at 100 BPM = 3.6 seconds per measure
+    const beatDuration = 60 / 100; // 0.6 seconds per beat
+    const measureDuration = beatDuration * 6; // 3.6 seconds per measure
+    
     const sequence = [
-      { state: 'adding-node', duration: 1000 },
-      { state: 'connecting', duration: 1000 },
-      { state: 'editing-prompt', duration: 1500 },
-      { state: 'idle', duration: 500 }
+      { state: 'adding-node', duration: measureDuration },
+      { state: 'connecting', duration: measureDuration },
+      { state: 'editing-prompt', duration: measureDuration },
+      { state: 'idle', duration: beatDuration * 2 }
     ];
     
     let timeOffset = 0;
@@ -59,20 +154,25 @@ const NodeFlowExample = () => {
                   ? { ...conn, active: true } 
                   : conn
               ));
-            }, 500);
+            }, beatDuration * 3);
           }
           
-          if (step.state === 'editing-prompt') {
-            setShowPromptEditor(true);
+          if (step.state === 'editing-prompt' && !isHovering) {
             setTimeout(() => {
-              if (isAnimating) setShowPromptEditor(false);
-            }, 1200);
+              setShowPromptEditor(true);
+              setTimeout(() => {
+                if (isAnimating) setShowPromptEditor(false);
+              }, beatDuration * 4);
+            }, beatDuration);
           }
         }
       }, timeOffset);
       
       timeOffset += step.duration;
     });
+    
+    // Total animation duration: ~6 seconds (5.4s + 1s freeze)
+    const totalDuration = timeOffset + 1000; // Adding 1 second freeze at the end
     
     // Restart animation cycle
     animationTimer.current = setTimeout(() => {
@@ -85,21 +185,30 @@ const NodeFlowExample = () => {
         ));
         runAnimationSequence();
       }
-    }, timeOffset);
+    }, totalDuration);
     
-  }, [isAnimating]);
+  }, [isAnimating, isHovering]);
 
   // Start/stop animation on hover
   const handleContainerMouseEnter = () => {
+    setIsHovering(true);
     setIsAnimating(false);
+    setShowTryForFreeButton(true);
+    setButtonAnimating(true);
+    setTimeout(() => setButtonAnimating(false), 500);
+    
     if (animationTimer.current) {
       clearTimeout(animationTimer.current);
     }
   };
   
   const handleContainerMouseLeave = () => {
-    setIsAnimating(true);
-    runAnimationSequence();
+    if (!isDragging.current) {
+      setIsHovering(false);
+      setIsAnimating(true);
+      setShowTryForFreeButton(false);
+      runAnimationSequence();
+    }
   };
   
   // Initialize animation
@@ -180,6 +289,16 @@ const NodeFlowExample = () => {
     setTimeout(() => setShowTooltip(false), 3000);
   };
   
+  // Get animation class based on node and state
+  const getNodeAnimationClass = (nodeId: string) => {
+    const delay = nodeId === 'node1' ? 0 : 
+                 nodeId === 'node2' ? 0.2 : 
+                 nodeId === 'node3' ? 0.4 : 0.6;
+    
+    return animationState === 'adding-node' ? 
+      `transform transition-transform duration-500 delay-[${delay}s] scale-95 hover:scale-105` : '';
+  };
+  
   return (
     <div 
       ref={containerRef}
@@ -238,13 +357,13 @@ const NodeFlowExample = () => {
       
       {/* Nodes */}
       <div 
-        className={`node-card absolute transition-all duration-300 ease-in-out bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node1' ? 'ring-2 ring-workbbench-purple' : ''}`}
+        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node1' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node1')}`}
         style={{ 
           left: `${nodePositions.node1.x}px`, 
           top: `${nodePositions.node1.y}px`,
           width: '100px',
           opacity: animationState === 'adding-node' && nodePositions.node1.x === 100 ? 0.5 : 1,
-          transform: animationState === 'adding-node' && nodePositions.node1.x === 100 ? 'scale(0.9)' : 'scale(1)'
+          transform: animationState === 'adding-node' ? 'scale(0.9)' : 'scale(1)'
         }}
         onClick={() => handleNodeClick('node1')}
         onMouseDown={(e) => handleMouseDown(e, 'node1')}
@@ -262,7 +381,7 @@ const NodeFlowExample = () => {
       </div>
       
       <div 
-        className={`node-card absolute transition-all duration-300 ease-in-out bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-primary/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node2' ? 'ring-2 ring-workbbench-purple' : ''}`}
+        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-primary/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node2' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node2')}`}
         style={{ 
           left: `${nodePositions.node2.x}px`, 
           top: `${nodePositions.node2.y}px`,
@@ -285,7 +404,7 @@ const NodeFlowExample = () => {
       </div>
       
       <div 
-        className={`node-card absolute transition-all duration-300 ease-in-out bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node3' ? 'ring-2 ring-workbbench-purple' : ''}`}
+        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node3' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node3')}`}
         style={{ 
           left: `${nodePositions.node3.x}px`, 
           top: `${nodePositions.node3.y}px`,
@@ -307,7 +426,7 @@ const NodeFlowExample = () => {
       </div>
       
       <div 
-        className={`node-card absolute transition-all duration-300 ease-in-out bg-gradient-to-r from-blue-400/20 to-blue-600/20 border border-blue-400/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node4' ? 'ring-2 ring-workbbench-purple' : ''}`}
+        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-blue-400/20 to-blue-600/20 border border-blue-400/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node4' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node4')}`}
         style={{ 
           left: `${nodePositions.node4.x}px`, 
           top: `${nodePositions.node4.y}px`,
@@ -328,8 +447,8 @@ const NodeFlowExample = () => {
         <div className="connection-point absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-workbbench-blue border-2 border-background"></div>
       </div>
       
-      {/* Prompt Editor Panel */}
-      {showPromptEditor && (
+      {/* Prompt Editor Panel - only show when user hovers or clicks LLM node */}
+      {(showPromptEditor && (isHovering || !isAnimating)) && (
         <div className="absolute right-4 top-4 bg-card/90 backdrop-blur-sm p-4 rounded-md border border-border/50 w-64 z-20 animate-fade-in">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-sm font-medium">Prompt Template</h3>
@@ -360,14 +479,25 @@ const NodeFlowExample = () => {
       )}
       
       {/* Controls Panel */}
-      <div className="absolute bottom-4 left-4 bg-card/90 backdrop-blur-sm p-3 rounded-md border border-border/50 z-10">
+      <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-sm p-3 rounded-md border border-border/50 z-10">
         <TooltipProvider>
           <Tooltip open={showTooltip}>
             <TooltipTrigger asChild>
-              <Button onClick={handleConfigAction} size="sm" className="bg-workbbench-purple hover:bg-workbbench-purple/90">
-                Try It Yourself
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              {showTryForFreeButton ? (
+                <Button 
+                  onClick={handleConfigAction} 
+                  size="sm" 
+                  className={`bg-workbbench-purple hover:bg-workbbench-purple/90 ${buttonAnimating ? 'animate-[scale_0.5s_ease]' : ''}`}
+                >
+                  Try For Free
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              ) : (
+                <div className="min-w-32 text-sm font-medium text-white">
+                  {displayedMessage}
+                  <span className="animate-pulse">|</span>
+                </div>
+              )}
             </TooltipTrigger>
             <TooltipContent className="bg-black/80 text-white border-none p-2">
               <p>Sign in to build your own agents!</p>
