@@ -27,11 +27,12 @@ export function useFlowLogic() {
 
   const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
     setSelectedNode(node);
-    setNodeName(node.data.label || '');
+    // Safely set node name, ensuring it's a string
+    setNodeName(typeof node.data?.label === 'string' ? node.data.label : '');
     
     // Type guard to check if node is an LLM node
-    if (node.type === 'llm' && 'prompt' in node.data) {
-      setNodePrompt(node.data.prompt || '');
+    if (node.type === 'llm' && typeof node.data?.prompt === 'string') {
+      setNodePrompt(node.data.prompt);
     } else {
       setNodePrompt('');
     }

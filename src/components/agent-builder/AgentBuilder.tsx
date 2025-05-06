@@ -5,7 +5,7 @@ import {
   MiniMap,
   Controls,
   Background,
-  NodeTypes
+  NodeTypes as ReactFlowNodeTypes
 } from '@xyflow/react';
 import { LLMNode } from './nodes/LLMNode';
 import { TriggerNode } from './nodes/TriggerNode';
@@ -16,7 +16,7 @@ import { useFlowLogic } from './useFlowLogic';
 import '@xyflow/react/dist/style.css';
 
 // Define node types mapping
-const nodeTypes: NodeTypes = {
+const nodeTypes: ReactFlowNodeTypes = {
   llm: LLMNode,
   trigger: TriggerNode,
   output: OutputNode,
