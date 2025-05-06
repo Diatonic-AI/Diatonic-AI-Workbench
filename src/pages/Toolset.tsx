@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { DashboardLayout } from "@/components/layouts/DashboardLayout";
 import { 
   Card, 
@@ -10,7 +10,9 @@ import {
   CardTitle 
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Code, Plus } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Code, Plus, Sparkles, WandSparkles, CodeSquare } from "lucide-react";
+import { AgentBuilder } from "@/components/agent-builder/AgentBuilder";
 
 const TEMPLATES = [
   {
@@ -50,84 +52,120 @@ const Toolset = () => {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Card className="hover:shadow-lg transition-shadow duration-200">
-            <CardHeader className="pb-2">
-              <CardTitle>Model Builder</CardTitle>
-              <CardDescription>
-                Drag-and-drop interface for creating neural network models
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-32 bg-secondary/40 rounded-md flex items-center justify-center text-muted-foreground">
-                Drag components here to build your model
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="w-full">
-                Open Builder
-              </Button>
-            </CardFooter>
-          </Card>
+        <Tabs defaultValue="tools" className="w-full">
+          <TabsList className="mb-4">
+            <TabsTrigger value="tools">
+              <CodeSquare className="mr-2 h-4 w-4" />
+              Tools
+            </TabsTrigger>
+            <TabsTrigger value="agent-builder">
+              <WandSparkles className="mr-2 h-4 w-4" />
+              Agent Builder
+            </TabsTrigger>
+          </TabsList>
           
-          <Card className="hover:shadow-lg transition-shadow duration-200">
-            <CardHeader className="pb-2">
-              <CardTitle>Prompt Editor</CardTitle>
-              <CardDescription>
-                Create and test prompts for large language models
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-32 bg-secondary/40 rounded-md p-2 overflow-hidden text-sm text-muted-foreground">
-                Write your prompt here to test with different LLMs...
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="w-full">
-                Open Editor
-              </Button>
-            </CardFooter>
-          </Card>
+          <TabsContent value="tools" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Card className="hover:shadow-lg transition-shadow duration-200">
+                <CardHeader className="pb-2">
+                  <CardTitle>Model Builder</CardTitle>
+                  <CardDescription>
+                    Drag-and-drop interface for creating neural network models
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-32 bg-secondary/40 rounded-md flex items-center justify-center text-muted-foreground">
+                    Drag components here to build your model
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full">
+                    Open Builder
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-shadow duration-200">
+                <CardHeader className="pb-2">
+                  <CardTitle>Prompt Editor</CardTitle>
+                  <CardDescription>
+                    Create and test prompts for large language models
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-32 bg-secondary/40 rounded-md p-2 overflow-hidden text-sm text-muted-foreground">
+                    Write your prompt here to test with different LLMs...
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full">
+                    Open Editor
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-shadow duration-200">
+                <CardHeader className="pb-2">
+                  <CardTitle>Project Management</CardTitle>
+                  <CardDescription>
+                    Manage and organize your AI projects
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-32 bg-secondary/40 rounded-md flex items-center justify-center text-muted-foreground">
+                    No projects yet
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full">
+                    View Projects
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+            
+            <h2 className="text-xl font-semibold mt-8 mb-4">Templates</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {TEMPLATES.map((template) => (
+                <Card key={template.id} className="hover:shadow-lg transition-shadow duration-200">
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center gap-2">
+                      <template.icon className="h-5 w-5 text-primary" />
+                      <CardTitle className="text-lg">{template.title}</CardTitle>
+                    </div>
+                    <CardDescription>{template.description}</CardDescription>
+                  </CardHeader>
+                  <CardFooter>
+                    <Button variant="secondary" className="w-full">
+                      Use Template
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
           
-          <Card className="hover:shadow-lg transition-shadow duration-200">
-            <CardHeader className="pb-2">
-              <CardTitle>Project Management</CardTitle>
-              <CardDescription>
-                Manage and organize your AI projects
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-32 bg-secondary/40 rounded-md flex items-center justify-center text-muted-foreground">
-                No projects yet
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="w-full">
-                View Projects
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
-        
-        <h2 className="text-xl font-semibold mt-8 mb-4">Templates</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {TEMPLATES.map((template) => (
-            <Card key={template.id} className="hover:shadow-lg transition-shadow duration-200">
-              <CardHeader className="pb-2">
-                <div className="flex items-center gap-2">
-                  <template.icon className="h-5 w-5 text-primary" />
-                  <CardTitle className="text-lg">{template.title}</CardTitle>
-                </div>
-                <CardDescription>{template.description}</CardDescription>
+          <TabsContent value="agent-builder">
+            <Card>
+              <CardHeader>
+                <CardTitle>Agent Builder Canvas</CardTitle>
+                <CardDescription>
+                  Create AI agents visually by connecting components in a workflow
+                </CardDescription>
               </CardHeader>
-              <CardFooter>
-                <Button variant="secondary" className="w-full">
-                  Use Template
+              <CardContent>
+                <AgentBuilder />
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Button variant="outline">Clear Canvas</Button>
+                <Button>
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  Save Agent
                 </Button>
               </CardFooter>
             </Card>
-          ))}
-        </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </DashboardLayout>
   );
