@@ -1,8 +1,9 @@
 
-import { Node, Edge } from '@xyflow/react';
+import { Edge } from '@xyflow/react';
+import { TypedNode, NodeTypeOption } from './types';
 
 // Initial nodes and edges for the canvas
-export const initialNodes: Node[] = [
+export const initialNodes: TypedNode[] = [
   {
     id: '1',
     type: 'trigger',
@@ -32,7 +33,7 @@ export const initialEdges: Edge[] = [
 ];
 
 // Node type options for dropdown
-export const nodeTypeOptions = [
+export const nodeTypeOptions: NodeTypeOption[] = [
   { value: 'trigger', label: 'Trigger' },
   { value: 'llm', label: 'LLM Processor' },
   { value: 'output', label: 'Output' }

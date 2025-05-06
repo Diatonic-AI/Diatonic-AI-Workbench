@@ -1,11 +1,10 @@
 
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
+import { OutputNodeData } from '../types';
 
 interface OutputNodeProps {
-  data: {
-    label: string;
-  };
+  data: OutputNodeData;
   isConnectable: boolean;
 }
 

@@ -1,11 +1,10 @@
 
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
+import { TriggerNodeData } from '../types';
 
 interface TriggerNodeProps {
-  data: {
-    label: string;
-  };
+  data: TriggerNodeData;
   isConnectable: boolean;
 }
 

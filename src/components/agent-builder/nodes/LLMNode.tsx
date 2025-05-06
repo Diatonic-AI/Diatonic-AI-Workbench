@@ -1,12 +1,10 @@
 
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
+import { LLMNodeData } from '../types';
 
 interface LLMNodeProps {
-  data: {
-    label: string;
-    prompt?: string;
-  };
+  data: LLMNodeData;
   isConnectable: boolean;
 }
 

@@ -1,7 +1,6 @@
 
 import { useState, useCallback } from 'react';
 import { 
-  Node, 
   Edge, 
   useNodesState, 
   useEdgesState, 
@@ -9,11 +8,12 @@ import {
   Connection
 } from '@xyflow/react';
 import { initialNodes, initialEdges } from './constants';
+import { TypedNode, LLMNodeData } from './types';
 
 export function useFlowLogic() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+  const [selectedNode, setSelectedNode] = useState<TypedNode | null>(null);
   const [nodeName, setNodeName] = useState('');
   const [nodePrompt, setNodePrompt] = useState('');
   const [newNodeType, setNewNodeType] = useState('llm');
@@ -23,12 +23,14 @@ export function useFlowLogic() {
     [setEdges]
   );
 
-  const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
+  const onNodeClick = useCallback((event: React.MouseEvent, node: TypedNode) => {
     setSelectedNode(node);
     setNodeName(node.data.label);
-    // Fix: proper type narrowing for the prompt property
-    if (typeof node.data.prompt === 'string') {
-      setNodePrompt(node.data.prompt);
+    
+    // Type guard to check if node is an LLM node
+    if (node.type === 'llm') {
+      const llmNodeData = node.data as LLMNodeData;
+      setNodePrompt(llmNodeData.prompt);
     } else {
       setNodePrompt('');
     }
@@ -36,15 +38,26 @@ export function useFlowLogic() {
 
   const updateSelectedNode = useCallback(() => {
     if (selectedNode) {
-      const updatedData = {
-        ...selectedNode.data,
-        label: nodeName,
-        ...(selectedNode.type === 'llm' && { prompt: nodePrompt })
-      };
-      
-      setNodes(nodes.map(node => 
-        node.id === selectedNode.id ? { ...node, data: updatedData } : node
-      ));
+      if (selectedNode.type === 'llm') {
+        const updatedData = {
+          ...selectedNode.data,
+          label: nodeName,
+          prompt: nodePrompt
+        };
+        
+        setNodes(nodes.map(node => 
+          node.id === selectedNode.id ? { ...node, data: updatedData } : node
+        ));
+      } else {
+        const updatedData = {
+          ...selectedNode.data,
+          label: nodeName
+        };
+        
+        setNodes(nodes.map(node => 
+          node.id === selectedNode.id ? { ...node, data: updatedData } : node
+        ));
+      }
     }
   }, [selectedNode, nodeName, nodePrompt, nodes, setNodes]);
 
@@ -54,13 +67,18 @@ export function useFlowLogic() {
       ? Math.max(...nodes.map(n => n.position.y)) + 125 
       : 100;
     
-    const newNode: Node = {
+    let newNodeData: any = {
+      label: `New ${newNodeType.charAt(0).toUpperCase() + newNodeType.slice(1)} Node`
+    };
+    
+    if (newNodeType === 'llm') {
+      newNodeData.prompt = 'Enter your prompt here...';
+    }
+    
+    const newNode: TypedNode = {
       id: `node-${Date.now()}`,
-      type: newNodeType,
-      data: { 
-        label: `New ${newNodeType.charAt(0).toUpperCase() + newNodeType.slice(1)} Node`,
-        ...(newNodeType === 'llm' && { prompt: 'Enter your prompt here...' })
-      },
+      type: newNodeType as 'trigger' | 'llm' | 'output',
+      data: newNodeData,
       position: { x: 250, y: yPos },
     };
     
