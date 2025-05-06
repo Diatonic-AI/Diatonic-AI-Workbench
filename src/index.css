@@ -171,3 +171,12 @@
   animation: pulse-connection 1.5s ease-in-out infinite;
 }
 
+@keyframes run-flow {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animate-run-flow {
+  stroke-dasharray: 10;
+  animation: run-flow 3s linear infinite;
+}

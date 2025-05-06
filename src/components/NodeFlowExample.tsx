@@ -44,6 +44,7 @@ const NodeFlowExample = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [showTryForFreeButton, setShowTryForFreeButton] = useState(false);
   const [buttonAnimating, setButtonAnimating] = useState(false);
+  const [nodeAnimating, setNodeAnimating] = useState(true);
   
   const animationTimer = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -71,10 +72,10 @@ const NodeFlowExample = () => {
         const verticalOffset = height / (goldenRatio * 4);
         
         setNodePositions({
-          node1: { x: centerX - horizontalSpacing * 1.2, y: centerY - verticalOffset },
+          node1: { x: centerX - horizontalSpacing * 1.2, y: centerY - verticalOffset / 1.5 },
           node2: { x: centerX, y: centerY },
-          node3: { x: centerX + horizontalSpacing * 1.2, y: centerY - verticalOffset },
-          node4: { x: centerX + horizontalSpacing * 1.2, y: centerY + verticalOffset }
+          node3: { x: centerX + horizontalSpacing * 1.2, y: centerY - verticalOffset / 1.5 },
+          node4: { x: centerX + horizontalSpacing * 1.2, y: centerY + verticalOffset / 1.5 }
         });
       }
     };
@@ -171,7 +172,7 @@ const NodeFlowExample = () => {
       timeOffset += step.duration;
     });
     
-    // Total animation duration: ~6 seconds (5.4s + 1s freeze)
+    // Total animation duration: ~6 seconds (with a bit extra for freeze)
     const totalDuration = timeOffset + 1000; // Adding 1 second freeze at the end
     
     // Restart animation cycle
@@ -183,6 +184,8 @@ const NodeFlowExample = () => {
             ? { ...conn, active: false } 
             : conn
         ));
+        setNodeAnimating(true); // Reset node animation state
+        setTimeout(() => setNodeAnimating(false), 1500); // Turn off node animations after initial phase
         runAnimationSequence();
       }
     }, totalDuration);
@@ -223,10 +226,11 @@ const NodeFlowExample = () => {
   
   // Handle node dragging
   const handleMouseDown = (e: React.MouseEvent, nodeId: string) => {
-    if (!isAnimating) {
+    if (!isAnimating || isHovering) {
       e.preventDefault();
       isDragging.current = true;
       dragNode.current = nodeId;
+      setActiveNode(nodeId);
       
       const nodeRect = (e.currentTarget as HTMLElement).getBoundingClientRect();
       dragOffset.current = { 
@@ -242,11 +246,15 @@ const NodeFlowExample = () => {
       const newX = e.clientX - containerRect.left - dragOffset.current.x;
       const newY = e.clientY - containerRect.top - dragOffset.current.y;
       
+      // Get node dimensions to ensure they stay completely within container bounds
+      const nodeWidth = 100; // Approximate width of nodes
+      const nodeHeight = 80; // Approximate height of nodes
+      
       setNodePositions(prev => ({
         ...prev,
         [dragNode.current!]: { 
-          x: Math.max(50, Math.min(containerRect.width - 150, newX)),
-          y: Math.max(30, Math.min(containerRect.height - 80, newY))
+          x: Math.max(0, Math.min(containerRect.width - nodeWidth, newX)),
+          y: Math.max(0, Math.min(containerRect.height - nodeHeight, newY))
         }
       }));
     }
@@ -270,7 +278,7 @@ const NodeFlowExample = () => {
   
   // Node click handler
   const handleNodeClick = (nodeId: string) => {
-    if (!isAnimating) {
+    if (!isAnimating || isHovering) {
       setActiveNode(nodeId === activeNode ? null : nodeId);
       
       // If they click the LLM node, show prompt editor
@@ -291,12 +299,28 @@ const NodeFlowExample = () => {
   
   // Get animation class based on node and state
   const getNodeAnimationClass = (nodeId: string) => {
+    if (!nodeAnimating && !isHovering) return '';
+    
     const delay = nodeId === 'node1' ? 0 : 
                  nodeId === 'node2' ? 0.2 : 
                  nodeId === 'node3' ? 0.4 : 0.6;
     
     return animationState === 'adding-node' ? 
       `transform transition-transform duration-500 delay-[${delay}s] scale-95 hover:scale-105` : '';
+  };
+  
+  // Generate bezier curve paths for connections
+  const getBezierPath = (source: NodePosition, target: NodePosition) => {
+    const dx = target.x - source.x;
+    const dy = target.y - source.y;
+    
+    // Calculate control points for smooth curves
+    const controlPointX1 = source.x + dx * 0.6;
+    const controlPointY1 = source.y;
+    const controlPointX2 = target.x - dx * 0.6;
+    const controlPointY2 = target.y;
+    
+    return `M${source.x + 100},${source.y + 40} C${controlPointX1},${controlPointY1} ${controlPointX2},${controlPointY2} ${target.x},${target.y + 40}`;
   };
   
   return (
@@ -310,8 +334,11 @@ const NodeFlowExample = () => {
       <svg className="absolute inset-0 w-full h-full z-0" xmlns="http://www.w3.org/2000/svg">
         {/* Data source to LLM */}
         <path 
-          d={`M${nodePositions.node1.x + 100},${nodePositions.node1.y + 40} C${nodePositions.node1.x + 180},${nodePositions.node1.y} ${nodePositions.node2.x - 80},${nodePositions.node2.y + 80} ${nodePositions.node2.x},${nodePositions.node2.y + 40}`}
-          className="transition-all duration-300 ease-in-out"
+          d={getBezierPath(
+            { x: nodePositions.node1.x, y: nodePositions.node1.y }, 
+            { x: nodePositions.node2.x, y: nodePositions.node2.y }
+          )}
+          className="transition-all duration-500 ease-in-out"
           stroke={activeNode === 'node1' || activeNode === 'node2' || animationState === 'connecting' ? "#9b87f5" : "rgba(255,255,255,0.3)"} 
           strokeWidth="2" 
           strokeDasharray={animationState === 'connecting' ? "5,5" : "none"}
@@ -321,8 +348,11 @@ const NodeFlowExample = () => {
         
         {/* LLM to Validator */}
         <path 
-          d={`M${nodePositions.node2.x + 100},${nodePositions.node2.y + 40} C${nodePositions.node2.x + 180},${nodePositions.node2.y} ${nodePositions.node3.x - 80},${nodePositions.node3.y + 80} ${nodePositions.node3.x},${nodePositions.node3.y + 40}`}
-          className="transition-all duration-300 ease-in-out"
+          d={getBezierPath(
+            { x: nodePositions.node2.x, y: nodePositions.node2.y }, 
+            { x: nodePositions.node3.x, y: nodePositions.node3.y }
+          )}
+          className="transition-all duration-500 ease-in-out"
           stroke={activeNode === 'node2' || activeNode === 'node3' ? "#F97316" : "rgba(255,255,255,0.3)"} 
           strokeWidth="2" 
           fill="none" 
@@ -331,8 +361,11 @@ const NodeFlowExample = () => {
         
         {/* LLM to API */}
         <path 
-          d={`M${nodePositions.node2.x + 100},${nodePositions.node2.y + 40} C${nodePositions.node2.x + 180},${nodePositions.node2.y + 80} ${nodePositions.node4.x - 80},${nodePositions.node4.y - 30} ${nodePositions.node4.x},${nodePositions.node4.y + 40}`}
-          className={`transition-all duration-300 ease-in-out ${connections.find(c => c.source === 'node2' && c.target === 'node4')?.active ? 'opacity-100' : 'opacity-30'}`}
+          d={getBezierPath(
+            { x: nodePositions.node2.x, y: nodePositions.node2.y + 30 }, 
+            { x: nodePositions.node4.x, y: nodePositions.node4.y - 10 }
+          )}
+          className={`transition-all duration-500 ease-in-out ${connections.find(c => c.source === 'node2' && c.target === 'node4')?.active ? 'opacity-100' : 'opacity-30'} ${animationState === 'connecting' ? 'animate-pulse-connection' : ''}`}
           stroke={activeNode === 'node2' || activeNode === 'node4' || animationState === 'connecting' ? "#33C3F0" : "rgba(255,255,255,0.3)"} 
           strokeWidth="2" 
           strokeDasharray={animationState === 'connecting' ? "5,5" : "none"}
@@ -362,8 +395,8 @@ const NodeFlowExample = () => {
           left: `${nodePositions.node1.x}px`, 
           top: `${nodePositions.node1.y}px`,
           width: '100px',
-          opacity: animationState === 'adding-node' && nodePositions.node1.x === 100 ? 0.5 : 1,
-          transform: animationState === 'adding-node' ? 'scale(0.9)' : 'scale(1)'
+          opacity: animationState === 'adding-node' && nodeAnimating ? 0.5 : 1,
+          transform: animationState === 'adding-node' && nodeAnimating ? 'scale(0.9)' : 'scale(1)'
         }}
         onClick={() => handleNodeClick('node1')}
         onMouseDown={(e) => handleMouseDown(e, 'node1')}
@@ -479,7 +512,7 @@ const NodeFlowExample = () => {
       )}
       
       {/* Controls Panel */}
-      <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-sm p-3 rounded-md border border-border/50 z-10">
+      <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm p-3 rounded-md border border-border/50 z-10">
         <TooltipProvider>
           <Tooltip open={showTooltip}>
             <TooltipTrigger asChild>
@@ -493,7 +526,7 @@ const NodeFlowExample = () => {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               ) : (
-                <div className="min-w-32 text-sm font-medium text-white">
+                <div className="min-w-32 text-base font-medium text-white">
                   {displayedMessage}
                   <span className="animate-pulse">|</span>
                 </div>
