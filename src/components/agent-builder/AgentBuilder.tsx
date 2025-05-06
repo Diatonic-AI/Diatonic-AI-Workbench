@@ -82,8 +82,12 @@ export function AgentBuilder() {
   const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
     setSelectedNode(node);
     setNodeName(node.data.label);
-    // Use proper type casting and default empty string for safety
-    setNodePrompt(node.data.prompt as string || '');
+    // Fix: proper type narrowing for the prompt property
+    if (typeof node.data.prompt === 'string') {
+      setNodePrompt(node.data.prompt);
+    } else {
+      setNodePrompt('');
+    }
   }, []);
 
   const updateSelectedNode = useCallback(() => {
