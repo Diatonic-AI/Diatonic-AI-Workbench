@@ -82,8 +82,8 @@ export function AgentBuilder() {
   const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
     setSelectedNode(node);
     setNodeName(node.data.label);
-    // Fix for line 84-85: Add type casting to ensure type safety
-    setNodePrompt(node.data.prompt || '');
+    // Use proper type casting and default empty string for safety
+    setNodePrompt(node.data.prompt as string || '');
   }, []);
 
   const updateSelectedNode = useCallback(() => {
@@ -233,7 +233,7 @@ export function AgentBuilder() {
                   placeholder="Enter your prompt template here..."
                 />
                 <div className="text-xs text-muted-foreground mt-1">
-                  Use {{"{{"}}input{{"}}"}} to reference incoming data
+                  Use {"{{input}}"} to reference incoming data
                 </div>
               </div>
             )}
