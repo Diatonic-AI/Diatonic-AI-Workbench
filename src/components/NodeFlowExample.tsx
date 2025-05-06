@@ -67,15 +67,15 @@ const NodeFlowExample = () => {
         const centerX = width / 2;
         const centerY = height / 2;
         
-        // Using golden ratio for spacing
-        const horizontalSpacing = width / (goldenRatio * 3);
-        const verticalOffset = height / (goldenRatio * 4);
+        // Using golden ratio for spacing - more consistent spacing
+        const horizontalSpacing = Math.min(width / 3.5, 180);
+        const verticalOffset = Math.min(height / 4, 100);
         
         setNodePositions({
-          node1: { x: centerX - horizontalSpacing * 1.2, y: centerY - verticalOffset / 1.5 },
+          node1: { x: centerX - horizontalSpacing, y: centerY },
           node2: { x: centerX, y: centerY },
-          node3: { x: centerX + horizontalSpacing * 1.2, y: centerY - verticalOffset / 1.5 },
-          node4: { x: centerX + horizontalSpacing * 1.2, y: centerY + verticalOffset / 1.5 }
+          node3: { x: centerX + horizontalSpacing, y: centerY },
+          node4: { x: centerX + horizontalSpacing, y: centerY + verticalOffset }
         });
       }
     };
@@ -126,19 +126,20 @@ const NodeFlowExample = () => {
     };
   }, [currentMessageIndex, typingState, isAnimating, isHovering]);
   
-  // Animation sequence
+  // Animation sequence - Extended to 5-6 seconds
   const runAnimationSequence = useCallback(() => {
     if (!isAnimating) return;
     
     // Musical timing: 6/8 time at 100 BPM = 3.6 seconds per measure
+    // For 5-6 second animation we'll use approximately 1.5-2 measures
     const beatDuration = 60 / 100; // 0.6 seconds per beat
     const measureDuration = beatDuration * 6; // 3.6 seconds per measure
     
     const sequence = [
-      { state: 'adding-node', duration: measureDuration },
-      { state: 'connecting', duration: measureDuration },
-      { state: 'editing-prompt', duration: measureDuration },
-      { state: 'idle', duration: beatDuration * 2 }
+      { state: 'adding-node', duration: measureDuration * 0.5 },
+      { state: 'connecting', duration: measureDuration * 0.75 },
+      { state: 'editing-prompt', duration: measureDuration * 0.75 },
+      { state: 'idle', duration: measureDuration * 0.5 }
     ];
     
     let timeOffset = 0;
@@ -172,8 +173,19 @@ const NodeFlowExample = () => {
       timeOffset += step.duration;
     });
     
-    // Total animation duration: ~6 seconds (with a bit extra for freeze)
-    const totalDuration = timeOffset + 1000; // Adding 1 second freeze at the end
+    // Simulate data flow animation after connections are established
+    setTimeout(() => {
+      const nodes = ['node1', 'node2', 'node3', 'node4'];
+      nodes.forEach((node, index) => {
+        setTimeout(() => {
+          setActiveNode(node);
+          setTimeout(() => setActiveNode(null), 300);
+        }, index * 400);
+      });
+    }, measureDuration * 2.5);
+    
+    // Total animation duration: 5-6 seconds
+    const totalDuration = 5500; // 5.5 seconds
     
     // Restart animation cycle
     animationTimer.current = setTimeout(() => {
@@ -224,7 +236,7 @@ const NodeFlowExample = () => {
     };
   }, [runAnimationSequence]);
   
-  // Handle node dragging
+  // Handle node dragging with LucidChart-like snapping
   const handleMouseDown = (e: React.MouseEvent, nodeId: string) => {
     if (!isAnimating || isHovering) {
       e.preventDefault();
@@ -240,25 +252,50 @@ const NodeFlowExample = () => {
     }
   };
   
+  // Handle node movement with snapping
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (isDragging.current && dragNode.current && containerRef.current) {
       const containerRect = containerRef.current.getBoundingClientRect();
-      const newX = e.clientX - containerRect.left - dragOffset.current.x;
-      const newY = e.clientY - containerRect.top - dragOffset.current.y;
+      let newX = e.clientX - containerRect.left - dragOffset.current.x;
+      let newY = e.clientY - containerRect.top - dragOffset.current.y;
       
-      // Get node dimensions to ensure they stay completely within container bounds
-      const nodeWidth = 100; // Approximate width of nodes
-      const nodeHeight = 80; // Approximate height of nodes
+      // Get node dimensions
+      const nodeWidth = 120; // Consistent node width
+      const nodeHeight = 90; // Consistent node height
+      
+      // Ensure nodes stay within container
+      newX = Math.max(0, Math.min(containerRect.width - nodeWidth, newX));
+      newY = Math.max(0, Math.min(containerRect.height - nodeHeight, newY));
+      
+      // LucidChart-like snapping - horizontal alignment with other nodes
+      const snapThreshold = 10;
+      
+      Object.entries(nodePositions).forEach(([id, pos]) => {
+        if (id !== dragNode.current) {
+          // Horizontal center alignment
+          const centerX = pos.x + nodeWidth / 2;
+          const dragCenterX = newX + nodeWidth / 2;
+          
+          if (Math.abs(dragCenterX - centerX) < snapThreshold) {
+            newX = centerX - nodeWidth / 2;
+          }
+          
+          // Vertical center alignment
+          const centerY = pos.y + nodeHeight / 2;
+          const dragCenterY = newY + nodeHeight / 2;
+          
+          if (Math.abs(dragCenterY - centerY) < snapThreshold) {
+            newY = centerY - nodeHeight / 2;
+          }
+        }
+      });
       
       setNodePositions(prev => ({
         ...prev,
-        [dragNode.current!]: { 
-          x: Math.max(0, Math.min(containerRect.width - nodeWidth, newX)),
-          y: Math.max(0, Math.min(containerRect.height - nodeHeight, newY))
-        }
+        [dragNode.current!]: { x: newX, y: newY }
       }));
     }
-  }, []);
+  }, [nodePositions]);
   
   const handleMouseUp = useCallback(() => {
     isDragging.current = false;
@@ -281,7 +318,7 @@ const NodeFlowExample = () => {
     if (!isAnimating || isHovering) {
       setActiveNode(nodeId === activeNode ? null : nodeId);
       
-      // If they click the LLM node, show prompt editor
+      // Show prompt editor when clicking the LLM node
       if (nodeId === 'node2') {
         setShowPromptEditor(true);
         setTimeout(() => setShowPromptEditor(false), 2000);
@@ -292,7 +329,6 @@ const NodeFlowExample = () => {
   // Login redirect handler
   const handleConfigAction = (e: React.MouseEvent) => {
     e.preventDefault();
-    // This would normally redirect to login, but we'll just show tooltip
     setShowTooltip(true);
     setTimeout(() => setShowTooltip(false), 3000);
   };
@@ -309,18 +345,26 @@ const NodeFlowExample = () => {
       `transform transition-transform duration-500 delay-[${delay}s] scale-95 hover:scale-105` : '';
   };
   
-  // Generate bezier curve paths for connections
+  // Generate bezier curve paths for connections - improved smoothness
   const getBezierPath = (source: NodePosition, target: NodePosition) => {
     const dx = target.x - source.x;
     const dy = target.y - source.y;
+    const sourceX = source.x + 60; // Half of node width (120px)
+    const sourceY = source.y + 45; // Half of node height (90px)
+    const targetX = target.x + 60;
+    const targetY = target.y + 45;
     
     // Calculate control points for smooth curves
-    const controlPointX1 = source.x + dx * 0.6;
-    const controlPointY1 = source.y;
-    const controlPointX2 = target.x - dx * 0.6;
-    const controlPointY2 = target.y;
+    // Horizontal distance for control points - creates smoother curves
+    const controlDistance = Math.abs(dx) * 0.5;
     
-    return `M${source.x + 100},${source.y + 40} C${controlPointX1},${controlPointY1} ${controlPointX2},${controlPointY2} ${target.x},${target.y + 40}`;
+    // Improved control points placement
+    const controlPointX1 = sourceX + (dx > 0 ? controlDistance : -controlDistance);
+    const controlPointY1 = sourceY;
+    const controlPointX2 = targetX - (dx > 0 ? controlDistance : -controlDistance);
+    const controlPointY2 = targetY;
+    
+    return `M${sourceX},${sourceY} C${controlPointX1},${controlPointY1} ${controlPointX2},${controlPointY2} ${targetX},${targetY}`;
   };
   
   return (
@@ -362,8 +406,8 @@ const NodeFlowExample = () => {
         {/* LLM to API */}
         <path 
           d={getBezierPath(
-            { x: nodePositions.node2.x, y: nodePositions.node2.y + 30 }, 
-            { x: nodePositions.node4.x, y: nodePositions.node4.y - 10 }
+            { x: nodePositions.node2.x, y: nodePositions.node2.y }, 
+            { x: nodePositions.node4.x, y: nodePositions.node4.y }
           )}
           className={`transition-all duration-500 ease-in-out ${connections.find(c => c.source === 'node2' && c.target === 'node4')?.active ? 'opacity-100' : 'opacity-30'} ${animationState === 'connecting' ? 'animate-pulse-connection' : ''}`}
           stroke={activeNode === 'node2' || activeNode === 'node4' || animationState === 'connecting' ? "#33C3F0" : "rgba(255,255,255,0.3)"} 
@@ -388,48 +432,46 @@ const NodeFlowExample = () => {
         </defs>
       </svg>
       
-      {/* Nodes */}
+      {/* Nodes - uniform size and styling */}
       <div 
-        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node1' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node1')}`}
+        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-lg p-4 cursor-grab active:cursor-grabbing ${activeNode === 'node1' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node1')}`}
         style={{ 
           left: `${nodePositions.node1.x}px`, 
           top: `${nodePositions.node1.y}px`,
-          width: '100px',
+          width: '120px',
+          height: '90px',
           opacity: animationState === 'adding-node' && nodeAnimating ? 0.5 : 1,
           transform: animationState === 'adding-node' && nodeAnimating ? 'scale(0.9)' : 'scale(1)'
         }}
         onClick={() => handleNodeClick('node1')}
         onMouseDown={(e) => handleMouseDown(e, 'node1')}
       >
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center">
-            <Database className="w-5 h-5 mr-2 text-workbbench-green" />
-            <span className="font-medium text-sm">Data Source</span>
-          </div>
+        <div className="flex items-center justify-center mb-2">
+          <Database className="w-5 h-5 mr-2 text-workbbench-green" />
+          <span className="font-medium text-sm">Data Source</span>
         </div>
-        <div className="text-xs text-gray-400">
+        <div className="text-xs text-gray-400 text-center">
           <p>Output: JSON Data</p>
         </div>
         <div className="connection-point absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-3 h-3 rounded-full bg-workbbench-green border-2 border-background"></div>
       </div>
       
       <div 
-        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-primary/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node2' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node2')}`}
+        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-primary/30 rounded-lg p-4 cursor-grab active:cursor-grabbing ${activeNode === 'node2' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node2')}`}
         style={{ 
           left: `${nodePositions.node2.x}px`, 
           top: `${nodePositions.node2.y}px`,
-          width: '100px'
+          width: '120px',
+          height: '90px'
         }}
         onClick={() => handleNodeClick('node2')}
         onMouseDown={(e) => handleMouseDown(e, 'node2')}
       >
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center">
-            <MessageSquare className="w-5 h-5 mr-2 text-workbbench-purple" />
-            <span className="font-medium text-sm">LLM Node</span>
-          </div>
+        <div className="flex items-center justify-center mb-2">
+          <MessageSquare className="w-5 h-5 mr-2 text-workbbench-purple" />
+          <span className="font-medium text-sm">LLM Node</span>
         </div>
-        <div className="text-xs text-gray-400">
+        <div className="text-xs text-gray-400 text-center">
           <p>GPT-4 Model</p>
         </div>
         <div className="connection-point absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-workbbench-purple border-2 border-background"></div>
@@ -437,44 +479,42 @@ const NodeFlowExample = () => {
       </div>
       
       <div 
-        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node3' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node3')}`}
+        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30 rounded-lg p-4 cursor-grab active:cursor-grabbing ${activeNode === 'node3' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node3')}`}
         style={{ 
           left: `${nodePositions.node3.x}px`, 
           top: `${nodePositions.node3.y}px`,
-          width: '100px'
+          width: '120px',
+          height: '90px'
         }}
         onClick={() => handleNodeClick('node3')}
         onMouseDown={(e) => handleMouseDown(e, 'node3')}
       >
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center">
-            <Cpu className="w-5 h-5 mr-2 text-workbbench-orange" />
-            <span className="font-medium text-sm">Validator</span>
-          </div>
+        <div className="flex items-center justify-center mb-2">
+          <Cpu className="w-5 h-5 mr-2 text-workbbench-orange" />
+          <span className="font-medium text-sm">Validator</span>
         </div>
-        <div className="text-xs text-gray-400">
+        <div className="text-xs text-gray-400 text-center">
           <p>JSON Schema</p>
         </div>
         <div className="connection-point absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-workbbench-orange border-2 border-background"></div>
       </div>
       
       <div 
-        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-blue-400/20 to-blue-600/20 border border-blue-400/30 rounded-lg p-3 cursor-grab active:cursor-grabbing ${activeNode === 'node4' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node4')}`}
+        className={`node-card absolute transition-all duration-500 ease-in-out bg-gradient-to-r from-blue-400/20 to-blue-600/20 border border-blue-400/30 rounded-lg p-4 cursor-grab active:cursor-grabbing ${activeNode === 'node4' ? 'ring-2 ring-workbbench-purple' : ''} ${getNodeAnimationClass('node4')}`}
         style={{ 
           left: `${nodePositions.node4.x}px`, 
           top: `${nodePositions.node4.y}px`,
-          width: '100px'
+          width: '120px',
+          height: '90px'
         }}
         onClick={() => handleNodeClick('node4')}
         onMouseDown={(e) => handleMouseDown(e, 'node4')}
       >
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center">
-            <Code className="w-5 h-5 mr-2 text-workbbench-blue" />
-            <span className="font-medium text-sm">API Call</span>
-          </div>
+        <div className="flex items-center justify-center mb-2">
+          <Code className="w-5 h-5 mr-2 text-workbbench-blue" />
+          <span className="font-medium text-sm">API Call</span>
         </div>
-        <div className="text-xs text-gray-400">
+        <div className="text-xs text-gray-400 text-center">
           <p>HTTP POST</p>
         </div>
         <div className="connection-point absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-workbbench-blue border-2 border-background"></div>
@@ -512,7 +552,7 @@ const NodeFlowExample = () => {
       )}
       
       {/* Controls Panel */}
-      <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm p-3 rounded-md border border-border/50 z-10">
+      <div className="absolute bottom-4 left-4 backdrop-blur-sm p-3 rounded-md border border-border/50 z-10">
         <TooltipProvider>
           <Tooltip open={showTooltip}>
             <TooltipTrigger asChild>
