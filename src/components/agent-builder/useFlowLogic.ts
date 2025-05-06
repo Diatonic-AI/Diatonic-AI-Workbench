@@ -2,35 +2,36 @@
 import { useState, useCallback } from 'react';
 import { 
   Edge, 
+  Node,
   useNodesState, 
   useEdgesState, 
   addEdge, 
   Connection
 } from '@xyflow/react';
 import { initialNodes, initialEdges } from './constants';
-import { TypedNode, LLMNodeData } from './types';
+import { TypedNode, LLMNodeData, NodeData, NodeTypes } from './types';
 
 export function useFlowLogic() {
+  // Use Node type from React Flow as the base type
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [selectedNode, setSelectedNode] = useState<TypedNode | null>(null);
+  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [nodeName, setNodeName] = useState('');
   const [nodePrompt, setNodePrompt] = useState('');
-  const [newNodeType, setNewNodeType] = useState('llm');
+  const [newNodeType, setNewNodeType] = useState<NodeTypes>('llm');
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
 
-  const onNodeClick = useCallback((event: React.MouseEvent, node: TypedNode) => {
+  const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
     setSelectedNode(node);
-    setNodeName(node.data.label);
+    setNodeName(node.data.label || '');
     
     // Type guard to check if node is an LLM node
-    if (node.type === 'llm') {
-      const llmNodeData = node.data as LLMNodeData;
-      setNodePrompt(llmNodeData.prompt);
+    if (node.type === 'llm' && 'prompt' in node.data) {
+      setNodePrompt(node.data.prompt || '');
     } else {
       setNodePrompt('');
     }
@@ -67,17 +68,17 @@ export function useFlowLogic() {
       ? Math.max(...nodes.map(n => n.position.y)) + 125 
       : 100;
     
-    let newNodeData: any = {
+    let newNodeData: NodeData = {
       label: `New ${newNodeType.charAt(0).toUpperCase() + newNodeType.slice(1)} Node`
     };
     
     if (newNodeType === 'llm') {
-      newNodeData.prompt = 'Enter your prompt here...';
+      (newNodeData as LLMNodeData).prompt = 'Enter your prompt here...';
     }
     
-    const newNode: TypedNode = {
+    const newNode: Node = {
       id: `node-${Date.now()}`,
-      type: newNodeType as 'trigger' | 'llm' | 'output',
+      type: newNodeType,
       data: newNodeData,
       position: { x: 250, y: yPos },
     };

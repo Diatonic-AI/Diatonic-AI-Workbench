@@ -6,6 +6,7 @@ import { Node, Edge } from '@xyflow/react';
  */
 export interface BaseNodeData {
   label: string;
+  [key: string]: unknown; // Add index signature to make it compatible with Record<string, unknown>
 }
 
 /**
@@ -43,33 +44,26 @@ export interface NodeTypeOption {
 }
 
 /**
+ * Type aliases for React Flow node types
+ */
+export type NodeTypes = 'trigger' | 'llm' | 'output';
+
+/**
  * Type-safe node with proper data typing
  */
-export interface TypedNode extends Omit<Node, 'data'> {
-  type: 'trigger' | 'llm' | 'output';
-  data: NodeData;
-}
+export type TypedNode = Node<NodeData, NodeTypes>;
 
 /**
  * Type-safe trigger node
  */
-export interface TriggerNode extends Omit<Node, 'data' | 'type'> {
-  type: 'trigger';
-  data: TriggerNodeData;
-}
+export type TriggerNode = Node<TriggerNodeData, 'trigger'>;
 
 /**
  * Type-safe LLM node
  */
-export interface LLMNode extends Omit<Node, 'data' | 'type'> {
-  type: 'llm';
-  data: LLMNodeData;
-}
+export type LLMNode = Node<LLMNodeData, 'llm'>;
 
 /**
  * Type-safe output node
  */
-export interface OutputNode extends Omit<Node, 'data' | 'type'> {
-  type: 'output';
-  data: OutputNodeData;
-}
+export type OutputNode = Node<OutputNodeData, 'output'>;

@@ -1,13 +1,13 @@
 
-import { Edge } from '@xyflow/react';
-import { TypedNode, NodeTypeOption } from './types';
+import { Edge, Node } from '@xyflow/react';
+import { NodeTypeOption, NodeTypes, TriggerNodeData, LLMNodeData, OutputNodeData } from './types';
 
 // Initial nodes and edges for the canvas
-export const initialNodes: TypedNode[] = [
+export const initialNodes: Node[] = [
   {
     id: '1',
     type: 'trigger',
-    data: { label: 'Start Trigger' },
+    data: { label: 'Start Trigger' } as TriggerNodeData,
     position: { x: 250, y: 25 },
   },
   {
@@ -16,13 +16,13 @@ export const initialNodes: TypedNode[] = [
     data: { 
       label: 'LLM Processor',
       prompt: 'You are a helpful assistant. {{input}}'
-    },
+    } as LLMNodeData,
     position: { x: 250, y: 150 },
   },
   {
     id: '3',
     type: 'output',
-    data: { label: 'Response Output' },
+    data: { label: 'Response Output' } as OutputNodeData,
     position: { x: 250, y: 275 },
   },
 ];

@@ -3,10 +3,10 @@ import React from 'react';
 import { Trash2 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { TypedNode } from './types';
+import { Node } from '@xyflow/react';
 
 interface NodePropertiesPanelProps {
-  selectedNode: TypedNode | null;
+  selectedNode: Node | null;
   nodeName: string;
   nodePrompt: string;
   setNodeName: (value: string) => void;

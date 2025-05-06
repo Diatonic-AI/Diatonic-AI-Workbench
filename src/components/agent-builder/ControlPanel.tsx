@@ -4,10 +4,11 @@ import { Plus, Save } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Panel } from '@xyflow/react';
 import { nodeTypeOptions } from './constants';
+import { NodeTypes } from './types';
 
 interface ControlPanelProps {
-  newNodeType: string;
-  setNewNodeType: (type: string) => void;
+  newNodeType: NodeTypes;
+  setNewNodeType: (type: NodeTypes) => void;
   addNewNode: () => void;
 }
 
@@ -23,7 +24,7 @@ export function ControlPanel({
           <select 
             className="text-xs p-1 rounded-md border border-border bg-background w-32"
             value={newNodeType}
-            onChange={(e) => setNewNodeType(e.target.value)}
+            onChange={(e) => setNewNodeType(e.target.value as NodeTypes)}
           >
             {nodeTypeOptions.map(option => (
               <option key={option.value} value={option.value}>
