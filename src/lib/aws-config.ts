@@ -30,12 +30,12 @@ const developmentConfig: AWSConfig = {
     identityPoolId: import.meta.env.VITE_AWS_COGNITO_IDENTITY_POOL_ID || '',
   },
   apiGateway: {
-    endpoint: import.meta.env.VITE_AWS_API_GATEWAY_ENDPOINT || 'https://dev-api.diatonic.ai',
+    endpoint: import.meta.env.VITE_API_GATEWAY_URL || 'https://dev-api.diatonic.ai',
     region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
   },
   s3: {
-    bucket: import.meta.env.VITE_AWS_S3_BUCKET || 'ai-nexus-workbench-dev',
-    region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
+    bucket: import.meta.env.VITE_S3_BUCKET_NAME || 'ai-nexus-workbench-dev',
+    region: import.meta.env.VITE_S3_REGION || 'us-east-2',
   },
   dynamodb: {
     region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
@@ -51,12 +51,12 @@ const stagingConfig: AWSConfig = {
     identityPoolId: import.meta.env.VITE_AWS_COGNITO_IDENTITY_POOL_ID || '',
   },
   apiGateway: {
-    endpoint: import.meta.env.VITE_AWS_API_GATEWAY_ENDPOINT || 'https://staging-api.diatonic.ai',
+    endpoint: import.meta.env.VITE_API_GATEWAY_URL || 'https://staging-api.diatonic.ai',
     region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
   },
   s3: {
-    bucket: import.meta.env.VITE_AWS_S3_BUCKET || 'ai-nexus-workbench-staging',
-    region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
+    bucket: import.meta.env.VITE_S3_BUCKET_NAME || 'ai-nexus-workbench-staging',
+    region: import.meta.env.VITE_S3_REGION || 'us-east-2',
   },
   dynamodb: {
     region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
@@ -72,12 +72,12 @@ const productionConfig: AWSConfig = {
     identityPoolId: import.meta.env.VITE_AWS_COGNITO_IDENTITY_POOL_ID || '',
   },
   apiGateway: {
-    endpoint: import.meta.env.VITE_AWS_API_GATEWAY_ENDPOINT || 'https://api.diatonic.ai',
+    endpoint: import.meta.env.VITE_API_GATEWAY_URL || 'https://api.diatonic.ai',
     region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
   },
   s3: {
-    bucket: import.meta.env.VITE_AWS_S3_BUCKET || 'ai-nexus-workbench-prod',
-    region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
+    bucket: import.meta.env.VITE_S3_BUCKET_NAME || 'ai-nexus-workbench-prod',
+    region: import.meta.env.VITE_S3_REGION || 'us-east-2',
   },
   dynamodb: {
     region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
