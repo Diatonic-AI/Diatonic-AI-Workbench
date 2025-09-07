@@ -2,21 +2,32 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Search, Menu, X, Bell, User } from "lucide-react";
+import { Search, Menu, X, Bell, User, LogOut, Settings } from "lucide-react";
 import { 
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { WorkbbenchLogo } from "./WorkbbenchLogo";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, isAuthenticated, signOut } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
   };
 
   return (
@@ -48,21 +59,63 @@ const Navbar = () => {
                   placeholder="Search..."
                 />
               </div>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Bell className="h-5 w-5" />
-              </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="rounded-full bg-workbbench-purple/20">
-                    <User className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer">Sign out</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              {isAuthenticated && (
+                <Button variant="ghost" size="icon" className="rounded-full">
+                  <Bell className="h-5 w-5" />
+                </Button>
+              )}
+              {isAuthenticated ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="rounded-full bg-workbbench-purple/20">
+                      {user?.avatar ? (
+                        <img 
+                          src={user.avatar} 
+                          alt={user.name || user.username} 
+                          className="h-5 w-5 rounded-full" 
+                        />
+                      ) : (
+                        <User className="h-5 w-5" />
+                      )}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <div className="px-2 py-1.5 text-sm text-muted-foreground">
+                      <div className="font-medium">{user?.name || user?.username}</div>
+                      <div className="text-xs">{user?.email}</div>
+                    </div>
+                    <DropdownMenuSeparator />
+                    <Link to="/dashboard">
+                      <DropdownMenuItem className="cursor-pointer">
+                        <User className="mr-2 h-4 w-4" />
+                        Profile
+                      </DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuItem className="cursor-pointer">
+                      <Settings className="mr-2 h-4 w-4" />
+                      Settings
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="cursor-pointer" onClick={handleSignOut}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Sign out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <div className="flex space-x-2">
+                  <Link to="/auth/signin">
+                    <Button variant="ghost" size="sm">
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link to="/auth/signup">
+                    <Button size="sm">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
           <div className="md:hidden flex items-center">
@@ -81,11 +134,44 @@ const Navbar = () => {
             <Link to="/lab" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">AI Lab</Link>
             <Link to="/community" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Community</Link>
             <div className="pt-4 pb-3 border-t border-white/10">
-              <div className="mt-3 px-2 space-y-1">
-                <Link to="/profile" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Profile</Link>
-                <Link to="/settings" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Settings</Link>
-                <button className="text-gray-300 hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium">Sign out</button>
-              </div>
+              {isAuthenticated ? (
+                <>
+                  <div className="flex items-center px-5">
+                    <div className="flex-shrink-0">
+                      {user?.avatar ? (
+                        <img 
+                          src={user.avatar} 
+                          alt={user.name || user.username} 
+                          className="h-10 w-10 rounded-full" 
+                        />
+                      ) : (
+                        <div className="h-10 w-10 rounded-full bg-workbbench-purple/20 flex items-center justify-center">
+                          <User className="h-5 w-5" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="ml-3">
+                      <div className="text-base font-medium text-white">{user?.name || user?.username}</div>
+                      <div className="text-sm font-medium text-gray-400">{user?.email}</div>
+                    </div>
+                  </div>
+                  <div className="mt-3 px-2 space-y-1">
+                    <Link to="/dashboard" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Profile</Link>
+                    <Link to="/settings" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Settings</Link>
+                    <button 
+                      onClick={handleSignOut}
+                      className="text-gray-300 hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium"
+                    >
+                      Sign out
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="mt-3 px-2 space-y-1">
+                  <Link to="/auth/signin" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sign In</Link>
+                  <Link to="/auth/signup" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sign Up</Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
