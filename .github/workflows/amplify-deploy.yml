@@ -17,8 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       environment: ${{ steps.env.outputs.environment }}
-      aws_access_key_id: ${{ steps.env.outputs.aws_access_key_id }}
-      aws_secret_access_key: ${{ steps.env.outputs.aws_secret_access_key }}
       amplify_service_account: ${{ steps.env.outputs.amplify_service_account }}
     steps:
       - name: Determine Environment
@@ -26,18 +24,12 @@ jobs:
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "environment=production" >> $GITHUB_OUTPUT
-            echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID_PROD }}" >> $GITHUB_OUTPUT
-            echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}" >> $GITHUB_OUTPUT
             echo "amplify_service_account=${{ secrets.AMPLIFY_SERVICE_ACCOUNT_PROD }}" >> $GITHUB_OUTPUT
           elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
             echo "environment=staging" >> $GITHUB_OUTPUT
-            echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}" >> $GITHUB_OUTPUT
-            echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}" >> $GITHUB_OUTPUT
             echo "amplify_service_account=${{ secrets.AMPLIFY_SERVICE_ACCOUNT_STAGING }}" >> $GITHUB_OUTPUT
           else
             echo "environment=development" >> $GITHUB_OUTPUT
-            echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID_DEV }}" >> $GITHUB_OUTPUT
-            echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}" >> $GITHUB_OUTPUT
             echo "amplify_service_account=${{ secrets.AMPLIFY_SERVICE_ACCOUNT_DEV }}" >> $GITHUB_OUTPUT
           fi
 
@@ -96,8 +88,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ needs.setup.outputs.aws_access_key_id }}
-          aws-secret-access-key: ${{ needs.setup.outputs.aws_secret_access_key }}
+          aws-access-key-id: ${{ needs.setup.outputs.environment == 'production' && secrets.AWS_ACCESS_KEY_ID_PROD || (needs.setup.outputs.environment == 'staging' && secrets.AWS_ACCESS_KEY_ID_STAGING || secrets.AWS_ACCESS_KEY_ID_DEV) }}
+          aws-secret-access-key: ${{ needs.setup.outputs.environment == 'production' && secrets.AWS_SECRET_ACCESS_KEY_PROD || (needs.setup.outputs.environment == 'staging' && secrets.AWS_SECRET_ACCESS_KEY_STAGING || secrets.AWS_SECRET_ACCESS_KEY_DEV) }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Verify AWS credentials
@@ -132,8 +124,8 @@ jobs:
           echo "🚀 Deploying to ${{ needs.setup.outputs.environment }} environment..."
           amplify push --yes
         env:
-          AWS_ACCESS_KEY_ID: ${{ needs.setup.outputs.aws_access_key_id }}
-          AWS_SECRET_ACCESS_KEY: ${{ needs.setup.outputs.aws_secret_access_key }}
+          AWS_ACCESS_KEY_ID: ${{ needs.setup.outputs.environment == 'production' && secrets.AWS_ACCESS_KEY_ID_PROD || (needs.setup.outputs.environment == 'staging' && secrets.AWS_ACCESS_KEY_ID_STAGING || secrets.AWS_ACCESS_KEY_ID_DEV) }}
+          AWS_SECRET_ACCESS_KEY: ${{ needs.setup.outputs.environment == 'production' && secrets.AWS_SECRET_ACCESS_KEY_PROD || (needs.setup.outputs.environment == 'staging' && secrets.AWS_SECRET_ACCESS_KEY_STAGING || secrets.AWS_SECRET_ACCESS_KEY_DEV) }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Get Amplify app URL
