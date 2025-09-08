@@ -313,8 +313,9 @@ export class AgentTemplatesService {
     }
 
     // Default to scan with filters (less efficient but flexible)
-    const filterExpression = {};
+    let filterExpression: string | undefined;
     const expressionAttributeNames: Record<string, string> = {};
+    const expressionAttributeValues: Record<string, unknown> = {};
     const filterParts: string[] = [];
 
     if (filters.template_type) {

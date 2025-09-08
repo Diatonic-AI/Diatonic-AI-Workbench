@@ -465,7 +465,9 @@ export class FlowNodeConfigsService {
   }> {
     await this.ensureInitialized();
 
-    const nodes = await this.getTemplateNodes(templateId);
+    let nodes;
+    if (templateId) {
+      nodes = await this.getTemplateNodes(templateId);
     } else {
       nodes = await this.getTenantFlowNodes(undefined, 1000);
     }

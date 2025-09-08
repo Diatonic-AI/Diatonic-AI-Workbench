@@ -465,8 +465,8 @@ export class LabService {
     const oneDayAgo = new Date();
     oneDayAgo.setDate(oneDayAgo.getDate() - 1);
 
-    const totalDuration = 0;
-    const completedRuns = 0;
+    let totalDuration = 0;
+    let completedRuns = 0;
 
     runs.forEach(run => {
       // Count by status
