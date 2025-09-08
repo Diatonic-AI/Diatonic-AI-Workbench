@@ -1,0 +1,165 @@
+name: Deploy to AWS Amplify
+
+on:
+  push:
+    branches:
+      - main      # Production deployment
+      - staging   # Staging deployment
+      - develop   # Development deployment
+  pull_request:
+    branches:
+      - main
+      - staging
+
+jobs:
+  # Determine environment based on branch
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.env.outputs.environment }}
+      aws_access_key_id: ${{ steps.env.outputs.aws_access_key_id }}
+      aws_secret_access_key: ${{ steps.env.outputs.aws_secret_access_key }}
+      amplify_service_account: ${{ steps.env.outputs.amplify_service_account }}
+    steps:
+      - name: Determine Environment
+        id: env
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "environment=production" >> $GITHUB_OUTPUT
+            echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID_PROD }}" >> $GITHUB_OUTPUT
+            echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}" >> $GITHUB_OUTPUT
+            echo "amplify_service_account=${{ secrets.AMPLIFY_SERVICE_ACCOUNT_PROD }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
+            echo "environment=staging" >> $GITHUB_OUTPUT
+            echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID_STAGING }}" >> $GITHUB_OUTPUT
+            echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY_STAGING }}" >> $GITHUB_OUTPUT
+            echo "amplify_service_account=${{ secrets.AMPLIFY_SERVICE_ACCOUNT_STAGING }}" >> $GITHUB_OUTPUT
+          else
+            echo "environment=development" >> $GITHUB_OUTPUT
+            echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID_DEV }}" >> $GITHUB_OUTPUT
+            echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}" >> $GITHUB_OUTPUT
+            echo "amplify_service_account=${{ secrets.AMPLIFY_SERVICE_ACCOUNT_DEV }}" >> $GITHUB_OUTPUT
+          fi
+
+  # Build and test
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint --if-present
+
+      - name: Run tests
+        run: npm test --if-present
+
+      - name: Build application
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ needs.setup.outputs.environment }}
+          path: dist/
+          retention-days: 7
+
+  # Deploy to Amplify
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [setup, build]
+    if: github.event_name == 'push' # Only deploy on push, not PR
+    environment: ${{ needs.setup.outputs.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-${{ needs.setup.outputs.environment }}
+          path: dist/
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ needs.setup.outputs.aws_access_key_id }}
+          aws-secret-access-key: ${{ needs.setup.outputs.aws_secret_access_key }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Verify AWS credentials
+        run: |
+          echo "🔐 Using service account: ${{ needs.setup.outputs.amplify_service_account }}"
+          echo "☁️  AWS Account: $(aws sts get-caller-identity --query Account --output text)"
+          echo "🌍 AWS Region: ${{ secrets.AWS_DEFAULT_REGION }}"
+          echo "🎯 Environment: ${{ needs.setup.outputs.environment }}"
+
+      - name: Setup Amplify CLI
+        run: |
+          npm install -g @aws-amplify/cli
+          amplify --version
+
+      - name: Initialize Amplify (if needed)
+        run: |
+          if [ ! -f "amplify/team-provider-info.json" ]; then
+            echo "🚀 Initializing Amplify for ${{ needs.setup.outputs.environment }} environment"
+            amplify init --yes \
+              --amplify ${{ secrets.AMPLIFY_PROJECT_NAME }}-${{ needs.setup.outputs.environment }} \
+              --frontend javascript \
+              --framework react \
+              --srcDir src \
+              --distDir dist \
+              --buildDir build
+          else
+            echo "✅ Amplify already initialized"
+          fi
+
+      - name: Deploy to Amplify
+        run: |
+          echo "🚀 Deploying to ${{ needs.setup.outputs.environment }} environment..."
+          amplify push --yes
+        env:
+          AWS_ACCESS_KEY_ID: ${{ needs.setup.outputs.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ needs.setup.outputs.aws_secret_access_key }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Get Amplify app URL
+        id: amplify_url
+        run: |
+          APP_URL=$(amplify status --verbose | grep -oP 'https://[^\s]+\.amplifyapp\.com' | head -1 || echo "URL not found")
+          echo "url=$APP_URL" >> $GITHUB_OUTPUT
+          echo "🌐 Application URL: $APP_URL"
+
+      - name: Post deployment summary
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment**: ${{ needs.setup.outputs.environment }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Service Account**: ${{ needs.setup.outputs.amplify_service_account }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **AWS Account**: ${{ secrets.AWS_ACCOUNT_ID }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **AWS Region**: ${{ secrets.AWS_DEFAULT_REGION }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Application URL**: ${{ steps.amplify_url.outputs.url }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Deployment completed successfully!" >> $GITHUB_STEP_SUMMARY
+
+  # Cleanup on PR close
+  cleanup:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup PR environment
+        run: |
+          echo "🧹 Cleaning up PR environment resources if needed"
+          # Add cleanup logic here if you create temporary Amplify apps for PRs

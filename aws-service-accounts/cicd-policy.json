@@ -1,0 +1,28 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "amplify:*",
+                "cloudformation:*",
+                "iam:PassRole",
+                "iam:GetRole",
+                "iam:CreateRole",
+                "iam:UpdateAssumeRolePolicy",
+                "iam:AttachRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:PutRolePolicy",
+                "iam:DeleteRolePolicy",
+                "s3:*",
+                "lambda:*",
+                "apigateway:*",
+                "dynamodb:*",
+                "cognito-idp:*",
+                "cognito-identity:*",
+                "logs:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

@@ -49,3 +49,8 @@ terraform-provider-*
 bun.lockb
 vite_react_shadcn_ts@*
 infra/
+
+# AWS service account credentials
+aws-service-accounts/*-credentials.txt
+aws-service-accounts/*.key
+aws-service-accounts/*.pem

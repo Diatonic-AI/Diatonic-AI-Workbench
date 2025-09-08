@@ -1,0 +1,25 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "amplify:*",
+                "cloudformation:*",
+                "cognito-idp:*",
+                "cognito-identity:*",
+                "iam:*",
+                "lambda:*",
+                "apigateway:*",
+                "s3:*",
+                "dynamodb:*",
+                "cloudwatch:*",
+                "logs:*",
+                "route53:*",
+                "acm:*",
+                "cloudfront:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
