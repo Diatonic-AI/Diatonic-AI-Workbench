@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "db:seed": "node scripts/seed-permissions-tables.js",
+    "db:seed:dev": "NODE_ENV=development node scripts/seed-permissions-tables.js",
+    "db:seed:prod": "NODE_ENV=production node scripts/seed-permissions-tables.js",
+    "db:validate": "node scripts/validate-permissions.js",
+    "db:migrate": "node scripts/migrate-permissions.js",
+    "db:backup": "node scripts/backup-permissions.js",
+    "db:reset": "node scripts/reset-permissions-tables.js",
+    "infra:deploy": "./scripts/deploy-permissions-infrastructure.sh",
+    "infra:deploy:dev": "NODE_ENV=development ./scripts/deploy-permissions-infrastructure.sh",
+    "infra:deploy:prod": "NODE_ENV=production ./scripts/deploy-permissions-infrastructure.sh",
+    "terraform:plan": "cd infrastructure && terraform plan",
+    "terraform:apply": "cd infrastructure && terraform apply",
+    "terraform:destroy": "cd infrastructure && terraform destroy",
+    "permissions:setup": "./scripts/setup-permissions-system.sh"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@aws-lambda-powertools/logger/types": ["node_modules/@aws-lambda-powertools/logger/types"],
+      "@aws-lambda-powertools/metrics/types": ["node_modules/@aws-lambda-powertools/metrics/types"],
+      "@aws-lambda-powertools/tracer/types": ["node_modules/@aws-lambda-powertools/tracer/types"],
+      "@aws-lambda-powertools/commons/types": ["node_modules/@aws-lambda-powertools/commons/types"]
+    },
+    "skipLibCheck": true,
+    "allowJs": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitThis": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "declaration": false,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "removeComments": true,
+    "sourceMap": true,
+    "baseUrl": "./",
+    "paths": {
+      "@shared/*": ["./shared/*"],
+      "@lambdas/*": ["./lambdas/*"],
+      "@aws-lambda-powertools/logger/types": ["node_modules/@aws-lambda-powertools/logger/types"],
+      "@aws-lambda-powertools/metrics/types": ["node_modules/@aws-lambda-powertools/metrics/types"],
+      "@aws-lambda-powertools/tracer/types": ["node_modules/@aws-lambda-powertools/tracer/types"]
+    }
+  },
+  "include": [
+    "shared/**/*",
+    "lambdas/**/*",
+    "types/**/*",
+    "eslint.config.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "terraform-packages",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}

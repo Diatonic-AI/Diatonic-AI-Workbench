@@ -1,0 +1,142 @@
+version: 1
+# AWS Amplify Build Specification for React+Vite+shadcn+Tailwind+TypeScript
+# Optimized for modern React applications with AWS SDK integration
+
+# Environment variables (will be set in Amplify Console or via CLI)
+environment:
+  variables:
+    NODE_ENV: production
+    VITE_NODE_ENV: production
+    # AWS configuration will be automatically provided by Amplify
+    VITE_AWS_REGION: us-east-2
+    # Application configuration
+    VITE_APP_NAME: "AI Nexus Workbench"
+    VITE_APP_VERSION: "1.0.0"
+    VITE_APP_DOMAIN: "localhost:8080"
+    # Feature flags
+    VITE_ENABLE_DEBUG_LOGGING: "false"
+    VITE_ENABLE_ANALYTICS: "true"
+    VITE_ENABLE_PERFORMANCE_MONITORING: "true"
+
+frontend:
+  phases:
+    # Pre-build phase: Install dependencies and setup
+    preBuild:
+      commands:
+        - echo "🔧 Starting pre-build phase for React+Vite+shadcn+Tailwind app"
+        - echo "📦 Node version:" && node --version
+        - echo "📦 npm version:" && npm --version
+        
+        # Update npm and install dependencies
+        - npm install -g npm@latest
+        - echo "📥 Installing dependencies..."
+        - npm ci --production=false
+        
+        # Update browserslist database for optimal Tailwind/PostCSS compilation
+        - echo "🌐 Updating browserslist..."
+        - npm run update-browserslist || npx update-browserslist-db@latest
+        
+        # Verify AWS SDK configuration
+        - echo "☁️  AWS SDK modules available:"
+        - ls node_modules/@aws-sdk/ | head -5
+        
+        # Verify shadcn/ui components
+        - echo "🎨 shadcn/ui components available:"
+        - ls node_modules/@radix-ui/ | head -5
+        
+    # Build phase: Compile the application
+    build:
+      commands:
+        - echo "🏗️  Starting build phase for production..."
+        
+        # Clean any previous builds
+        - npm run clean || rm -rf dist node_modules/.vite
+        
+        # Build the application with production optimizations
+        - echo "🚀 Building React+Vite+Tailwind app..."
+        - npm run build
+        
+        # Verify build output
+        - echo "📊 Build completed. Contents of dist/:"
+        - ls -la dist/
+        
+        # Check build size and optimization
+        - echo "📈 Build size analysis:"
+        - du -sh dist/
+        - find dist/ -name "*.js" -exec ls -lh {} \; | head -5
+        
+        # Verify critical files exist
+        - test -f dist/index.html && echo "✅ index.html exists"
+        - test -d dist/assets && echo "✅ assets directory exists"
+        
+        # Create _redirects file for React Router SPA support
+        - echo "🔄 Creating _redirects for SPA routing..."
+        - echo "/* /index.html 200" > dist/_redirects
+        
+  # Build artifacts - what gets deployed
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  
+  # Cache configuration for faster builds
+  cache:
+    paths:
+      - node_modules/**/*
+      - .npm/**/*
+      - ~/.cache/yarn/**/*
+
+# Custom headers for optimal performance
+customHeaders:
+  - pattern: '**/*'
+    headers:
+      - key: 'Strict-Transport-Security'
+        value: 'max-age=31536000; includeSubDomains'
+      - key: 'X-Content-Type-Options'
+        value: 'nosniff'
+      - key: 'X-Frame-Options'
+        value: 'DENY'
+      - key: 'X-XSS-Protection'
+        value: '1; mode=block'
+      - key: 'Referrer-Policy'
+        value: 'strict-origin-when-cross-origin'
+  
+  # Optimize caching for static assets
+  - pattern: '/assets/**'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=31536000, immutable'
+  
+  - pattern: '*.js'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=31536000, immutable'
+  
+  - pattern: '*.css'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=31536000, immutable'
+  
+  - pattern: '*.woff2'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=31536000, immutable'
+
+# Performance monitoring
+monitoring:
+  enabled: true
+  
+# Branch-specific configuration
+branches:
+  main:
+    environment:
+      variables:
+        VITE_NODE_ENV: production
+        VITE_ENABLE_DEBUG_LOGGING: "false"
+  
+  develop:
+    environment:
+      variables:
+        VITE_NODE_ENV: development
+        VITE_ENABLE_DEBUG_LOGGING: "true"
+        VITE_ENABLE_ANALYTICS: "false"

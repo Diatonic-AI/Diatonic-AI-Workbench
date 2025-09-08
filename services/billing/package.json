@@ -1,0 +1,79 @@
+{
+  "name": "@ai-nexus/billing-services",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "Stripe billing services for AI Nexus Workbench - Diatonicvisuals tenant",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npm run build:shared && npm run build:lambdas",
+    "build:shared": "esbuild shared/*.ts --platform=node --target=node20 --format=cjs --outdir=dist/shared --sourcemap",
+    "build:lambdas": "npm run build:lambda:stripeWebhookHandler && npm run build:lambda:createCheckoutSession && npm run build:lambda:createPortalSession && npm run build:lambda:createSetupIntent && npm run build:lambda:updateSubscription && npm run build:lambda:cancelSubscription && npm run build:lambda:getSubscriptionStatus && npm run build:lambda:listInvoices",
+    "build:lambda:stripeWebhookHandler": "esbuild lambdas/stripeWebhookHandler/index.ts --bundle --platform=node --target=node20 --format=cjs --outdir=dist/lambdas/stripeWebhookHandler --sourcemap --external:@aws-sdk/*",
+    "build:lambda:createCheckoutSession": "esbuild lambdas/createCheckoutSession/index.ts --bundle --platform=node --target=node20 --format=cjs --outdir=dist/lambdas/createCheckoutSession --sourcemap --external:@aws-sdk/*",
+    "build:lambda:createPortalSession": "esbuild lambdas/createPortalSession/index.ts --bundle --platform=node --target=node20 --format=cjs --outdir=dist/lambdas/createPortalSession --sourcemap --external:@aws-sdk/*",
+    "build:lambda:createSetupIntent": "esbuild lambdas/createSetupIntent/index.ts --bundle --platform=node --target=node20 --format=cjs --outdir=dist/lambdas/createSetupIntent --sourcemap --external:@aws-sdk/*",
+    "build:lambda:updateSubscription": "esbuild lambdas/updateSubscription/index.ts --bundle --platform=node --target=node20 --format=cjs --outdir=dist/lambdas/updateSubscription --sourcemap --external:@aws-sdk/*",
+    "build:lambda:cancelSubscription": "esbuild lambdas/cancelSubscription/index.ts --bundle --platform=node --target=node20 --format=cjs --outdir=dist/lambdas/cancelSubscription --sourcemap --external:@aws-sdk/*",
+    "build:lambda:getSubscriptionStatus": "esbuild lambdas/getSubscriptionStatus/index.ts --bundle --platform=node --target=node20 --format=cjs --outdir=dist/lambdas/getSubscriptionStatus --sourcemap --external:@aws-sdk/*",
+    "build:lambda:listInvoices": "esbuild lambdas/listInvoices/index.ts --bundle --platform=node --target=node20 --format=cjs --outdir=dist/lambdas/listInvoices --sourcemap --external:@aws-sdk/*",
+    "package": "npm run build && npm run package:lambdas",
+    "package:lambdas": "cd dist/lambdas && for dir in */; do (cd \"$dir\" && zip -r \"../../../terraform-packages/${dir%/}.zip\" .); done",
+    "dev": "npm run build && npm run test:local",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:local": "npm run test -- --testPathPattern=local",
+    "lint": "eslint . --ext .ts --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist terraform-packages node_modules/.cache"
+  },
+  "dependencies": {
+    "stripe": "^17.3.0",
+    "@aws-sdk/client-dynamodb": "^3.670.0",
+    "@aws-sdk/client-secrets-manager": "^3.670.0",
+    "@aws-sdk/client-ssm": "^3.670.0",
+    "@aws-sdk/lib-dynamodb": "^3.670.0",
+    "@aws-lambda-powertools/logger": "^2.10.0",
+    "@aws-lambda-powertools/metrics": "^2.10.0",
+    "@aws-lambda-powertools/tracer": "^2.10.0",
+    "@aws-lambda-powertools/commons": "^2.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.145",
+    "@types/node": "^22.7.9",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "@eslint/js": "^9.15.0",
+    "eslint": "^9.15.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "esbuild": "^0.24.0",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.14",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/ai-nexus-workbench.git",
+    "directory": "services/billing"
+  },
+  "keywords": [
+    "stripe",
+    "billing",
+    "subscriptions",
+    "aws-lambda",
+    "serverless",
+    "ai-nexus",
+    "diatonicvisuals"
+  ],
+  "author": "AI Nexus Team",
+  "license": "UNLICENSED"
+}
