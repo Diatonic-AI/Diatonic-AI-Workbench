@@ -23,8 +23,8 @@ import { format } from "date-fns";
 
 // New Experiment Form Component
 const NewExperimentForm: React.FC<{
-  models: any[];
-  onSubmit: (data: any) => void;
+  models: unknown[];
+  onSubmit: (data: unknown) => void;
   isSubmitting: boolean;
 }> = ({ models, onSubmit, isSubmitting }) => {
   const [formData, setFormData] = useState({
@@ -200,7 +200,7 @@ const Lab = () => {
   
   const createExperimentMutation = useCreateExperiment();
   
-  const handleCreateExperiment = async (experimentData: any) => {
+  const handleCreateExperiment = async (experimentData: unknown) => {
     try {
       await createExperimentMutation.mutateAsync(experimentData);
       toast.success('Experiment created successfully!');

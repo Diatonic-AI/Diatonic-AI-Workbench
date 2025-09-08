@@ -69,7 +69,7 @@ export const listAgents = async (event: APIRequest): Promise<APIResponse> => {
     );
 
     // Filter by search if provided
-    let agents = result.items;
+    const agents = result.items;
     if (queryParams.search) {
       const searchLower = queryParams.search.toLowerCase();
       agents = agents.filter(agent => 

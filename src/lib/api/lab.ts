@@ -16,26 +16,26 @@ export interface CreateModelInput {
   model_version: string;
   model_type: 'llm' | 'embedding' | 'image' | 'audio' | 'multimodal';
   description: string;
-  parameters: any; // Will be JSON stringified
+  parameters: unknown; // Will be JSON stringified
   is_public?: boolean;
   capabilities: string[];
-  pricing_info?: any; // Will be JSON stringified
+  pricing_info?: unknown; // Will be JSON stringified
 }
 
 export interface CreateExperimentRunInput {
   experiment_name: string;
   model_id: string;
   dataset_id?: string;
-  parameters: any; // Will be JSON stringified
+  parameters: unknown; // Will be JSON stringified
 }
 
 export interface UpdateExperimentRunInput {
   status?: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
   completed_at?: string;
   duration_seconds?: number;
-  results?: any; // Will be JSON stringified
+  results?: unknown; // Will be JSON stringified
   error_message?: string;
-  resource_usage?: any; // Will be JSON stringified
+  resource_usage?: unknown; // Will be JSON stringified
 }
 
 export interface LabFilter {
@@ -51,7 +51,7 @@ export interface LabFilter {
  * Lab Service Class for managing models, experiments, and runs
  */
 export class LabService {
-  private dbOps: any;
+  private dbOps: unknown;
   private initialized = false;
 
   private async ensureInitialized() {
@@ -177,8 +177,7 @@ export class LabService {
     }
 
     // Default to scan with filters
-    let filterExpression: string | undefined;
-    const expressionAttributeValues: Record<string, any> = {};
+    const filterExpression = {};
     const filterParts: string[] = [];
 
     if (filters.model_type) {
@@ -466,8 +465,8 @@ export class LabService {
     const oneDayAgo = new Date();
     oneDayAgo.setDate(oneDayAgo.getDate() - 1);
 
-    let totalDuration = 0;
-    let completedRuns = 0;
+    const totalDuration = 0;
+    const completedRuns = 0;
 
     runs.forEach(run => {
       // Count by status

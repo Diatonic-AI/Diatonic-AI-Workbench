@@ -100,10 +100,7 @@ export const handler = async (
     });
 
     // Apply middleware chain
-    let result: APIGatewayProxyResult;
-
-    // 1. CORS middleware (always applies)
-    result = await corsMiddleware(event, requestContext);
+    const result = await corsMiddleware(event, requestContext);
     if (result.statusCode >= 400) return result;
 
     // 2. Health check bypass (no auth required)

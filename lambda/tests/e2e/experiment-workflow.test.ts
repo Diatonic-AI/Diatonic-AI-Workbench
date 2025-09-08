@@ -51,7 +51,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         }),
       });
 
-      const createResponse = await handler(createEvent, {} as any);
+      const createResponse = await handler(createEvent, {} as unknown);
       expect(createResponse.statusCode).toBe(201);
       
       const createBody = JSON.parse(createResponse.body);
@@ -103,7 +103,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         }),
       });
 
-      const updateResponse = await handler(updateEvent, {} as any);
+      const updateResponse = await handler(updateEvent, {} as unknown);
       expect(updateResponse.statusCode).toBe(200);
       
       const updateBody = JSON.parse(updateResponse.body);
@@ -129,7 +129,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         path: `/v1/tenants/${tenantId}/projects/${projectId}/experiments/${experimentId}/start`,
       });
 
-      const startResponse = await handler(startEvent, {} as any);
+      const startResponse = await handler(startEvent, {} as unknown);
       expect(startResponse.statusCode).toBe(200);
       
       const startBody = JSON.parse(startResponse.body);
@@ -169,7 +169,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         path: `/v1/tenants/${tenantId}/projects/${projectId}/experiments/${experimentId}/results`,
       });
 
-      const resultsResponse = await handler(resultsEvent, {} as any);
+      const resultsResponse = await handler(resultsEvent, {} as unknown);
       expect(resultsResponse.statusCode).toBe(200);
       
       const resultsBody = JSON.parse(resultsResponse.body);
@@ -191,7 +191,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         path: `/v1/tenants/${tenantId}/projects/${projectId}/experiments`,
       });
 
-      const listResponse = await handler(listEvent, {} as any);
+      const listResponse = await handler(listEvent, {} as unknown);
       expect(listResponse.statusCode).toBe(200);
       
       const listBody = JSON.parse(listResponse.body);
@@ -211,7 +211,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         path: `/v1/tenants/${tenantId}/projects/${projectId}/experiments/${experimentId}`,
       });
 
-      const deleteResponse = await handler(deleteEvent, {} as any);
+      const deleteResponse = await handler(deleteEvent, {} as unknown);
       expect(deleteResponse.statusCode).toBe(204);
       expect(deleteResponse.body).toBe('');
 
@@ -243,7 +243,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         }),
       });
 
-      const createDatasetResponse = await handler(createDatasetEvent, {} as any);
+      const createDatasetResponse = await handler(createDatasetEvent, {} as unknown);
       expect(createDatasetResponse.statusCode).toBe(201);
       
       const createDatasetBody = JSON.parse(createDatasetResponse.body);
@@ -268,7 +268,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         }),
       });
 
-      const createExperimentResponse = await handler(createExperimentEvent, {} as any);
+      const createExperimentResponse = await handler(createExperimentEvent, {} as unknown);
       expect(createExperimentResponse.statusCode).toBe(201);
       
       const createExperimentBody = JSON.parse(createExperimentResponse.body);
@@ -307,7 +307,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         path: `/v1/tenants/${tenantId}/projects/${projectId}/experiments/${experimentId}/start`,
       });
 
-      const startExperimentResponse = await handler(startExperimentEvent, {} as any);
+      const startExperimentResponse = await handler(startExperimentEvent, {} as unknown);
       expect(startExperimentResponse.statusCode).toBe(200);
       
       const startExperimentBody = JSON.parse(startExperimentResponse.body);
@@ -336,7 +336,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         }),
       });
 
-      const response = await handler(invalidExperimentEvent, {} as any);
+      const response = await handler(invalidExperimentEvent, {} as unknown);
       expect(response.statusCode).toBe(400);
       
       const body = JSON.parse(response.body);
@@ -359,7 +359,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         path: `/v1/tenants/${tenantId}/projects/${projectId}/experiments/${nonexistentId}`,
       });
 
-      const response = await handler(notFoundEvent, {} as any);
+      const response = await handler(notFoundEvent, {} as unknown);
       expect(response.statusCode).toBe(404);
       
       const body = JSON.parse(response.body);
@@ -383,7 +383,7 @@ describe('E2E: Complete Experiment Workflow', () => {
         },
       });
 
-      const response = await handler(analyticsEvent, {} as any);
+      const response = await handler(analyticsEvent, {} as unknown);
       expect(response.statusCode).toBe(200);
       
       const body = JSON.parse(response.body);

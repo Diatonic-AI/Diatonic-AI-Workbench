@@ -61,7 +61,7 @@ export const listProjects = async (event: APIRequest): Promise<APIResponse> => {
     );
 
     // Filter by search if provided
-    let projects = result.items;
+    const projects = result.items;
     if (queryParams.search) {
       const searchLower = queryParams.search.toLowerCase();
       projects = projects.filter(project => 

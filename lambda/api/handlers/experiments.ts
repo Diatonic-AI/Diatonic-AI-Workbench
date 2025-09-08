@@ -36,7 +36,7 @@ export const listExperiments = async (event: APIRequest): Promise<APIResponse> =
 
     // Query experiments for the project
     const gsi1Keys = generateGSI1Keys('PROJECT', projectId, 'EXPERIMENT');
-    const queryParams: any = {
+    const queryParams: unknown = {
       GSI1PK: gsi1Keys.GSI1PK,
       limit: Math.min(parseInt(limit as string), 100),
       nextToken: nextToken as string,
@@ -282,7 +282,7 @@ export const updateExperiment = async (event: APIRequest): Promise<APIResponse> 
     }
 
     const timestamp = generateTimestamp();
-    const updateData: any = {
+    const updateData: unknown = {
       updatedAt: timestamp,
     };
 

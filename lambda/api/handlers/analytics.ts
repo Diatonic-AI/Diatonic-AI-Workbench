@@ -45,7 +45,7 @@ export const getTenantUsageAnalytics = async (event: APIRequest): Promise<APIRes
     const usageStats = await getTenantUsageStats(tenantId as string, start, end);
     
     // Get detailed breakdown if requested
-    let breakdown = null;
+    const breakdown = null;
     if (includeBreakdown === 'true') {
       breakdown = await getUsageBreakdown(tenantId as string, start, end, granularity as string);
     }
@@ -223,7 +223,7 @@ export const getUsageEvents = async (event: APIRequest): Promise<APIResponse> =>
       return errorResponse('Missing required path parameters', 400, event.requestId);
     }
 
-    const queryParams: any = {
+    const queryParams: unknown = {
       PK: `TENANT#${tenantId}`,
       SKPrefix: 'EVENT#',
       limit: Math.min(parseInt(limit as string), 1000),
@@ -288,11 +288,7 @@ export const getResourceUtilization = async (event: APIRequest): Promise<APIResp
 
     // Calculate time range
     const endDate = new Date();
-    let startDate: Date;
-    
-    switch (timeframe) {
-      case '1h':
-        startDate = new Date(endDate.getTime() - 60 * 60 * 1000);
+    const startDate = new Date(endDate.getTime() - 60 * 60 * 1000);
         break;
       case '24h':
         startDate = new Date(endDate.getTime() - 24 * 60 * 60 * 1000);
@@ -337,20 +333,16 @@ export const getResourceUtilization = async (event: APIRequest): Promise<APIResp
 };
 
 // Helper function to get usage breakdown by time period
-async function getUsageBreakdown(tenantId: string, startDate: Date, endDate: Date, granularity: string): Promise<any> {
+async function getUsageBreakdown(tenantId: string, startDate: Date, endDate: Date, granularity: string): Promise<unknown> {
   // This would typically query time-series data
   // For simulation, we'll generate sample breakdown data
   
-  const periods: any[] = [];
+  const periods: unknown[] = [];
   const current = new Date(startDate);
   
   while (current <= endDate) {
     const periodStart = new Date(current);
-    let periodEnd: Date;
-    
-    switch (granularity) {
-      case 'hourly':
-        periodEnd = new Date(current.getTime() + 60 * 60 * 1000);
+    const periodEnd = new Date(current.getTime() + 60 * 60 * 1000);
         break;
       case 'daily':
         periodEnd = new Date(current.getTime() + 24 * 60 * 60 * 1000);
@@ -380,7 +372,7 @@ async function getUsageBreakdown(tenantId: string, startDate: Date, endDate: Dat
 }
 
 // Helper function to get billing data
-async function getBillingData(tenantId: string, startDate: Date, endDate: Date): Promise<any> {
+async function getBillingData(tenantId: string, startDate: Date, endDate: Date): Promise<unknown> {
   // This would typically query billing events and calculate costs
   // For simulation, we'll generate sample billing data
   
@@ -424,8 +416,8 @@ async function getBillingData(tenantId: string, startDate: Date, endDate: Date):
 }
 
 // Helper function to generate optimization recommendations
-function generateOptimizationRecommendations(usageStats: any): any[] {
-  const recommendations: any[] = [];
+function generateOptimizationRecommendations(usageStats: unknown): unknown[] {
+  const recommendations: unknown[] = [];
 
   // High error rate recommendation
   if (usageStats.errorRate > 0.05) {
@@ -467,7 +459,7 @@ function generateOptimizationRecommendations(usageStats: any): any[] {
 }
 
 // Helper function to generate detailed recommendations
-async function generateDetailedRecommendations(usageStats: any, category?: string, priority?: string): Promise<any[]> {
+async function generateDetailedRecommendations(usageStats: unknown, category?: string, priority?: string): Promise<unknown[]> {
   const recommendations = [
     {
       id: 'optimize-agent-configuration',
@@ -532,7 +524,7 @@ async function generateDetailedRecommendations(usageStats: any, category?: strin
   ];
 
   // Filter by category if specified
-  let filtered = recommendations;
+  const filtered = recommendations;
   if (category) {
     filtered = filtered.filter(rec => rec.category === category);
   }
@@ -546,7 +538,7 @@ async function generateDetailedRecommendations(usageStats: any, category?: strin
 }
 
 // Helper function to get resource utilization data
-async function getResourceUtilizationData(tenantId: string, startDate: Date, endDate: Date, resourceType?: string): Promise<any> {
+async function getResourceUtilizationData(tenantId: string, startDate: Date, endDate: Date, resourceType?: string): Promise<unknown> {
   // This would typically query metrics and utilization data
   // For simulation, we'll generate sample data
   
@@ -602,7 +594,7 @@ async function getResourceUtilizationData(tenantId: string, startDate: Date, end
 
 // Helper function to generate trend data
 function generateTrendData(startDate: Date, endDate: Date): any {
-  const dataPoints: any[] = [];
+  const dataPoints: unknown[] = [];
   const current = new Date(startDate);
   
   while (current <= endDate) {

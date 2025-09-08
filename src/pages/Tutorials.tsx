@@ -244,7 +244,7 @@ const Tutorials = () => {
 };
 
 const TutorialGrid = ({ tutorials, getDifficultyColor, getTypeIcon }: {
-  tutorials: any[],
+  tutorials: unknown[],
   getDifficultyColor: (difficulty: string) => string,
   getTypeIcon: (type: string) => React.ReactNode
 }) => {

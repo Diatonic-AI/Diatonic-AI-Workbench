@@ -69,7 +69,7 @@ export function useFlowLogic() {
       ? Math.max(...nodes.map(n => n.position.y)) + 125 
       : 100;
     
-    let newNodeData: NodeData = {
+    const newNodeData = {
       label: `New ${newNodeType.charAt(0).toUpperCase() + newNodeType.slice(1)} Node`
     };
     

@@ -145,6 +145,8 @@ const getPeriodStart = (period: string, timestamp: string): string => {
       date.setHours(0, 0, 0, 0);
       return date.toISOString();
     case 'week':
+              {
+        const dayOfWeek = date.getUTCDay();
       const dayOfWeek = date.getUTCDay();
       const diff = date.getUTCDate() - dayOfWeek;
       date.setUTCDate(diff);
@@ -218,7 +220,7 @@ const publishEvent = async (eventType: string, detail: any, source: string = 'ai
   }
 };
 
-const streamToAnalytics = async (data: any) => {
+const streamToAnalytics = async (data: unknown) => {
   if (!ANALYTICS_STREAM_NAME) return;
   
   try {
@@ -479,7 +481,7 @@ const getMetrics = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyR
     const aggregatedMetrics = aggregateResult.Items as AggregateRecord[];
 
     // If no aggregated data, query raw metrics
-    let rawMetrics: MetricRecord[] = [];
+    const rawMetrics = [];
     if (aggregatedMetrics.length === 0) {
       const rawResult = await docClient.send(new QueryCommand({
         TableName: METRICS_TABLE_NAME,

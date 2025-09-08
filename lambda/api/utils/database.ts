@@ -126,7 +126,7 @@ class DynamoDBService implements DatabaseService {
         })
       );
     } catch (error) {
-      if ((error as any).name === 'ConditionalCheckFailedException') {
+      if ((error as unknown).name === 'ConditionalCheckFailedException') {
         throw new DatabaseError('Item already exists', error as Error);
       }
       console.error('DynamoDB PutItem error:', error);
@@ -424,7 +424,7 @@ class DynamoDBService implements DatabaseService {
 
   private chunkArray<T>(array: T[], size: number): T[][] {
     const chunks: T[][] = [];
-    for (let i = 0; i < array.length; i += size) {
+    for (const i = 0; i < array.length; i += size) {
       chunks.push(array.slice(i, i + size));
     }
     return chunks;
@@ -486,8 +486,8 @@ export class TenantService {
     const tenant = await this.getTenant(tenantId);
     if (!tenant) return false;
 
-    const limits = tenant.limits as any;
-    const usage = tenant.current_usage as any;
+    const limits = tenant.limits as unknown;
+    const usage = tenant.current_usage as unknown;
 
     const resourceLimit = limits[`max_${resource}`];
     const currentUsage = usage[resource] || 0;

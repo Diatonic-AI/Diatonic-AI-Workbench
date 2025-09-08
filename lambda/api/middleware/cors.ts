@@ -1,6 +1,7 @@
 // AI Nexus Workbench - CORS Middleware
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { MiddlewareRequest, MiddlewareResponse } from '../types/common';
 
 // Request context interface
 interface RequestContext {
@@ -9,8 +10,8 @@ interface RequestContext {
   userId?: string;
   userRole?: string;
   userPlan?: string;
-  logger: any;
-  clients: any;
+  logger: unknown;
+  clients: unknown;
 }
 
 /**

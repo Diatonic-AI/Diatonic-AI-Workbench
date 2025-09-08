@@ -11,8 +11,8 @@ interface RequestContext {
   userId?: string;
   userRole?: string;
   userPlan?: string;
-  logger: any;
-  clients: any;
+  logger: unknown;
+  clients: unknown;
 }
 
 /**
@@ -176,7 +176,7 @@ function calculateApiCosts(
   
   const planCosts = baseCosts[plan as keyof typeof baseCosts] || baseCosts.free;
   
-  let operationType = 'read';
+  const operationType = 'read';
   if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
     operationType = 'write';
   }

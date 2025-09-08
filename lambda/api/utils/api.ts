@@ -6,7 +6,7 @@ import { APIResponse, ApiError, SuccessResponse, PaginatedResponse } from '../ty
 
 export const createResponse = (
   statusCode: number,
-  body: any,
+  body: unknown,
   headers?: Record<string, string>
 ): APIResponse => ({
   statusCode,
@@ -147,8 +147,8 @@ export interface ValidationRule {
   min?: number;
   max?: number;
   pattern?: RegExp;
-  enum?: any[];
-  custom?: (value: any) => boolean;
+  enum?: unknown[];
+  custom?: (value: unknown) => boolean;
   customMessage?: string;
 }
 
@@ -160,7 +160,7 @@ export interface ValidationError {
 export class Validator {
   private errors: ValidationError[] = [];
 
-  validate(data: any, rules: ValidationRule[]): ValidationError[] {
+  validate(data: unknown, rules: ValidationRule[]): ValidationError[] {
     this.errors = [];
     
     for (const rule of rules) {
@@ -170,7 +170,7 @@ export class Validator {
     return this.errors;
   }
 
-  private validateField(data: any, rule: ValidationRule): void {
+  private validateField(data: unknown, rule: ValidationRule): void {
     const { field, required = false } = rule;
     const value = this.getNestedValue(data, field);
 
@@ -227,7 +227,7 @@ export class Validator {
     }
   }
 
-  private validateType(value: any, type: string): boolean {
+  private validateType(value: unknown, type: string): boolean {
     switch (type) {
       case 'string':
         return typeof value === 'string';
@@ -244,7 +244,7 @@ export class Validator {
     }
   }
 
-  private getNestedValue(obj: any, path: string): any {
+  private getNestedValue(obj: unknown, path: string): any {
     return path.split('.').reduce((current, key) => {
       return current && current[key] !== undefined ? current[key] : undefined;
     }, obj);
@@ -325,7 +325,7 @@ export const commonValidationRules = {
 
 // ===== Request Parsing Utilities =====
 
-export const parseQueryParams = (event: any) => {
+export const parseQueryParams = (event: unknown) => {
   const queryParams = event.queryStringParameters || {};
   
   return {
@@ -340,7 +340,7 @@ export const parseQueryParams = (event: any) => {
   };
 };
 
-export const parsePathParams = (event: any) => {
+export const parsePathParams = (event: unknown) => {
   const pathParams = event.pathParameters || {};
   
   return {
@@ -354,7 +354,7 @@ export const parsePathParams = (event: any) => {
   };
 };
 
-export const parseRequestBody = <T>(event: any): T => {
+export const parseRequestBody = <T>(event: unknown): T => {
   if (!event.body) {
     throw new Error('Request body is required');
   }
@@ -438,7 +438,7 @@ export const generateRequestId = (): string => {
   return `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 };
 
-export const sanitizeForLog = (obj: any): any => {
+export const sanitizeForLog = (obj: unknown): unknown => {
   if (typeof obj !== 'object' || obj === null) {
     return obj;
   }
@@ -459,14 +459,14 @@ export const sanitizeForLog = (obj: any): any => {
   return sanitized;
 };
 
-export const extractUserFromEvent = (event: any) => {
+export const extractUserFromEvent = (event: unknown) => {
   if (!event.user) {
     throw new Error('User context not found in event');
   }
   return event.user;
 };
 
-export const extractTenantFromEvent = (event: any) => {
+export const extractTenantFromEvent = (event: unknown) => {
   if (!event.tenant) {
     throw new Error('Tenant context not found in event');
   }
@@ -481,7 +481,7 @@ export const requireFeature = (userFeatures: string[], requiredFeatures: string[
   return requiredFeatures.every(feature => userFeatures.includes(feature));
 };
 
-export const checkTenantLimits = (tenant: any, resource: string, increment = 1): boolean => {
+export const checkTenantLimits = (tenant: unknown, resource: string, increment = 1): boolean => {
   const limits = tenant.limits;
   const usage = tenant.currentUsage;
 
@@ -578,7 +578,7 @@ export interface CacheEntry<T> {
 }
 
 export class MemoryCache {
-  private cache = new Map<string, CacheEntry<any>>();
+  private cache = new Map<string, CacheEntry<unknown>>();
 
   set<T>(key: string, data: T, ttlSeconds: number): void {
     const expiresAt = Date.now() + (ttlSeconds * 1000);

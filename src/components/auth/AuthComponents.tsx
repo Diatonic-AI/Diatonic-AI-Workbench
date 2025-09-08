@@ -34,7 +34,7 @@ export const SignIn: React.FC<SignInProps> = ({
     try {
       await signIn(formData.username, formData.password);
       onSuccess?.();
-    } catch (error: any) {
+    } catch (error: unknown) {
       setError(error.message || 'An error occurred during sign in');
     }
   };
@@ -168,7 +168,7 @@ export const SignUp: React.FC<SignUpProps> = ({ onSwitchToSignIn, onSuccess }) =
     try {
       await signUp(formData.username, formData.email, formData.password);
       onSuccess?.(formData.username);
-    } catch (error: any) {
+    } catch (error: unknown) {
       setError(error.message || 'An error occurred during sign up');
     }
   };
@@ -309,7 +309,7 @@ export const ConfirmSignUp: React.FC<ConfirmSignUpProps> = ({
     try {
       await confirmSignUp(username, confirmationCode);
       onSuccess?.();
-    } catch (error: any) {
+    } catch (error: unknown) {
       setError(error.message || 'Invalid confirmation code');
     }
   };
@@ -321,7 +321,7 @@ export const ConfirmSignUp: React.FC<ConfirmSignUpProps> = ({
     try {
       await resendConfirmationCode(username);
       onResendCode?.();
-    } catch (error: any) {
+    } catch (error: unknown) {
       setError(error.message || 'Failed to resend confirmation code');
     } finally {
       setIsResending(false);

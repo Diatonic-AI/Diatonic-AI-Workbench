@@ -9,8 +9,8 @@ import Stripe from 'stripe';
 import { logger } from './logging';
 
 // Stripe instance cache to avoid re-initialization
-let stripeInstance: Stripe | null = null;
-let secretsClient: SecretsManagerClient | null = null;
+const stripeInstance = null;
+const secretsClient = null;
 
 /**
  * Get Secrets Manager client (cached)

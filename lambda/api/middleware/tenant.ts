@@ -9,8 +9,8 @@ interface RequestContext {
   userId?: string;
   userRole?: string;
   userPlan?: string;
-  logger: any;
-  clients: any;
+  logger: unknown;
+  clients: unknown;
 }
 
 /**
@@ -87,6 +87,6 @@ export const tenantMiddleware = async (
  * Expected format: /v1/tenants/{tenantId}/...
  */
 function extractTenantIdFromPath(path: string): string | null {
-  const tenantMatch = path.match(/^\/v1\/tenants\/([^\/]+)/);
+  const tenantMatch = path.match(/^/v1/tenants/([^/]+)/);
   return tenantMatch ? tenantMatch[1] : null;
 }

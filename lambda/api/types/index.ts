@@ -10,7 +10,7 @@ export interface APIRequest extends APIGatewayProxyEvent {
   requestId: string;
   tenantId?: string;
   userId?: string;
-  context?: any;
+  context?: unknown;
 }
 
 export interface APIResponse extends APIGatewayProxyResult {
@@ -398,7 +398,7 @@ export type TransformationType =
 export interface FilterRule {
   field: string;
   operator: FilterOperator;
-  value: any;
+  value: unknown;
 }
 
 export type FilterOperator = 
@@ -614,7 +614,7 @@ export interface QueryOptions {
 export interface FilterExpression {
   field: string;
   operator: 'eq' | 'ne' | 'lt' | 'le' | 'gt' | 'ge' | 'begins_with' | 'contains';
-  value: any;
+  value: unknown;
 }
 
 // ===== Monitoring and Observability Types =====

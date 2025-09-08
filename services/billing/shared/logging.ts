@@ -96,7 +96,7 @@ export class RequestLogger {
   /**
    * Log Stripe webhook event (with sensitive data masking)
    */
-  logWebhookEvent(event: any) {
+  logWebhookEvent(event: unknown) {
     const safeEvent = {
       id: event.id,
       type: event.type,
@@ -231,7 +231,7 @@ export function createRequestLogger(
 /**
  * Lambda function wrapper with automatic logging
  */
-export function withLogging<T extends any[], R>(
+export function withLogging<T extends unknown[], R>(
   handler: (...args: T) => Promise<R>,
   functionName: string
 ) {

@@ -19,12 +19,12 @@ import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-sec
 import { randomUUID } from 'crypto';
 
 // Initialize Stripe SDK (lazy loading)
-let stripeInstance: any = null;
+const stripeInstance = null;
 
 /**
  * Initialize Stripe client with secret key from AWS Secrets Manager
  */
-const initializeStripe = async (): Promise<any> => {
+const initializeStripe = async (): Promise<unknown> => {
   if (stripeInstance) {
     return stripeInstance;
   }
@@ -83,8 +83,7 @@ export const createCheckoutSession = async (event: APIRequest): Promise<APIRespo
     const stripe = await initializeStripe();
 
     // Check if customer exists or create new one
-    let stripeCustomerId: string;
-    const existingCustomer = await getItem({
+    const stripeCustomerId = await getItem({
       PK: `TENANT#${tenantId}`,
       SK: `BILLING#CUSTOMER`,
     });
@@ -235,7 +234,7 @@ export const getSubscriptionStatus = async (event: APIRequest): Promise<APIRespo
 
     // Get additional subscription details from Stripe if needed
     const stripe = await initializeStripe();
-    let stripeSubscription = null;
+    const stripeSubscription = null;
     
     if (subscription.stripeSubscriptionId) {
       try {
@@ -256,7 +255,7 @@ export const getSubscriptionStatus = async (event: APIRequest): Promise<APIRespo
       trialEnd: subscription.trialEnd,
       ...(stripeSubscription && {
         stripeStatus: stripeSubscription.status,
-        items: stripeSubscription.items.data.map((item: any) => ({
+        items: stripeSubscription.items.data.map((item: unknown) => ({
           id: item.id,
           priceId: item.price.id,
           quantity: item.quantity,
@@ -442,7 +441,7 @@ export const getBillingHistory = async (event: APIRequest): Promise<APIResponse>
       ...(startingAfter && { starting_after: startingAfter }),
     });
 
-    const formattedInvoices = invoices.data.map((invoice: any) => ({
+    const formattedInvoices = invoices.data.map((invoice: unknown) => ({
       id: invoice.id,
       number: invoice.number,
       status: invoice.status,
@@ -456,7 +455,7 @@ export const getBillingHistory = async (event: APIRequest): Promise<APIResponse>
       invoicePdf: invoice.invoice_pdf,
       periodStart: new Date(invoice.period_start * 1000).toISOString(),
       periodEnd: new Date(invoice.period_end * 1000).toISOString(),
-      lines: invoice.lines.data.map((line: any) => ({
+      lines: invoice.lines.data.map((line: unknown) => ({
         description: line.description,
         amount: line.amount / 100,
         quantity: line.quantity,
@@ -495,7 +494,7 @@ export const getPricingPlans = async (event: APIRequest): Promise<APIResponse> =
     });
 
     const plans = await Promise.all(
-      products.data.map(async (product: any) => {
+      products.data.map(async (product: unknown) => {
         const prices = await stripe.prices.list({
           product: product.id,
           active: true,
@@ -506,7 +505,7 @@ export const getPricingPlans = async (event: APIRequest): Promise<APIResponse> =
           name: product.name,
           description: product.description,
           metadata: product.metadata,
-          prices: prices.data.map((price: any) => ({
+          prices: prices.data.map((price: unknown) => ({
             id: price.id,
             currency: price.currency,
             amount: price.unit_amount ? price.unit_amount / 100 : null,
@@ -542,7 +541,7 @@ export const createSetupIntent = async (event: APIRequest): Promise<APIResponse>
     }
 
     // Get or create customer
-    let customer = await getItem({
+    const customer = await getItem({
       PK: `TENANT#${tenantId}`,
       SK: `BILLING#CUSTOMER`,
     });
@@ -619,7 +618,7 @@ export const getPaymentMethods = async (event: APIRequest): Promise<APIResponse>
       type: 'card',
     });
 
-    const formattedMethods = paymentMethods.data.map((pm: any) => ({
+    const formattedMethods = paymentMethods.data.map((pm: unknown) => ({
       id: pm.id,
       type: pm.type,
       card: pm.card ? {

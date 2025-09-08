@@ -3,6 +3,11 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { APIRequest, APIResponse, ApiHandler } from './types';
 import { 
+  APIGatewayEvent, 
+  APIGatewayContext, 
+  RequestBody 
+} from './types/common';
+import { 
   badRequestResponse, 
   notFoundResponse, 
   internalServerErrorResponse,
@@ -25,8 +30,17 @@ interface RequestContext {
   userId?: string;
   userRole?: string;
   userPlan?: string;
-  logger: any;
-  clients: any;
+  logger: {
+    info: (message: string, context?: Record<string, unknown>) => void;
+    error: (message: string, context?: Record<string, unknown>) => void;
+    debug: (message: string, context?: Record<string, unknown>) => void;
+    warn: (message: string, context?: Record<string, unknown>) => void;
+  };
+  clients: {
+    dynamodb?: unknown;
+    s3?: unknown;
+    [key: string]: unknown;
+  };
 }
 
 // Route definition interface
@@ -50,37 +64,37 @@ const routes: Route[] = [
   // Project routes
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects$/,
     handler: projectHandlers.listProjects,
     description: 'List projects for a tenant'
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects$/,
     handler: projectHandlers.createProject,
     description: 'Create a new project'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)$/,
     handler: projectHandlers.getProject,
     description: 'Get a specific project'
   },
   {
     method: 'PUT',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)$/,
     handler: projectHandlers.updateProject,
     description: 'Update a project'
   },
   {
     method: 'DELETE',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)$/,
     handler: projectHandlers.deleteProject,
     description: 'Delete a project'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/stats$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/stats$/,
     handler: projectHandlers.getProjectStats,
     description: 'Get project statistics'
   },
@@ -88,49 +102,49 @@ const routes: Route[] = [
   // Agent routes
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/agents$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/agents$/,
     handler: agentHandlers.listAgents,
     description: 'List agents for a project'
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/agents$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/agents$/,
     handler: agentHandlers.createAgent,
     description: 'Create a new agent'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/agents\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/agents\/([^/]+)$/,
     handler: agentHandlers.getAgent,
     description: 'Get a specific agent'
   },
   {
     method: 'PUT',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/agents\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/agents\/([^/]+)$/,
     handler: agentHandlers.updateAgent,
     description: 'Update an agent'
   },
   {
     method: 'DELETE',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/agents\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/agents\/([^/]+)$/,
     handler: agentHandlers.deleteAgent,
     description: 'Delete an agent'
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/agents\/([^\/]+)\/run$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/agents\/([^/]+)\/run$/,
     handler: agentHandlers.runAgent,
     description: 'Execute an agent'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/agents\/([^\/]+)\/runs$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/agents\/([^/]+)\/runs$/,
     handler: agentHandlers.listAgentRuns,
     description: 'List agent execution runs'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/agents\/([^\/]+)\/runs\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/agents\/([^/]+)\/runs\/([^/]+)$/,
     handler: agentHandlers.getAgentRun,
     description: 'Get specific agent run details'
   },
@@ -138,43 +152,43 @@ const routes: Route[] = [
   // Experiment routes
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/experiments$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/experiments$/,
     handler: experimentHandlers.listExperiments,
     description: 'List experiments for a project'
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/experiments$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/experiments$/,
     handler: experimentHandlers.createExperiment,
     description: 'Create a new experiment'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/experiments\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/experiments\/([^/]+)$/,
     handler: experimentHandlers.getExperiment,
     description: 'Get a specific experiment'
   },
   {
     method: 'PUT',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/experiments\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/experiments\/([^/]+)$/,
     handler: experimentHandlers.updateExperiment,
     description: 'Update an experiment'
   },
   {
     method: 'DELETE',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/experiments\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/experiments\/([^/]+)$/,
     handler: experimentHandlers.deleteExperiment,
     description: 'Delete an experiment'
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/experiments\/([^\/]+)\/start$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/experiments\/([^/]+)\/start$/,
     handler: experimentHandlers.startExperiment,
     description: 'Start an experiment'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/experiments\/([^\/]+)\/results$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/experiments\/([^/]+)\/results$/,
     handler: experimentHandlers.getExperimentResults,
     description: 'Get experiment results'
   },
@@ -182,49 +196,49 @@ const routes: Route[] = [
   // Dataset routes
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/datasets$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/datasets$/,
     handler: datasetHandlers.listDatasets,
     description: 'List datasets for a project'
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/datasets$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/datasets$/,
     handler: datasetHandlers.createDataset,
     description: 'Create a new dataset'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/datasets\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/datasets\/([^/]+)$/,
     handler: datasetHandlers.getDataset,
     description: 'Get a specific dataset'
   },
   {
     method: 'PUT',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/datasets\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/datasets\/([^/]+)$/,
     handler: datasetHandlers.updateDataset,
     description: 'Update a dataset'
   },
   {
     method: 'DELETE',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/datasets\/([^\/]+)$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/datasets\/([^/]+)$/,
     handler: datasetHandlers.deleteDataset,
     description: 'Delete a dataset'
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/datasets\/([^\/]+)\/upload$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/datasets\/([^/]+)\/upload$/,
     handler: datasetHandlers.getDatasetUploadUrl,
     description: 'Get dataset upload URL'
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/datasets\/([^\/]+)\/process$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/datasets\/([^/]+)\/process$/,
     handler: datasetHandlers.processDataset,
     description: 'Process uploaded dataset'
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/projects\/([^\/]+)\/datasets\/([^\/]+)\/validate$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/projects\/([^/]+)\/datasets\/([^/]+)\/validate$/,
     handler: datasetHandlers.validateDatasetSchema,
     description: 'Validate dataset schema'
   },
@@ -232,31 +246,31 @@ const routes: Route[] = [
   // Analytics routes
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/analytics\/usage$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/analytics\/usage$/,
     handler: analyticsHandlers.getTenantUsageAnalytics,
     description: 'Get tenant usage analytics'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/analytics\/billing$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/analytics\/billing$/,
     handler: analyticsHandlers.getBillingReport,
     description: 'Get billing report'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/analytics\/recommendations$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/analytics\/recommendations$/,
     handler: analyticsHandlers.getCostOptimizationRecommendations,
     description: 'Get cost optimization recommendations'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/analytics\/events$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/analytics\/events$/,
     handler: analyticsHandlers.getUsageEvents,
     description: 'Get usage events'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/analytics\/utilization$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/analytics\/utilization$/,
     handler: analyticsHandlers.getResourceUtilization,
     description: 'Get resource utilization'
   },
@@ -270,49 +284,49 @@ const routes: Route[] = [
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/billing\/checkout$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/billing\/checkout$/,
     handler: billingHandlers.createCheckoutSession,
     description: 'Create Stripe checkout session'
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/billing\/portal$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/billing\/portal$/,
     handler: billingHandlers.createPortalSession,
     description: 'Create Stripe customer portal session'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/billing\/subscription$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/billing\/subscription$/,
     handler: billingHandlers.getSubscriptionStatus,
     description: 'Get subscription status'
   },
   {
     method: 'PUT',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/billing\/subscription$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/billing\/subscription$/,
     handler: billingHandlers.updateSubscription,
     description: 'Update subscription'
   },
   {
     method: 'DELETE',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/billing\/subscription$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/billing\/subscription$/,
     handler: billingHandlers.cancelSubscription,
     description: 'Cancel subscription'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/billing\/invoices$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/billing\/invoices$/,
     handler: billingHandlers.getBillingHistory,
     description: 'Get billing history and invoices'
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/billing\/setup-intent$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/billing\/setup-intent$/,
     handler: billingHandlers.createSetupIntent,
     description: 'Create setup intent for payment method'
   },
   {
     method: 'GET',
-    pattern: /^\/v1\/tenants\/([^\/]+)\/billing\/payment-methods$/,
+    pattern: /^\/v1\/tenants\/([^/]+)\/billing\/payment-methods$/,
     handler: billingHandlers.getPaymentMethods,
     description: 'Get customer payment methods'
   },
@@ -326,7 +340,7 @@ const routes: Route[] = [
   },
   {
     method: 'POST',
-    pattern: /^\/v1\/webhooks\/external\/([^\/]+)$/,
+    pattern: /^\/v1\/webhooks\/external\/([^/]+)$/,
     handler: webhookHandlers.handleExternalWebhook,
     description: 'Handle external service webhooks'
   },

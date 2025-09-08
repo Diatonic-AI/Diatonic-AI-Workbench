@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import jwt from 'jsonwebtoken';
 import jwksClient from 'jwks-rsa';
 import { permissionsService } from '../services/permissions';
+import { APIGatewayEvent, APIGatewayContext, MiddlewareRequest, MiddlewareResponse } from '../types/common';
 
 interface RequestContext {
   requestId: string;
@@ -12,9 +13,9 @@ interface RequestContext {
   userPermissions?: string[];
   organizationId?: string;
   subscriptionTier?: string;
-  userQuotas?: any[];
-  logger: any;
-  clients: any;
+  userQuotas?: unknown[];
+  logger: unknown;
+  clients: unknown;
 }
 
 interface JWTClaims {
@@ -41,7 +42,7 @@ const jwks = jwksClient({
 });
 
 // Get signing key for JWT verification
-function getKey(header: any, callback: any) {
+function getKey(header: unknown, callback: unknown) {
   jwks.getSigningKey(header.kid, (err, key) => {
     if (err) {
       return callback(err);
@@ -97,7 +98,7 @@ async function resolveUserPermissions(
   fallbackFeatures?: string[]
 ): Promise<{
   permissions: string[];
-  quotas: any[];
+  quotas: unknown[];
   organizationId?: string;
   subscriptionTier?: string;
 }> {
@@ -204,9 +205,7 @@ export async function authMiddleware(
     }
 
     // Verify and decode JWT token
-    let claims: JWTClaims;
-    try {
-      claims = await verifyToken(token);
+    const claims = await verifyToken(token);
     } catch (error) {
       context.logger.warn('Invalid authentication token', { error: error.message });
       return {

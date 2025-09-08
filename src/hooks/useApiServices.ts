@@ -248,8 +248,8 @@ export const useCompleteExperiment = () => {
   return useMutation({
     mutationFn: ({ runId, results, resourceUsage }: { 
       runId: string; 
-      results: any; 
-      resourceUsage?: any 
+      results: unknown; 
+      resourceUsage?: unknown 
     }) => labService.completeExperimentRun(runId, results, resourceUsage),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['experiment-run', variables.runId] });

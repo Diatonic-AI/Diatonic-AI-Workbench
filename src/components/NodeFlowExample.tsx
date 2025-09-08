@@ -142,7 +142,7 @@ const NodeFlowExample = () => {
       { state: 'idle', duration: measureDuration * 0.5 }
     ];
     
-    let timeOffset = 0;
+    const timeOffset = 0;
     
     sequence.forEach(step => {
       setTimeout(() => {
@@ -256,8 +256,8 @@ const NodeFlowExample = () => {
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (isDragging.current && dragNode.current && containerRef.current) {
       const containerRect = containerRef.current.getBoundingClientRect();
-      let newX = e.clientX - containerRect.left - dragOffset.current.x;
-      let newY = e.clientY - containerRect.top - dragOffset.current.y;
+      const newX = e.clientX - containerRect.left - dragOffset.current.x;
+      const newY = e.clientY - containerRect.top - dragOffset.current.y;
       
       // Get node dimensions
       const nodeWidth = 120; // Consistent node width

@@ -354,7 +354,7 @@ export class MockContentService {
     return this.mockData.landingPages[pageId as keyof typeof this.mockData.landingPages] || null;
   }
   
-  static async getPageSections(pageId: string): Promise<any[]> {
+  static async getPageSections(pageId: string): Promise<unknown[]> {
     await new Promise(resolve => setTimeout(resolve, 100));
     return []; // No sections in mock data for now
   }

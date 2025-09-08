@@ -4,7 +4,7 @@ import { awsConfig } from './aws-config';
 import { getCurrentCredentials } from 'aws-amplify/auth';
 
 // DynamoDB client setup
-let dynamoClient: DynamoDBClient | null = null;
+const dynamoClient = null;
 
 const getDynamoClient = async (): Promise<DynamoDBClient> => {
   if (!dynamoClient) {
@@ -274,7 +274,7 @@ export class ContentService {
     try {
       const client = await getDynamoClient();
       
-      let params: any = {
+      const params = {
         TableName: getTableName('content-feature-details'),
         FilterExpression: 'tenantId = :tenantId AND #status = :status',
         ExpressionAttributeValues: marshall({

@@ -14,7 +14,7 @@ export interface CreateAgentTemplateInput {
   description: string;
   template_type: 'conversational' | 'task-based' | 'analytical' | 'creative';
   category: string;
-  configuration: any; // Will be JSON stringified
+  configuration: unknown; // Will be JSON stringified
   is_public?: boolean;
   tags?: string[];
 }
@@ -24,7 +24,7 @@ export interface UpdateAgentTemplateInput {
   description?: string;
   template_type?: 'conversational' | 'task-based' | 'analytical' | 'creative';
   category?: string;
-  configuration?: any;
+  configuration?: unknown;
   is_public?: boolean;
   tags?: string[];
 }
@@ -43,7 +43,7 @@ export interface AgentTemplatesFilter {
  * Agent Templates Service Class
  */
 export class AgentTemplatesService {
-  private dbOps: any;
+  private dbOps: unknown;
   private initialized = false;
 
   private async ensureInitialized() {
@@ -313,8 +313,7 @@ export class AgentTemplatesService {
     }
 
     // Default to scan with filters (less efficient but flexible)
-    let filterExpression: string | undefined;
-    const expressionAttributeValues: Record<string, any> = {};
+    const filterExpression = {};
     const expressionAttributeNames: Record<string, string> = {};
     const filterParts: string[] = [];
 

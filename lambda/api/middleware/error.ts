@@ -1,6 +1,7 @@
 // AI Nexus Workbench - Error Handling Middleware
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { MiddlewareRequest, MiddlewareResponse, ErrorResponse } from '../types/common';
 
 // Request context interface
 interface RequestContext {
@@ -9,15 +10,15 @@ interface RequestContext {
   userId?: string;
   userRole?: string;
   userPlan?: string;
-  logger: any;
-  clients: any;
+  logger: unknown;
+  clients: unknown;
 }
 
 // Error types
 interface AppError extends Error {
   statusCode?: number;
   code?: string;
-  details?: any;
+  details?: unknown;
 }
 
 /**
@@ -42,10 +43,10 @@ export const errorMiddleware = async (
   const appError = error as AppError;
   
   // Determine error status code and message
-  let statusCode = appError.statusCode || 500;
-  let errorType = 'InternalServerError';
-  let message = 'An unexpected error occurred';
-  let details: any = undefined;
+  const statusCode = appError.statusCode || 500;
+  const errorType = 'InternalServerError';
+  const message = 'An unexpected error occurred';
+  const details = undefined;
 
   // Handle specific error types
   if (appError.code) {
@@ -115,7 +116,7 @@ export const errorMiddleware = async (
   }
 
   // Prepare error response
-  const errorResponse: any = {
+  const errorResponse: unknown = {
     error: errorType,
     message,
     requestId: context.requestId,
@@ -156,7 +157,7 @@ export const errorMiddleware = async (
 export class ApplicationError extends Error implements AppError {
   public statusCode: number;
   public code: string;
-  public details?: any;
+  public details?: unknown;
 
   constructor(message: string, statusCode = 500, code = 'InternalServerError', details?: any) {
     super(message);

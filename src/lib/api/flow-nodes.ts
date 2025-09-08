@@ -12,16 +12,16 @@ import {
 export interface CreateFlowNodeInput {
   template_id?: string;
   node_type: 'trigger' | 'llm' | 'output' | 'transform' | 'decision';
-  node_configuration: any; // Will be JSON stringified
+  node_configuration: unknown; // Will be JSON stringified
   position: number;
-  connections?: any; // Will be JSON stringified
+  connections?: unknown; // Will be JSON stringified
 }
 
 export interface UpdateFlowNodeInput {
   node_type?: 'trigger' | 'llm' | 'output' | 'transform' | 'decision';
-  node_configuration?: any;
+  node_configuration?: unknown;
   position?: number;
-  connections?: any;
+  connections?: unknown;
 }
 
 export interface FlowNodeFilter {
@@ -40,14 +40,14 @@ export interface FlowConfiguration {
   flow_name: string;
   description: string;
   nodes: FlowNodeConfig[];
-  metadata?: any;
+  metadata?: unknown;
 }
 
 /**
  * Flow Node Configs Service Class
  */
 export class FlowNodeConfigsService {
-  private dbOps: any;
+  private dbOps: unknown;
   private initialized = false;
 
   private async ensureInitialized() {
@@ -209,8 +209,7 @@ export class FlowNodeConfigsService {
     }
 
     // Default to scan with filters
-    let filterExpression: string | undefined;
-    const expressionAttributeValues: Record<string, any> = {};
+    const filterExpression = {};
     const filterParts: string[] = [];
 
     if (filters.node_type) {
@@ -466,10 +465,7 @@ export class FlowNodeConfigsService {
   }> {
     await this.ensureInitialized();
 
-    let nodes: FlowNodeConfig[];
-    
-    if (templateId) {
-      nodes = await this.getTemplateNodes(templateId);
+    const nodes = await this.getTemplateNodes(templateId);
     } else {
       nodes = await this.getTenantFlowNodes(undefined, 1000);
     }

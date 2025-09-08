@@ -216,7 +216,7 @@ export const handleHealthWebhook = async (event: APIRequest): Promise<APIRespons
 };
 
 // Stripe webhook handlers
-async function handleSubscriptionCreated(event: any): Promise<any> {
+async function handleSubscriptionCreated(event: unknown): Promise<unknown> {
   const subscription = event.data.object;
   const customerId = subscription.customer;
   
@@ -258,7 +258,7 @@ async function handleSubscriptionCreated(event: any): Promise<any> {
   return { success: true, message: 'Subscription created successfully' };
 }
 
-async function handleSubscriptionUpdated(event: any): Promise<any> {
+async function handleSubscriptionUpdated(event: unknown): Promise<unknown> {
   const subscription = event.data.object;
   const customerId = subscription.customer;
   
@@ -296,7 +296,7 @@ async function handleSubscriptionUpdated(event: any): Promise<any> {
   return { success: true, message: 'Subscription updated successfully' };
 }
 
-async function handleSubscriptionDeleted(event: any): Promise<any> {
+async function handleSubscriptionDeleted(event: unknown): Promise<unknown> {
   const subscription = event.data.object;
   const customerId = subscription.customer;
   
@@ -332,7 +332,7 @@ async function handleSubscriptionDeleted(event: any): Promise<any> {
   return { success: true, message: 'Subscription deleted successfully' };
 }
 
-async function handlePaymentSucceeded(event: any): Promise<any> {
+async function handlePaymentSucceeded(event: unknown): Promise<unknown> {
   const invoice = event.data.object;
   const customerId = invoice.customer;
   
@@ -372,7 +372,7 @@ async function handlePaymentSucceeded(event: any): Promise<any> {
   return { success: true, message: 'Payment recorded successfully' };
 }
 
-async function handlePaymentFailed(event: any): Promise<any> {
+async function handlePaymentFailed(event: unknown): Promise<unknown> {
   const invoice = event.data.object;
   const customerId = invoice.customer;
   
@@ -405,7 +405,7 @@ async function handlePaymentFailed(event: any): Promise<any> {
   return { success: true, message: 'Payment failure processed' };
 }
 
-async function handleCustomerCreated(event: any): Promise<any> {
+async function handleCustomerCreated(event: unknown): Promise<unknown> {
   const customer = event.data.object;
   
   console.log('Processing customer created:', {
@@ -419,7 +419,7 @@ async function handleCustomerCreated(event: any): Promise<any> {
   return { success: true, message: 'Customer webhook processed' };
 }
 
-async function handleCustomerUpdated(event: any): Promise<any> {
+async function handleCustomerUpdated(event: unknown): Promise<unknown> {
   const customer = event.data.object;
   
   console.log('Processing customer updated:', {
@@ -446,7 +446,7 @@ async function handleCustomerUpdated(event: any): Promise<any> {
 }
 
 // External service webhook handlers
-async function handleGitHubWebhook(body: any, headers: any): Promise<any> {
+async function handleGitHubWebhook(body: unknown, headers: unknown): Promise<unknown> {
   const eventType = headers['x-github-event'] || body.action;
   
   console.log('Processing GitHub webhook:', {
@@ -473,7 +473,7 @@ async function handleGitHubWebhook(body: any, headers: any): Promise<any> {
   }
 }
 
-async function handleSlackWebhook(body: any, headers: any): Promise<any> {
+async function handleSlackWebhook(body: unknown, headers: unknown): Promise<unknown> {
   console.log('Processing Slack webhook:', {
     type: body.type,
     team_id: body.team_id,
@@ -489,7 +489,7 @@ async function handleSlackWebhook(body: any, headers: any): Promise<any> {
   return { success: true, message: 'Slack webhook processed' };
 }
 
-async function handleDiscordWebhook(body: any, headers: any): Promise<any> {
+async function handleDiscordWebhook(body: unknown, headers: unknown): Promise<unknown> {
   console.log('Processing Discord webhook:', {
     type: body.type,
     guild_id: body.guild_id,
@@ -500,7 +500,7 @@ async function handleDiscordWebhook(body: any, headers: any): Promise<any> {
   return { success: true, message: 'Discord webhook processed' };
 }
 
-async function handleOpenAIWebhook(body: any, headers: any): Promise<any> {
+async function handleOpenAIWebhook(body: unknown, headers: unknown): Promise<unknown> {
   console.log('Processing OpenAI webhook:', {
     type: body.type,
     object: body.object,
@@ -510,7 +510,7 @@ async function handleOpenAIWebhook(body: any, headers: any): Promise<any> {
   return { success: true, message: 'OpenAI webhook processed' };
 }
 
-async function handleGenericWebhook(serviceName: string, body: any, headers: any): Promise<any> {
+async function handleGenericWebhook(serviceName: string, body: unknown, headers: unknown): Promise<unknown> {
   console.log(`Processing generic webhook from ${serviceName}:`, {
     contentType: headers['content-type'],
     bodyKeys: Object.keys(body),
@@ -521,7 +521,7 @@ async function handleGenericWebhook(serviceName: string, body: any, headers: any
 }
 
 // Helper functions
-async function findTenantByStripeCustomerId(customerId: string): Promise<any> {
+async function findTenantByStripeCustomerId(customerId: string): Promise<unknown> {
   // In a real implementation, you'd query the database for tenant with this Stripe customer ID
   // For simulation, we'll return a mock tenant
   return {
@@ -533,7 +533,7 @@ async function findTenantByStripeCustomerId(customerId: string): Promise<any> {
   };
 }
 
-async function recordWebhookEvent(webhookEvent: any): Promise<void> {
+async function recordWebhookEvent(webhookEvent: unknown): Promise<void> {
   const eventId = generateId();
   
   await createItem({
@@ -551,7 +551,7 @@ async function recordWebhookEvent(webhookEvent: any): Promise<void> {
   });
 }
 
-async function emitDomainEvent(event: any): Promise<void> {
+async function emitDomainEvent(event: unknown): Promise<void> {
   // Emit event to EventBridge for downstream processing
   const eventBridgeEvent = {
     Source: 'ai-nexus-workbench.webhooks',

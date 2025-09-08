@@ -38,7 +38,7 @@ export const listDatasets = async (event: APIRequest): Promise<APIResponse> => {
 
     // Query datasets for the project
     const gsi1Keys = generateGSI1Keys('PROJECT', projectId, 'DATASET');
-    const queryParams: any = {
+    const queryParams: unknown = {
       GSI1PK: gsi1Keys.GSI1PK,
       limit: Math.min(parseInt(limit as string), 100),
       nextToken: nextToken as string,
@@ -292,7 +292,7 @@ export const updateDataset = async (event: APIRequest): Promise<APIResponse> => 
     }
 
     const timestamp = generateTimestamp();
-    const updateData: any = {
+    const updateData: unknown = {
       updatedAt: timestamp,
     };
 
@@ -704,7 +704,7 @@ async function simulateDatasetProcessing(
 }
 
 // Simulate schema validation
-async function simulateSchemaValidation(datasetItem: any): Promise<any> {
+async function simulateSchemaValidation(datasetItem: unknown): Promise<any> {
   const violations = Math.floor(Math.random() * 10);
   
   return {

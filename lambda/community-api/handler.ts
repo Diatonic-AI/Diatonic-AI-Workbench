@@ -287,7 +287,7 @@ const getPosts = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRes
       cursor,
     } = event.queryStringParameters || {};
 
-    let queryParams: any = {
+    const queryParams = {
       TableName: POSTS_TABLE_NAME,
       IndexName: 'TenantTimeIndex',
       KeyConditionExpression: 'tenant_id = :tenantId',
@@ -321,7 +321,7 @@ const getPosts = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRes
 
     const result = await docClient.send(new QueryCommand(queryParams));
 
-    let posts = result.Items as CommunityPost[];
+    const posts = result.Items as CommunityPost[];
 
     // Filter by tag if specified (DynamoDB doesn't support array contains in GSI)
     if (tag) {
@@ -329,9 +329,7 @@ const getPosts = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRes
     }
 
     // Generate next cursor
-    let nextCursor: string | undefined;
-    if (result.LastEvaluatedKey) {
-      nextCursor = Buffer.from(JSON.stringify(result.LastEvaluatedKey)).toString('base64');
+    const nextCursor = Buffer.from(JSON.stringify(result.LastEvaluatedKey)).toString('base64');
     }
 
     return createSuccessResponse({

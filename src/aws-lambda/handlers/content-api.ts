@@ -46,12 +46,7 @@ const lambdaHandler = async (
   });
 
   try {
-    let result: APIResponse<any>;
-
-    // Route handling based on method and path
-    switch (`${httpMethod} ${path}`) {
-      case 'GET /api/content/landing-page/{service}':
-        result = await handleGetLandingPage(pathParameters, queryStringParameters);
+    const result = await handleGetLandingPage(pathParameters, queryStringParameters);
         break;
         
       case 'POST /api/content/landing-page':
@@ -117,7 +112,7 @@ const lambdaHandler = async (
     const duration = Date.now() - startTime;
     
     // Determine error type and status code
-    let statusCode = 500;
+    const statusCode = 500;
     if (error instanceof ValidationError) statusCode = 400;
     else if (error instanceof NotFoundError) statusCode = 404;
     else if (error instanceof UnauthorizedError) statusCode = 401;
@@ -175,9 +170,7 @@ async function handleCreateLandingPage(body: string | null): Promise<APIResponse
     throw new ValidationError('Request body is required');
   }
 
-  let content: Omit<LandingPageContent, 'id' | 'created'>;
-  try {
-    content = JSON.parse(body);
+  const content = JSON.parse(body);
   } catch (error) {
     throw new ValidationError('Invalid JSON in request body');
   }
@@ -212,9 +205,7 @@ async function handleUpdateLandingPage(
     throw new ValidationError('Request body is required');
   }
 
-  let updates: Partial<LandingPageContent>;
-  try {
-    updates = JSON.parse(body);
+  const updates = JSON.parse(body);
   } catch (error) {
     throw new ValidationError('Invalid JSON in request body');
   }
