@@ -48,7 +48,7 @@ export const GSI_NAMES = {
 /**
  * Initialize DynamoDB client with Cognito credentials
  */
-const dynamodbClient = null;
+let dynamodbClient: DynamoDBDocumentClient | null = null;
 
 export const initializeDynamoDBClient = async (): Promise<DynamoDBDocumentClient> => {
   if (dynamodbClient) {

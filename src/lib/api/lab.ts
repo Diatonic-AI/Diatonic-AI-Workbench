@@ -177,8 +177,9 @@ export class LabService {
     }
 
     // Default to scan with filters
-    const filterExpression = {};
+    let filterExpression: string | object = {};
     const filterParts: string[] = [];
+    const expressionAttributeValues: Record<string, any> = {};
 
     if (filters.model_type) {
       filterParts.push('model_type = :model_type');

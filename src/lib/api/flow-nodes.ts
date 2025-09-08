@@ -209,8 +209,9 @@ export class FlowNodeConfigsService {
     }
 
     // Default to scan with filters
-    const filterExpression = {};
+    let filterExpression: string | object = {};
     const filterParts: string[] = [];
+    const expressionAttributeValues: Record<string, any> = {};
 
     if (filters.node_type) {
       filterParts.push('node_type = :node_type');
