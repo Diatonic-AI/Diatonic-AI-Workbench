@@ -4,7 +4,7 @@ set -euo pipefail
 
 # Configuration
 APP_ID="ddfry2y14h2zr"
-DOMAIN_NAME="${1:-}"
+DOMAIN_NAME="${1:-diatonic.ai}"
 
 # Colors for output
 RED='\033[0;31m'
@@ -14,13 +14,14 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 usage() {
-  echo "Usage: $0 <domain-name>"
-  echo "Example: $0 diatonic-ai.com"
+  echo "Usage: $0 [domain-name]"
+  echo "Example: $0 diatonic.ai"
+  echo "Default: diatonic.ai (if no domain provided)"
   exit 1
 }
 
-if [[ -z "$DOMAIN_NAME" ]]; then
-  echo -e "${RED}Error: Domain name required${NC}"
+# Domain name now has default, but show usage if explicitly requested
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
   usage
 fi
 
