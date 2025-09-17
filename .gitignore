@@ -52,6 +52,10 @@ out/
 .env.production
 .env.test
 .env.backup*
+.env.*backup*
+.env.*.backup
+*backup-*
+.env.template  # Even templates can contain sensitive info
 
 # Allow .env.example with safe placeholder values
 !.env.example
