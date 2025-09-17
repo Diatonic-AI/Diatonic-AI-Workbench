@@ -1,24 +1,388 @@
-# Logs
-logs
-*.log
+# ============================================
+# DIATONIC AI WORKBENCH - COMPREHENSIVE .gitignore
+# ============================================
+# This file excludes build artifacts, dependencies, 
+# environment variables, logs, and sensitive files
+# following best practices for Node.js/React/Vite/AWS
+
+# ============================================
+# Dependencies and Package Management
+# ============================================
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+.pnpm-store/
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+# Uncomment the following if using different package managers:
+# package-lock.json  # Only if using yarn/pnpm
+# yarn.lock         # Only if using npm/pnpm
 
-node_modules
-dist
-dist-ssr
-*.local
+# ============================================
+# Build Outputs and Distribution
+# ============================================
+dist/
+dist-ssr/
+build/
+out/
+.next/
+.nuxt/
+.vuepress/dist
+.serverless/
+.fusebox/
+.dynamodb/
+.vite/
+*.tsbuildinfo
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# ============================================
+# Environment Variables (CRITICAL SECURITY)
+# ============================================
+# Never commit any environment files
+.env
+.env.local
+.env.*.local
+.env.development
+.env.staging  
+.env.production
+.env.test
+.env.backup*
+
+# Allow .env.example with safe placeholder values
+!.env.example
+
+# Legacy env patterns
+.environment
+config/local.json
+config/development.json
+config/production.json
+
+# ============================================
+# Logs and Runtime Files  
+# ============================================
+logs/
+*.log
+lerna-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+api*.log
+server*.log
+dev*.log
+*.out
+*.err
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+.lock-wscript
+
+# ============================================
+# Temporary and Cache Files
+# ============================================
+.tmp/
+.temp/
+tmp/
+temp/
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.nyc_output
+
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ============================================
+# Editor and IDE Files
+# ============================================
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# JetBrains IDEs
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Visual Studio
 *.suo
+*.user
+*.sln.docstates
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# ============================================
+# Testing and Coverage
+# ============================================
+coverage/
+*.lcov
+.nyc_output
+test-results/
+junit.xml
+.coverage
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jest
+jest_*
+
+# ============================================
+# Security Files (NEVER COMMIT)
+# ============================================
+# Certificates and Keys
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+*.pfx
+*.der
+*.csr
+*.cer
+*.gpg
+*.asc
+*.jks
+*.keystore
+*.truststore
+
+# SSH Keys
+id_rsa
+id_dsa
+id_ed25519
+id_ecdsa
+*.ppk
+
+# Security configs
+.kubeconfig
+.kube/config
+*.ovpn
+secrets/
+credentials/
+auth/
+keys/
+security-audit-report-*.json
+
+# ============================================
+# AWS Amplify (Auto-generated)
+# ============================================
+# Local Amplify configuration directories
+.amplify-config/
+.amplify-tenant-config/
+.dev-env-status.json
+
+#amplify-do-not-edit-begin
+amplify/\#current-cloud-backend
+amplify/.config/local-*
+amplify/logs
+amplify/mock-data
+amplify/mock-api-resources
+amplify/backend/amplify-meta.json
+amplify/backend/.temp
+amplify/backend/awscloudformation
+aws-exports.js
+awsconfiguration.json
+amplifyconfiguration.json
+amplifyconfiguration.dart
+amplify-build-config.json
+amplify-gradle-config.json
+amplifytools.xcconfig
+.secret-*
+**.sample
+#amplify-do-not-edit-end
+
+# ============================================
+# AWS and Cloud Resources
+# ============================================
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+crash.log
+crash.*.log
+
+# AWS CLI
+.aws/
+aws-exports.js
+aws-config.js
+
+# CDK
+cdk.out/
+cdk.context.json
+
+# ============================================
+# Database and Local Services
+# ============================================
+# DynamoDB Local
+.dynamodb-local/
+.dynamodb/
+shared-local-instance.db
+local-dynamodb/
+
+# SQLite
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Redis
+dump.rdb
+redis.conf
+
+# ============================================
+# Archives and Backups
+# ============================================
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.backup
+*.bak
+*.old
+*.orig
+*.save
+*.swp
+
+# Backup directories
+backup/
+backups/
+archive/
+archives/
+
+# ============================================
+# Language and Framework Specific
+# ============================================
+
+# TypeScript
+*.tsbuildinfo
+
+# Python (for scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pipfile.lock
+
+# Java (for Android builds)
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+# ============================================
+# Project Specific Exclusions
+# ============================================
+
+# Development tools and reports
+reports/
+artifacts/
+*.report.json
+*.report.xml
+stats.json
+bundle-analyzer-report.html
+
+# Migration and deployment artifacts
+migration_output.log
+deployment*.zip
+artifacts*.zip
+
+# Local development
+dev-*
+local-*
+*.local.*
+.dev-*
+
+# Generated documentation
+docs/api/
+docs/build/
+storybook-static/
+
+# Mobile development (if applicable)
+platforms/
+plugins/
+www/
+
+# ============================================
+# End of .gitignore
+# ============================================
