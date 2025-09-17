@@ -307,6 +307,40 @@ mcp connect git-operations        # Git workflow assistance
 
 ---
 
+## Security & Vulnerability Management
+
+### Current Security Status
+- **Local Security Audit:** ✅ 0 vulnerabilities (npm audit)
+- **GitHub Dependabot:** ⚠️ 3 vulnerabilities detected (1 high, 2 low)
+- **Last Security Update:** 2025-01-07
+- **Next Review:** Monthly security audit scheduled
+
+### Security Commands
+```bash
+# Check for vulnerabilities
+npm audit
+
+# Update dependencies with security patches
+npm update
+
+# Check for outdated packages
+npm outdated
+```
+
+### Security Documentation
+- **docs/security/VULNERABILITY_TRACKING.md** - Comprehensive security monitoring
+- **docs/SECURITY_README.md** - AWS security configuration guide
+- **GitHub Security Tab** - Real-time vulnerability alerts
+
+### Emergency Security Response
+1. Check GitHub Security tab for specific vulnerabilities
+2. Apply available security updates: `npm update`
+3. Test application: `npm run build && npm test`
+4. Deploy updates and monitor logs
+
+---
+
+
 ## Troubleshooting & Common Issues
 
 ### Development Server Issues
@@ -377,6 +411,7 @@ npm run build
 - **TECHNICAL_STACK.md** - Comprehensive technical architecture
 - **UI_DESIGN.md** - Design principles and UI specifications
 - **.env.example** - Environment variable template
+- **docs/security/VULNERABILITY_TRACKING.md** - Security monitoring and vulnerability tracking
 
 ### External Resources
 - [Vite Documentation](https://vitejs.dev/) - Build tool
