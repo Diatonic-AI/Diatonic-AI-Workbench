@@ -3,13 +3,38 @@ frontend:
   phases:
     preBuild:
       commands:
-        - n -v || npm i -g n
-        - n 18
-        - node -v
-        - npm ci
+        # Node.js version management
+        - echo "🔧 Starting pre-build phase for React+Vite+shadcn+Tailwind app"
+        - echo "📦 Node version:" && node --version
+        - echo "📦 npm version:" && npm --version
+        
+        # Install dependencies
+        - echo "📥 Installing dependencies..."
+        - npm ci --production=false
+        
+        # Update browserslist database for optimal compilation
+        - echo "🌐 Updating browserslist..."
+        - npm run update-browserslist || npx update-browserslist-db@latest
+        
     build:
       commands:
-        - npm run update-browserslist && vite build
+        - echo "🏗️ Starting build phase for production..."
+        
+        # Clean any previous builds
+        - npm run clean || rm -rf dist node_modules/.vite
+        
+        # Build the application with production optimizations
+        - echo "🔨 Building React+Vite+Tailwind app..."
+        - npm run build
+        
+        # Verify build output
+        - echo "📋 Build completed. Contents of dist/:"
+        - ls -la dist/
+        
+        # Create _redirects file for React Router SPA support
+        - echo "🌍 Creating _redirects for SPA routing..."
+        - echo "/* /index.html 200" > dist/_redirects
+        
   artifacts:
     baseDirectory: dist
     files:
@@ -17,3 +42,4 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
+      - .npm/**/*
