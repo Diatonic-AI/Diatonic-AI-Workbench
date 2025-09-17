@@ -2,13 +2,17 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
-  Layers, Code, BookOpen, Users, Search, 
-  BarChart2, Play, Settings, User 
+  Search, Settings, User, FileText, Book, 
+  Code, Server, DollarSign, Bot, Shield
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { WorkbbenchLogo } from "@/components/WorkbbenchLogo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { usePermissions } from "@/hooks/usePermissions";
+import { getGroupedNavItems, shouldShowGroup, type NavGroup, type NavItem } from "@/lib/navigation";
+import { ProtectedNavItem } from "@/components/navigation/ProtectedNavItem";
+import { NavigationPlanUtils } from "@/lib/navigation-plans";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -16,19 +20,29 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const location = useLocation();
+  const { hasPermission, isAuthenticated } = usePermissions();
   
   const isActive = (path: string) => {
     return location.pathname === path;
   };
 
-  const navigationItems = [
-    { label: "Homebase", path: "/dashboard", icon: Layers },
-    { label: "Studio", path: "/toolset", icon: Code },
-    { label: "Lab", path: "/lab", icon: Play },
-    { label: "Academy", path: "/education", icon: BookOpen },
-    { label: "Nexus", path: "/community", icon: Users },
-    { label: "Observatory", path: "/observatory", icon: BarChart2 },
-  ];
+  // Get grouped navigation items based on permissions
+  const groupedNavItems = getGroupedNavItems({
+    context: 'sidebar',
+    isAuthenticated,
+    hasPermission
+  });
+
+  // Group order for rendering
+  const groupOrder: NavGroup[] = ['workspaces', 'tools', 'admin', 'resources'];
+
+  // Group display names
+  const groupNames: Record<NavGroup, string> = {
+    workspaces: 'Workspaces',
+    tools: 'Tools',
+    admin: 'Administration',
+    resources: 'Resources'
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
@@ -59,22 +73,65 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       <div className="flex flex-1 overflow-hidden">
         {/* Context Sidebar */}
         <aside className="w-[240px] border-r border-border/20 p-4 hidden md:block">
-          <nav className="space-y-1">
-            {navigationItems.map((item) => (
-              <Link 
-                key={item.path} 
-                to={item.path} 
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                  isActive(item.path) 
-                    ? "bg-primary/20 text-primary"
-                    : "hover:bg-secondary/60 text-foreground"
-                )}
-              >
-                <item.icon className="h-5 w-5" />
-                {item.label}
-              </Link>
-            ))}
+          <nav className="space-y-4">
+            {groupOrder.map((groupKey) => {
+              const groupItems = groupedNavItems[groupKey];
+              
+              // Don't render empty groups
+              if (!shouldShowGroup(groupKey, groupItems)) {
+                return null;
+              }
+
+              return (
+                <div key={groupKey} className="space-y-1">
+                  {/* Group Header */}
+                  <div className="px-3 py-2">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      {groupNames[groupKey]}
+                    </h3>
+                  </div>
+                  
+                  {/* Group Items */}
+                  <div className="space-y-1">
+                    {groupItems.map((item: NavItem) => {
+                      // Check if this nav item requires a subscription upgrade
+                      const planRequirement = NavigationPlanUtils.getNavPlanRequirement(item.key);
+                      
+                      // If plan requirement exists, use ProtectedNavItem
+                      if (planRequirement) {
+                        return (
+                          <ProtectedNavItem
+                            key={item.key}
+                            item={item}
+                            requiredPlan={planRequirement.requiredPlan}
+                            feature={planRequirement.feature}
+                            upgradeDescription={planRequirement.description}
+                            benefits={planRequirement.benefits}
+                          />
+                        );
+                      }
+                      
+                      // Otherwise, render normal nav item
+                      return (
+                        <Link 
+                          key={item.key} 
+                          to={item.path} 
+                          className={cn(
+                            "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                            isActive(item.path) 
+                              ? "bg-primary/20 text-primary"
+                              : "hover:bg-secondary/60 text-foreground"
+                          )}
+                        >
+                          <item.icon className="h-5 w-5" />
+                          {item.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
           </nav>
         </aside>
 

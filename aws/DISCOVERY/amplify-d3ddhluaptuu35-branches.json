@@ -1,0 +1,28 @@
+{
+    "branches": [
+        {
+            "branchArn": "arn:aws:amplify:us-east-2:313476888312:apps/d3ddhluaptuu35/branches/main",
+            "branchName": "main",
+            "tags": {},
+            "stage": "PRODUCTION",
+            "displayName": "main",
+            "enableNotification": false,
+            "createTime": "2025-09-16T23:44:02.963000-05:00",
+            "updateTime": "2025-09-16T23:48:46.242000-05:00",
+            "environmentVariables": {
+                "AMPLIFY_BACKEND_APP_ID": "d3ddhluaptuu35",
+                "USER_BRANCH": "dev"
+            },
+            "enableAutoBuild": true,
+            "framework": "Web",
+            "activeJobId": "0000000001",
+            "totalNumberOfJobs": "0",
+            "enableBasicAuth": false,
+            "enablePerformanceMode": false,
+            "ttl": "5",
+            "enablePullRequestPreview": false,
+            "backendEnvironmentArn": "arn:aws:amplify:us-east-2:313476888312:apps/d3ddhluaptuu35/backendenvironments/dev",
+            "backend": {}
+        }
+    ]
+}

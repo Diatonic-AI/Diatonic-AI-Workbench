@@ -13,7 +13,7 @@ export interface BaseNodeData {
  * Trigger node specific data
  */
 export interface TriggerNodeData extends BaseNodeData {
-  // Trigger-specific properties can be added here
+  triggerType?: 'manual' | 'webhook' | 'scheduled';
 }
 
 /**
@@ -27,7 +27,7 @@ export interface LLMNodeData extends BaseNodeData {
  * Output node specific data
  */
 export interface OutputNodeData extends BaseNodeData {
-  // Output-specific properties can be added here
+  outputFormat?: 'text' | 'json' | 'markdown';
 }
 
 /**

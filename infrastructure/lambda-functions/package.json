@@ -1,0 +1,40 @@
+{
+  "name": "ai-nexus-lambda-functions",
+  "version": "1.0.0",
+  "description": "Lightweight Lambda functions for AI Nexus Workbench with minimal dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No build step required for these lightweight functions\"",
+    "package": "npm install --production",
+    "zip": "zip -r lambda-functions.zip . -x \"*.zip\" \"node_modules/.cache/*\" \"*.git*\" \"*.DS_Store\" \"*.log\""
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1691.0",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "lambda",
+    "aws",
+    "serverless",
+    "api",
+    "education",
+    "community",
+    "dashboard",
+    "user-profile"
+  ],
+  "author": "AI Nexus Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/ai-nexus-workbench.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/ai-nexus-workbench/issues"
+  },
+  "homepage": "https://github.com/your-org/ai-nexus-workbench#readme"
+}

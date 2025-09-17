@@ -1,0 +1,55 @@
+{
+    "ApiEndpoint": "https://y8t99woj1d.execute-api.us-east-2.amazonaws.com",
+    "ApiId": "y8t99woj1d",
+    "ApiKeySelectionExpression": "$request.header.x-api-key",
+    "CorsConfiguration": {
+        "AllowCredentials": true,
+        "AllowHeaders": [
+            "x-amz-security-token",
+            "authorization",
+            "x-amz-user-agent",
+            "x-amz-date",
+            "content-type",
+            "stripe-idempotency-key"
+        ],
+        "AllowMethods": [
+            "POST",
+            "PUT",
+            "OPTIONS",
+            "GET",
+            "DELETE"
+        ],
+        "AllowOrigins": [
+            "https://localhost:3000",
+            "http://127.0.0.1:8080",
+            "http://127.0.0.1:3000",
+            "http://localhost:3000",
+            "http://localhost:8080",
+            "https://localhost:8080"
+        ],
+        "ExposeHeaders": [
+            "x-amz-request-id"
+        ],
+        "MaxAge": 300
+    },
+    "CreatedDate": "2025-09-08T06:34:11+00:00",
+    "Description": "AI Nexus Workbench Stripe Billing API - Diatonicvisuals Tenant",
+    "DisableExecuteApiEndpoint": false,
+    "IpAddressType": "ipv4",
+    "Name": "ai-nexus-dev-stripe-api",
+    "ProtocolType": "HTTP",
+    "RouteSelectionExpression": "$request.method $request.path",
+    "Tags": {
+        "App": "ai-nexus-workbench",
+        "Project": "ai-nexus",
+        "Owner": "development-team",
+        "ManagedBy": "terraform",
+        "Tenant": "diatonicvisuals",
+        "CostCenter": "development",
+        "Environment": "dev",
+        "Team": "ai-nexus-dev",
+        "Module": "stripe-billing",
+        "Monitoring": "basic",
+        "BackupPolicy": "none"
+    }
+}

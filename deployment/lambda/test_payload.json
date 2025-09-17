@@ -1,0 +1,14 @@
+{
+  "httpMethod": "GET",
+  "path": "/education",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "queryStringParameters": null,
+  "body": null,
+  "requestContext": {
+    "httpMethod": "GET",
+    "resourcePath": "/education"
+  },
+  "pathParameters": null
+}

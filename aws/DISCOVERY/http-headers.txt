@@ -1,0 +1,15 @@
+HTTP/2 200 
+content-type: text/html
+content-length: 1830
+date: Wed, 17 Sep 2025 03:37:21 GMT
+cache-control: public, max-age=0, s-maxage=31536000
+server: AmazonS3
+accept-ranges: bytes
+etag: "9f96bc36d3408b8c51d320e420ba98f8"
+last-modified: Fri, 12 Sep 2025 04:28:51 GMT
+x-cache: Miss from cloudfront
+via: 1.1 f188ca73d9e145b3d0110205c91c9006.cloudfront.net (CloudFront)
+x-amz-cf-pop: ORD58-P15
+alt-svc: h3=":443"; ma=86400
+x-amz-cf-id: vAgTTLF-comqbkBMnnOlFVnLRjD8jAQh1pinCIRtv_tx46wBlNi8GA==
+

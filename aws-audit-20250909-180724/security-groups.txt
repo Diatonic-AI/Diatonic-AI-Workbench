@@ -1,0 +1,14 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+|                                                                 DescribeSecurityGroups                                                                 |
++-----------------------------------------------+-----------------------+-------------------------------------------------------+------------------------+
+|                  Description                  |        GroupId        |                       GroupName                       |         VpcId          |
++-----------------------------------------------+-----------------------+-------------------------------------------------------+------------------------+
+|  default VPC security group                   |  sg-018ac2cc9bf10d3b7 |  default                                              |  vpc-0496b2572d51844a0 |
+|  Security group for ECS tasks                 |  sg-0091fb1d25d8df706 |  aws-devops-dev-ecs-tasks-20250825080944217500000001  |  vpc-01e885e91c54deb46 |
+|  Security group for ECS tasks                 |  sg-064f39209eb112e1b |  aws-devops-dev-ecs-tasks-20250907175608023400000006  |  vpc-0afa64bf5579542eb |
+|  default VPC security group                   |  sg-0536af950215cb3b9 |  default                                              |  vpc-06d0d2402de4b1ff4 |
+|  Security group for Application Load Balancer |  sg-09ad9b1143bc2d650 |  aws-devops-dev-alb-20250825080608445400000001        |  vpc-01e885e91c54deb46 |
+|  default VPC security group                   |  sg-02e6fecbba4f6f614 |  default                                              |  vpc-01e885e91c54deb46 |
+|  Security group for Application Load Balancer |  sg-002c3495354348261 |  aws-devops-dev-alb-20250907175605324700000005        |  vpc-0afa64bf5579542eb |
+|  default VPC security group                   |  sg-0fd4a2ce75caaf9b1 |  default                                              |  vpc-0afa64bf5579542eb |
++-----------------------------------------------+-----------------------+-------------------------------------------------------+------------------------+

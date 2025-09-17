@@ -1,0 +1,37 @@
+🚀 Starting AI Nexus Workbench API Server...
+============================================
+Environment: development
+Port: 3001
+
+📦 Using tsx to run TypeScript server...
+🔧 Server AWS Config loaded: {
+  environment: 'development',
+  region: 'us-east-2',
+  dynamodb: { region: 'localhost', endpoint: 'http://localhost:8000' }
+}
+🚀 AI Nexus Workbench API Server running on port 3001
+📍 API Base URL: http://localhost:3001/api
+🏥 Health Check: http://localhost:3001/api/health
+📊 Statistics: http://localhost:3001/api/statistics
+
+📋 Available Endpoints:
+  GET  /api/health                - Service health check
+  GET  /api/toolset-items         - List toolset items
+  POST /api/toolset-items         - Create toolset item
+  PUT  /api/toolset-items/:id     - Update toolset item
+  GET  /api/lab-experiments       - List experiments
+  POST /api/lab-experiments       - Create experiment
+  GET  /api/dashboard-metrics     - List dashboard metrics
+  GET  /api/community-posts       - List community posts
+  GET  /api/education-courses     - List education courses
+  GET  /api/batch                 - Batch data fetch
+  GET  /api/statistics            - System statistics
+
+🌐 CORS enabled for:
+  - http://localhost:8083 (Vite dev server)
+  - http://localhost:3000 (React dev server)
+  - http://localhost:5173 (Vite alternate port)
+
+🛑 Shutting down API server...
+🛑 SIGINT received, shutting down gracefully
+✅ API server closed

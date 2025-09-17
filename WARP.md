@@ -2,7 +2,7 @@
 
 This file provides guidance to WARP (warp.dev) when working with code in this repository.
 
-> **Project:** ai-nexus-workbench  
+> **Project:** diatonic-ai-platform  
 > **Type:** React/TypeScript Web Application  
 > **Framework:** Vite + React + shadcn/ui  
 > **Generated:** 2025-01-07 20:23:00 UTC  
@@ -11,7 +11,7 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 ## Project Overview
 
-AI Nexus Workbench is a comprehensive React-based platform for AI development, featuring visual agent building, AWS integration, and a complete ecosystem for AI education and experimentation. It combines Flowise.ai-inspired drag-and-drop interfaces with DaVinci Resolve-inspired professional tools.
+Diatonic AI is a comprehensive React-based platform for AI development, featuring visual agent building, AWS integration, and a complete ecosystem for AI education and experimentation. It combines Flowise.ai-inspired drag-and-drop interfaces with DaVinci Resolve-inspired professional tools.
 
 **Architecture:**
 - **Frontend:** React 18 + TypeScript + Vite
@@ -241,7 +241,7 @@ Required for AWS integration:
 1. **Clone and setup:**
    ```bash
    git clone <repository-url>
-   cd ai-nexus-workbench
+   cd diatonic-ai-platform
    npm install
    cp .env.example .env.local  # Configure AWS credentials
    ```
@@ -392,7 +392,7 @@ npm run build
 - **WARP Version:** 2.0.0
 - **Last Updated:** 2025-01-07 20:23:00 UTC  
 - **Project Type:** React/TypeScript SPA with AWS Integration
-- **Working Logs:** `~/Documents/working-warp/ai-nexus-workbench__20250107-202300/`
+- **Working Logs:** `~/Documents/working-warp/diatonic-ai-platform__20250107-202300/`
 
 ---
 

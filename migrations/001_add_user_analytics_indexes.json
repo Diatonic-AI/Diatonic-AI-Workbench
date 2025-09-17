@@ -1,0 +1,47 @@
+{
+    "version": "1.0.0",
+    "name": "add_user_analytics_indexes",
+    "description": "TODO: Describe what this migration does",
+    "author": "daclab-ai",
+    "created_at": "2025-09-08 11:58:40 UTC",
+    "target_environment": "all",
+    "backup_required": true,
+    "estimated_duration": "5 minutes",
+    "operations": [
+        {
+            "type": "create_table",
+            "description": "Example: Create new table",
+            "table_name": "ai-nexus-workbench-development-example",
+            "risk_level": "low",
+            "table_definition": {
+                "TableName": "ai-nexus-workbench-development-example",
+                "AttributeDefinitions": [
+                    {
+                        "AttributeName": "id",
+                        "AttributeType": "S"
+                    }
+                ],
+                "KeySchema": [
+                    {
+                        "AttributeName": "id",
+                        "KeyType": "HASH"
+                    }
+                ],
+                "BillingMode": "PAY_PER_REQUEST"
+            }
+        }
+    ],
+    "rollback_procedure": {
+        "description": "TODO: Describe how to rollback this migration",
+        "operations": [
+            {
+                "type": "delete_table",
+                "table_name": "ai-nexus-workbench-development-example"
+            }
+        ]
+    },
+    "validation_steps": [
+        "Verify table was created successfully",
+        "Check table status is ACTIVE"
+    ]
+}

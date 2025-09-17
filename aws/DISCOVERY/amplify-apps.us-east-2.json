@@ -1,0 +1,56 @@
+{
+    "apps": [
+        {
+            "appId": "d3ddhluaptuu35",
+            "appArn": "arn:aws:amplify:us-east-2:313476888312:apps/d3ddhluaptuu35",
+            "name": "diatonic-ai-workbench-staging",
+            "tags": {},
+            "description": "Diatonic AI Workbench - staging environment",
+            "platform": "WEB",
+            "createTime": "2025-09-08T16:28:54.560000-05:00",
+            "updateTime": "2025-09-10T14:04:06.727000-05:00",
+            "environmentVariables": {
+                "NODE_ENV": "development"
+            },
+            "defaultDomain": "d3ddhluaptuu35.amplifyapp.com",
+            "enableBranchAutoBuild": false,
+            "enableBranchAutoDeletion": false,
+            "enableBasicAuth": false,
+            "customRules": [],
+            "customHeaders": "",
+            "enableAutoBranchCreation": false,
+            "cacheConfig": {
+                "type": "AMPLIFY_MANAGED_NO_COOKIES"
+            },
+            "jobConfig": {
+                "buildComputeType": "STANDARD_8GB"
+            }
+        },
+        {
+            "appId": "ddfry2y14h2zr",
+            "appArn": "arn:aws:amplify:us-east-2:313476888312:apps/ddfry2y14h2zr",
+            "name": "diatonic-ai-workbench-development",
+            "tags": {},
+            "description": "Diatonic AI Workbench - development environment",
+            "platform": "WEB",
+            "createTime": "2025-09-08T16:05:24.257000-05:00",
+            "updateTime": "2025-09-08T16:05:24.257000-05:00",
+            "environmentVariables": {
+                "NODE_ENV": "development"
+            },
+            "defaultDomain": "ddfry2y14h2zr.amplifyapp.com",
+            "enableBranchAutoBuild": false,
+            "enableBranchAutoDeletion": false,
+            "enableBasicAuth": false,
+            "customRules": [],
+            "customHeaders": "",
+            "enableAutoBranchCreation": false,
+            "cacheConfig": {
+                "type": "AMPLIFY_MANAGED_NO_COOKIES"
+            },
+            "jobConfig": {
+                "buildComputeType": "STANDARD_8GB"
+            }
+        }
+    ]
+}

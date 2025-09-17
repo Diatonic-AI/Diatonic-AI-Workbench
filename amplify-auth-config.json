@@ -1,0 +1,44 @@
+{
+  "resourceName": "ainexusworkbenchAuth",
+  "serviceConfiguration": {
+    "serviceName": "Cognito",
+    "userPoolConfiguration": {
+      "requiredSignupAttributes": ["email"],
+      "allowUnauthenticatedLogins": false,
+      "mfaConfiguration": "OFF",
+      "mfaTypes": ["SMS Text Message"],
+      "smsAuthenticationMessage": "Your authentication code is {####}",
+      "smsVerificationMessage": "Your verification code is {####}",
+      "emailVerificationSubject": "Your verification code",
+      "emailVerificationMessage": "Your verification code is {####}",
+      "defaultPasswordPolicy": false,
+      "passwordPolicyMinLength": 8,
+      "passwordPolicyCharacters": [],
+      "userPoolGroups": false,
+      "userPoolGroupList": [],
+      "adminCreateUserConfig": {
+        "allowAdminCreateUserOnly": false,
+        "unusedAccountValidityDays": 7
+      },
+      "usernameConfiguration": {
+        "aliasAttributes": ["email"],
+        "caseSensitive": false
+      },
+      "verificationBucketName": "amplifyaiworkbenchdev"
+    },
+    "userWebConfiguration": {
+      "redirectSignIn": "http://localhost:8080/,https://main.d3ddhluaptuu35.amplifyapp.com/",
+      "redirectSignOut": "http://localhost:8080/,https://main.d3ddhluaptuu35.amplifyapp.com/",
+      "socialProviders": [],
+      "domainPrefix": "diatonicaiworkbench",
+      "addUserToGroup": false,
+      "emailVerificationLink": false,
+      "emailVerificationRedirect": "http://localhost:8080/verify-email"
+    },
+    "identityPoolConfiguration": {
+      "allowUnauthenticatedLogins": true,
+      "identityPoolName": "ainexusworkbenchIdentityPool",
+      "allowUnauthenticatedIdentities": true
+    }
+  }
+}

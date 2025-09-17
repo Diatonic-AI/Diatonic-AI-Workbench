@@ -1,0 +1,100 @@
+{
+    "Items": [
+        {
+            "ConnectionType": "INTERNET",
+            "IntegrationId": "3r3gl5r",
+            "IntegrationMethod": "POST",
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-get-subscription-status/invocations",
+            "PayloadFormatVersion": "2.0",
+            "RequestParameters": {
+                "overwrite:header.x-tenant-id": "diatonicvisuals"
+            },
+            "TimeoutInMillis": 15000
+        },
+        {
+            "ConnectionType": "INTERNET",
+            "IntegrationId": "5lyc820",
+            "IntegrationMethod": "POST",
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-create-portal-session/invocations",
+            "PayloadFormatVersion": "2.0",
+            "RequestParameters": {
+                "overwrite:header.x-tenant-id": "diatonicvisuals"
+            },
+            "TimeoutInMillis": 29000
+        },
+        {
+            "ConnectionType": "INTERNET",
+            "IntegrationId": "8e0r6m5",
+            "IntegrationMethod": "POST",
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-cancel-subscription/invocations",
+            "PayloadFormatVersion": "2.0",
+            "RequestParameters": {
+                "overwrite:header.x-tenant-id": "diatonicvisuals"
+            },
+            "TimeoutInMillis": 29000
+        },
+        {
+            "ConnectionType": "INTERNET",
+            "IntegrationId": "n3liiym",
+            "IntegrationMethod": "POST",
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-create-setup-intent/invocations",
+            "PayloadFormatVersion": "2.0",
+            "RequestParameters": {
+                "overwrite:header.x-tenant-id": "diatonicvisuals"
+            },
+            "TimeoutInMillis": 29000
+        },
+        {
+            "ConnectionType": "INTERNET",
+            "IntegrationId": "n6665e0",
+            "IntegrationMethod": "POST",
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-list-invoices/invocations",
+            "PayloadFormatVersion": "2.0",
+            "RequestParameters": {
+                "overwrite:header.x-tenant-id": "diatonicvisuals"
+            },
+            "TimeoutInMillis": 15000
+        },
+        {
+            "ConnectionType": "INTERNET",
+            "IntegrationId": "u9mqt0a",
+            "IntegrationMethod": "POST",
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-create-checkout-session/invocations",
+            "PayloadFormatVersion": "2.0",
+            "RequestParameters": {
+                "overwrite:header.x-tenant-id": "diatonicvisuals"
+            },
+            "TimeoutInMillis": 29000
+        },
+        {
+            "ConnectionType": "INTERNET",
+            "IntegrationId": "xocghps",
+            "IntegrationMethod": "POST",
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-update-subscription/invocations",
+            "PayloadFormatVersion": "2.0",
+            "RequestParameters": {
+                "overwrite:header.x-tenant-id": "diatonicvisuals"
+            },
+            "TimeoutInMillis": 29000
+        },
+        {
+            "ConnectionType": "INTERNET",
+            "IntegrationId": "xx3213u",
+            "IntegrationMethod": "POST",
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationUri": "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-stripe-webhook-handler/invocations",
+            "PayloadFormatVersion": "2.0",
+            "RequestParameters": {
+                "overwrite:header.x-tenant-id": "diatonicvisuals"
+            },
+            "TimeoutInMillis": 29000
+        }
+    ]
+}

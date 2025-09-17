@@ -1,13 +1,16 @@
 
 import type { Config } from "tailwindcss";
 
+import tailwindAnimate from "tailwindcss-animate";
+
 export default {
 	darkMode: ["class"],
 	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
+		"./index.html",
+		"./src/**/*.{js,ts,jsx,tsx,mdx}",
+		"./components/**/*.{js,ts,jsx,tsx,mdx}",
+		"!./src/**/*.{spec,test}.{js,ts,jsx,tsx}",
+		"!./node_modules",
 	],
 	prefix: "",
 	theme: {
@@ -65,9 +68,11 @@ export default {
 				},
 				workbbench: {
 					purple: '#9b87f5',
+					'dark': '#0F1419',
 					'dark-purple': '#1A1F2C',
 					'light-purple': '#D6BCFA',
 					blue: '#33C3F0',
+					cyan: '#22d3ee',
 					orange: '#F97316',
 					red: '#ea384c',
 					green: '#10B981',
@@ -113,5 +118,5 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+		plugins: [tailwindAnimate],
 } satisfies Config;

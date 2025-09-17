@@ -1,0 +1,58 @@
+{
+    "FunctionName": "aws-devops-dev-education-api",
+    "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:aws-devops-dev-education-api",
+    "Runtime": "nodejs18.x",
+    "Role": "arn:aws:iam::313476888312:role/aws-devops-dev-comprehensive-backend-lambda-role",
+    "Handler": "index.handler",
+    "CodeSize": 4989084,
+    "Description": "",
+    "Timeout": 30,
+    "MemorySize": 256,
+    "LastModified": "2025-09-16T18:08:17.000+0000",
+    "CodeSha256": "t44GSIkOcRvhdhN9ZYuCt4RzqGFYpWSeZmm103pGgmc=",
+    "Version": "$LATEST",
+    "DeadLetterConfig": {
+        "TargetArn": "arn:aws:sqs:us-east-2:313476888312:aws-devops-dev-education-dlq"
+    },
+    "Environment": {
+        "Variables": {
+            "DEFAULT_ORGANIZATION_ID": "dev-org",
+            "ENABLE_TENANT_ISOLATION": "true",
+            "S3_BUCKET_NAME": "aiworkbench-education-content-prod",
+            "CORS_ORIGIN": "https://dev.diatonic.ai",
+            "DYNAMODB_REGION": "us-east-2",
+            "COURSES_TABLE": "aws-devops-dev-courses",
+            "ENABLE_DEBUG_MODE": "true",
+            "ENROLLMENTS_TABLE": "aws-devops-dev-enrollments",
+            "CREATE_TEST_DATA": "true",
+            "NODE_ENV": "dev",
+            "LESSONS_TABLE": "aws-devops-dev-lessons",
+            "PROGRESS_TABLE": "aws-devops-dev-lesson-progress",
+            "LOG_LEVEL": "debug"
+        }
+    },
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "2e878c19-1ec5-46e0-a1ea-f35568deb21d",
+    "State": "Active",
+    "LastUpdateStatus": "Successful",
+    "PackageType": "Zip",
+    "Architectures": [
+        "x86_64"
+    ],
+    "EphemeralStorage": {
+        "Size": 512
+    },
+    "SnapStart": {
+        "ApplyOn": "None",
+        "OptimizationStatus": "Off"
+    },
+    "RuntimeVersionConfig": {
+        "RuntimeVersionArn": "arn:aws:lambda:us-east-2::runtime:383248ddd42b9c40948071c40a8f726625554b9d343cee049792b82a21330b2c"
+    },
+    "LoggingConfig": {
+        "LogFormat": "Text",
+        "LogGroup": "/aws/lambda/aws-devops-dev-education-api"
+    }
+}

@@ -1,0 +1,60 @@
+version: '3.7'
+
+services:
+  # LocalStack for AWS services emulation
+  localstack:
+    container_name: diatonic-localstack
+    image: localstack/localstack:2.3
+    ports:
+      - "4566:4566"            # LocalStack Gateway
+    environment:
+      # LocalStack configuration
+      - SERVICES=dynamodb,s3,lambda,apigateway,cognito-idp,cognito-identity,sts,iam
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - HOST_TMP_FOLDER=/tmp/localstack
+      
+      # AWS configuration
+      - AWS_DEFAULT_REGION=us-east-2
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      
+      # DynamoDB specific
+      - DYNAMODB_ERROR_PROBABILITY=0.0
+      
+    volumes:
+      - "/tmp/localstack:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - diatonic-dev
+
+  # DynamoDB Local (primary database for development)
+  dynamodb-local:
+    container_name: diatonic-dynamodb-local
+    image: amazon/dynamodb-local:1.22.0
+    ports:
+      - "8002:8000"  # Your config expects port 8002
+    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-port", "8000"]
+    working_dir: /home/dynamodblocal
+    networks:
+      - diatonic-dev
+
+  # DynamoDB Admin UI (optional, for database management)
+  dynamodb-admin:
+    container_name: diatonic-dynamodb-admin
+    image: aaronshaf/dynamodb-admin:latest
+    ports:
+      - "8001:8001"
+    environment:
+      - DYNAMO_ENDPOINT=http://dynamodb-local:8000
+      - AWS_REGION=us-east-2
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    depends_on:
+      - dynamodb-local
+    networks:
+      - diatonic-dev
+
+networks:
+  diatonic-dev:
+    driver: bridge

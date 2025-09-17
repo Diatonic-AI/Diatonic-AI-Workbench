@@ -1,8 +1,8 @@
 
-import { useState } from 'react';
-import Navbar from '@/components/Navbar';
+import React, { useState } from 'react';
+import { DashboardLayout } from "@/components/layouts/DashboardLayout";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Code, Brain, Star, Clock, ChevronRight, Search, Filter } from 'lucide-react';
+import { BookOpen, Code, Brain, Star, Clock, ChevronRight, Search, Filter, Users, TrendingUp, Award, GraduationCap } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -17,9 +17,12 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 
 const Education = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const courses = [
     {
@@ -65,7 +68,7 @@ const Education = () => {
     {
       id: 5,
       title: 'Agent Building Workshop',
-      description: 'Learn how to build, test, and deploy AI agents using Workbbench tools.',
+      description: 'Learn how to build, test, and deploy AI agents using Diatonic tools.',
       level: 'Intermediate',
       duration: '5 hours',
       rating: 4.6,
@@ -84,257 +87,446 @@ const Education = () => {
     },
   ];
 
-  const filteredCourses = courses.filter(course => 
-    course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    course.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredCourses = courses.filter(course => {
+    const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         course.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-workbbench-dark-purple to-black text-white">
-      <Navbar />
-      
-      {/* Hero Section */}
-      <section className="py-12 bg-gradient-to-r from-workbbench-purple/20 via-workbbench-blue/20 to-workbbench-orange/20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="text-gradient bg-gradient-to-r from-workbbench-purple to-workbbench-blue">AI Education Hub</span>
+    <DashboardLayout>
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-white">
+              AI Education Hub
             </h1>
-            <p className="text-xl text-gray-300 mb-8">
-              Master AI concepts through interactive courses, guided learning paths, and bite-sized video tutorials.
+            <p className="text-muted-foreground mt-1">
+              Master AI concepts through interactive courses, guided learning paths, and tutorials
             </p>
-            <div className="relative max-w-xl mx-auto">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                className="bg-secondary/60 border border-white/10 text-white block w-full pl-10 pr-3 py-3 rounded-md"
-                placeholder="Search for courses, tutorials, or topics..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
           </div>
+          <Button size="lg" className="shadow-lg">
+            <BookOpen className="mr-2 h-4 w-4" />
+            Browse Catalog
+          </Button>
         </div>
-      </section>
-      
-      {/* Learning Paths */}
-      <section className="py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-8">Learning Paths</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="glass-morphism rounded-xl p-6 border-l-4 border-workbbench-purple">
-              <div className="flex items-center mb-4">
-                <div className="p-2 rounded-lg bg-workbbench-purple/20 mr-4">
-                  <BookOpen className="h-6 w-6 text-workbbench-purple" />
-                </div>
-                <h3 className="text-xl font-semibold">AI Fundamentals</h3>
-              </div>
-              <p className="text-gray-300 mb-4">
-                Start your AI journey with the fundamental concepts, terminology, and applications.
+
+        {/* Stats Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Courses</CardTitle>
+              <BookOpen className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">6</div>
+              <p className="text-xs text-muted-foreground">
+                Available courses
               </p>
-              <div className="flex items-center text-sm text-gray-400 mb-4">
-                <div className="flex items-center mr-4">
-                  <Clock className="h-4 w-4 mr-1" />
-                  <span>12 hours</span>
-                </div>
-                <div className="flex items-center">
-                  <BookOpen className="h-4 w-4 mr-1" />
-                  <span>6 courses</span>
-                </div>
-              </div>
-              <Button variant="ghost" className="w-full justify-between">
-                Start Learning
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
-            
-            <div className="glass-morphism rounded-xl p-6 border-l-4 border-workbbench-blue">
-              <div className="flex items-center mb-4">
-                <div className="p-2 rounded-lg bg-workbbench-blue/20 mr-4">
-                  <Code className="h-6 w-6 text-workbbench-blue" />
-                </div>
-                <h3 className="text-xl font-semibold">Machine Learning</h3>
-              </div>
-              <p className="text-gray-300 mb-4">
-                Learn machine learning algorithms, data preparation, and model training techniques.
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Enrollments</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">4,450</div>
+              <p className="text-xs text-muted-foreground">
+                Student enrollments
               </p>
-              <div className="flex items-center text-sm text-gray-400 mb-4">
-                <div className="flex items-center mr-4">
-                  <Clock className="h-4 w-4 mr-1" />
-                  <span>20 hours</span>
-                </div>
-                <div className="flex items-center">
-                  <BookOpen className="h-4 w-4 mr-1" />
-                  <span>10 courses</span>
-                </div>
-              </div>
-              <Button variant="ghost" className="w-full justify-between">
-                Start Learning
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
-            
-            <div className="glass-morphism rounded-xl p-6 border-l-4 border-workbbench-orange">
-              <div className="flex items-center mb-4">
-                <div className="p-2 rounded-lg bg-workbbench-orange/20 mr-4">
-                  <Brain className="h-6 w-6 text-workbbench-orange" />
-                </div>
-                <h3 className="text-xl font-semibold">Agent Building</h3>
-              </div>
-              <p className="text-gray-300 mb-4">
-                Master the art of building, testing, and deploying AI agents for various applications.
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Average Rating</CardTitle>
+              <Star className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">4.7/5</div>
+              <p className="text-xs text-muted-foreground">
+                Course quality rating
               </p>
-              <div className="flex items-center text-sm text-gray-400 mb-4">
-                <div className="flex items-center mr-4">
-                  <Clock className="h-4 w-4 mr-1" />
-                  <span>15 hours</span>
-                </div>
-                <div className="flex items-center">
-                  <BookOpen className="h-4 w-4 mr-1" />
-                  <span>8 courses</span>
-                </div>
-              </div>
-              <Button variant="ghost" className="w-full justify-between">
-                Start Learning
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Lessons</CardTitle>
+              <GraduationCap className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">119</div>
+              <p className="text-xs text-muted-foreground">
+                Learning modules
+              </p>
+            </CardContent>
+          </Card>
         </div>
-      </section>
-      
-      {/* Featured Courses */}
-      <section className="py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold">Courses & Tutorials</h2>
-            <div className="flex items-center mt-4 md:mt-0">
-              <Button variant="outline" size="sm" className="mr-2">
-                <Filter className="h-4 w-4 mr-2" />
-                Filter
-              </Button>
-              <Button variant="outline" size="sm">
-                Sort by: Popular
-              </Button>
-            </div>
+
+        {/* Search and Filter */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Input
+              placeholder="Search courses, tutorials, or topics..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
           </div>
-          
-          <Tabs defaultValue="all" className="mb-8">
-            <TabsList className="bg-secondary/50 mb-6">
-              <TabsTrigger value="all">All Courses</TabsTrigger>
-              <TabsTrigger value="fundamentals">Fundamentals</TabsTrigger>
-              <TabsTrigger value="machine-learning">Machine Learning</TabsTrigger>
-              <TabsTrigger value="llm">LLMs</TabsTrigger>
-              <TabsTrigger value="agent-modeling">Agent Modeling</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="all">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCourses.map((course) => (
-                  <Card key={course.id} className="bg-secondary/50 border-white/10 hover:border-white/20 transition-all">
+          <Button variant="outline">
+            <Filter className="mr-2 h-4 w-4" />
+            Filter
+          </Button>
+        </div>
+
+        {/* Learning Paths */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-primary" />
+                  Learning Paths
+                </CardTitle>
+                <CardDescription>
+                  Structured learning journeys to master AI concepts
+                </CardDescription>
+              </div>
+              <Badge variant="secondary">3 Paths</Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="border-l-4 border-l-primary">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-primary/20">
+                      <BookOpen className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">AI Fundamentals</CardTitle>
+                      <CardDescription>Start your AI journey</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-4 w-4" />
+                      <span>12 hours</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <BookOpen className="h-4 w-4" />
+                      <span>6 courses</span>
+                    </div>
+                  </div>
+                  <Button variant="outline" className="w-full">
+                    Start Learning
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+              
+              <Card className="border-l-4 border-l-blue-500">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-blue-500/20">
+                      <Code className="h-5 w-5 text-blue-500" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">Machine Learning</CardTitle>
+                      <CardDescription>Build intelligent models</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-4 w-4" />
+                      <span>20 hours</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <BookOpen className="h-4 w-4" />
+                      <span>10 courses</span>
+                    </div>
+                  </div>
+                  <Button variant="outline" className="w-full">
+                    Start Learning
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+              
+              <Card className="border-l-4 border-l-orange-500">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-orange-500/20">
+                      <Brain className="h-5 w-5 text-orange-500" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">Agent Building</CardTitle>
+                      <CardDescription>Create AI agents</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-4 w-4" />
+                      <span>15 hours</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <BookOpen className="h-4 w-4" />
+                      <span>8 courses</span>
+                    </div>
+                  </div>
+                  <Button variant="outline" className="w-full">
+                    Start Learning
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Courses and Tutorials */}
+        <Tabs defaultValue="all" className="w-full">
+          <TabsList className="mb-6">
+            <TabsTrigger value="all">
+              <BookOpen className="mr-2 h-4 w-4" />
+              All Courses
+            </TabsTrigger>
+            <TabsTrigger value="fundamentals">
+              Fundamentals
+            </TabsTrigger>
+            <TabsTrigger value="machine-learning">
+              Machine Learning
+            </TabsTrigger>
+            <TabsTrigger value="llm">
+              LLMs
+            </TabsTrigger>
+            <TabsTrigger value="agent-modeling">
+              Agent Modeling
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="all" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredCourses.map((course) => (
+                <Card key={course.id} className="hover:shadow-lg transition-shadow">
+                  <div className="h-40 bg-muted rounded-t-lg overflow-hidden">
+                    <img 
+                      src={course.image} 
+                      alt={course.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="text-lg">{course.title}</CardTitle>
+                    <CardDescription>{course.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          <Clock className="h-4 w-4" />
+                          <span>{course.duration}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                          <span>{course.rating}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <Badge variant="outline" className="mb-4">
+                      {course.level}
+                    </Badge>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full">
+                      <BookOpen className="mr-2 h-4 w-4" />
+                      Enroll Now
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="fundamentals" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredCourses
+                .filter(course => course.category === 'fundamentals')
+                .map((course) => (
+                  <Card key={course.id} className="hover:shadow-lg transition-shadow">
                     <div className="h-40 bg-muted rounded-t-lg overflow-hidden">
                       <img 
                         src={course.image} 
                         alt={course.title}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
                       />
                     </div>
                     <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle>{course.title}</CardTitle>
-                          <CardDescription className="text-gray-400 mt-1">{course.description}</CardDescription>
-                        </div>
-                      </div>
+                      <CardTitle className="text-lg">{course.title}</CardTitle>
+                      <CardDescription>{course.description}</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex items-center text-sm text-gray-400 mb-2">
-                        <div className="flex items-center mr-4">
-                          <Clock className="h-4 w-4 mr-1" />
-                          <span>{course.duration}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <Star className="h-4 w-4 mr-1 text-yellow-500" />
-                          <span>{course.rating}</span>
-                        </div>
-                      </div>
-                      <span className="inline-block px-2 py-1 rounded-full text-xs bg-workbbench-purple/20 text-workbbench-purple">
-                        {course.level}
-                      </span>
-                    </CardContent>
-                    <CardFooter>
-                      <Button className="w-full">Enroll Now</Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-            
-            <TabsContent value="fundamentals">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCourses
-                  .filter(course => course.category === 'fundamentals')
-                  .map((course) => (
-                    <Card key={course.id} className="bg-secondary/50 border-white/10 hover:border-white/20 transition-all">
-                      <div className="h-40 bg-muted rounded-t-lg overflow-hidden">
-                        <img 
-                          src={course.image} 
-                          alt={course.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <CardTitle>{course.title}</CardTitle>
-                            <CardDescription className="text-gray-400 mt-1">{course.description}</CardDescription>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex items-center text-sm text-gray-400 mb-2">
-                          <div className="flex items-center mr-4">
-                            <Clock className="h-4 w-4 mr-1" />
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
                             <span>{course.duration}</span>
                           </div>
-                          <div className="flex items-center">
-                            <Star className="h-4 w-4 mr-1 text-yellow-500" />
+                          <div className="flex items-center gap-1">
+                            <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
                             <span>{course.rating}</span>
                           </div>
                         </div>
-                        <span className="inline-block px-2 py-1 rounded-full text-xs bg-workbbench-purple/20 text-workbbench-purple">
-                          {course.level}
-                        </span>
-                      </CardContent>
-                      <CardFooter>
-                        <Button className="w-full">Enroll Now</Button>
-                      </CardFooter>
-                    </Card>
-                  ))}
-              </div>
-            </TabsContent>
-            
-            {/* Similar TabsContent sections for other categories */}
-          </Tabs>
+                      </div>
+                      <Badge variant="outline" className="mb-4">
+                        {course.level}
+                      </Badge>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full">
+                        <BookOpen className="mr-2 h-4 w-4" />
+                        Enroll Now
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+            </div>
+          </TabsContent>
+
+          {/* Add similar TabsContent for other categories */}
+          <TabsContent value="machine-learning" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredCourses
+                .filter(course => course.category === 'machine-learning')
+                .map((course) => (
+                  <Card key={course.id} className="hover:shadow-lg transition-shadow">
+                    <CardHeader>
+                      <CardTitle className="text-lg">{course.title}</CardTitle>
+                      <CardDescription>{course.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            <span>{course.duration}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                            <span>{course.rating}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <Badge variant="outline">
+                        {course.level}
+                      </Badge>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full">
+                        <BookOpen className="mr-2 h-4 w-4" />
+                        Enroll Now
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+            </div>
+          </TabsContent>
           
-          <div className="mt-8 text-center">
-            <Button variant="outline" size="lg">
-              Load More Courses
-            </Button>
-          </div>
-        </div>
-      </section>
-      
-      {/* Footer */}
-      <footer className="py-8 bg-workbbench-dark-purple border-t border-white/10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-400">© 2025 Workbbench. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
+          <TabsContent value="llm" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredCourses
+                .filter(course => course.category === 'llm')
+                .map((course) => (
+                  <Card key={course.id} className="hover:shadow-lg transition-shadow">
+                    <CardHeader>
+                      <CardTitle className="text-lg">{course.title}</CardTitle>
+                      <CardDescription>{course.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            <span>{course.duration}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                            <span>{course.rating}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <Badge variant="outline">
+                        {course.level}
+                      </Badge>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full">
+                        <BookOpen className="mr-2 h-4 w-4" />
+                        Enroll Now
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="agent-modeling" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredCourses
+                .filter(course => course.category === 'agent-modeling')
+                .map((course) => (
+                  <Card key={course.id} className="hover:shadow-lg transition-shadow">
+                    <CardHeader>
+                      <CardTitle className="text-lg">{course.title}</CardTitle>
+                      <CardDescription>{course.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            <span>{course.duration}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                            <span>{course.rating}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <Badge variant="outline">
+                        {course.level}
+                      </Badge>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full">
+                        <BookOpen className="mr-2 h-4 w-4" />
+                        Enroll Now
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </DashboardLayout>
   );
 };
 

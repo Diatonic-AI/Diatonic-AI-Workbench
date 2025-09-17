@@ -1,0 +1,32 @@
+{
+  "ai-nexus-dev-stripe-stripe-webhook-handler": {
+    "TABLE_CUSTOMERS": "diatonic-ai-stripe-customers",
+    "TABLE_SUBSCRIPTIONS": "diatonic-ai-stripe-subscriptions",
+    "TABLE_INVOICES": "diatonic-ai-stripe-invoices",
+    "TABLE_IDEMPOTENCY": "diatonic-ai-stripe-idempotency"
+  },
+  "ai-nexus-dev-stripe-get-subscription-status": {
+    "TABLE_CUSTOMERS": "diatonic-ai-stripe-customers",
+    "TABLE_SUBSCRIPTIONS": "diatonic-ai-stripe-subscriptions"
+  },
+  "ai-nexus-dev-stripe-update-subscription": {
+    "TABLE_CUSTOMERS": "diatonic-ai-stripe-customers",
+    "TABLE_SUBSCRIPTIONS": "diatonic-ai-stripe-subscriptions"
+  },
+  "ai-nexus-dev-stripe-create-checkout-session": {
+    "TABLE_CUSTOMERS": "diatonic-ai-stripe-customers",
+    "TABLE_SUBSCRIPTIONS": "diatonic-ai-stripe-subscriptions"
+  },
+  "ai-nexus-dev-stripe-create-setup-intent": {
+    "TABLE_CUSTOMERS": "diatonic-ai-stripe-customers"
+  },
+  "ai-nexus-dev-stripe-create-portal-session": {
+    "TABLE_CUSTOMERS": "diatonic-ai-stripe-customers"
+  },
+  "ai-nexus-dev-stripe-list-invoices": {
+    "TABLE_INVOICES": "diatonic-ai-stripe-invoices"
+  },
+  "ai-nexus-dev-stripe-cancel-subscription": {
+    "TABLE_SUBSCRIPTIONS": "diatonic-ai-stripe-subscriptions"
+  }
+}

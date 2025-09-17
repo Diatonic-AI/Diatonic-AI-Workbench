@@ -1,0 +1,30 @@
+------------------------------------------------------------------------------------
+|                                    ListBuckets                                   |
++----------------------------+-----------------------------------------------------+
+|        CreationDate        |                        Name                         |
++----------------------------+-----------------------------------------------------+
+|  2025-09-09T07:19:13+00:00 |  amplify-ainexusworkbench-dev-7627f-deployment      |
+|  2025-09-07T17:55:59+00:00 |  aws-devops-dev-application-development-dzfngw8v    |
+|  2025-08-25T08:03:26+00:00 |  aws-devops-dev-application-development-gwenbxgb    |
+|  2025-09-07T17:55:59+00:00 |  aws-devops-dev-backup-development-dzfngw8v         |
+|  2025-08-25T08:03:26+00:00 |  aws-devops-dev-backup-development-gwenbxgb         |
+|  2025-09-07T17:55:59+00:00 |  aws-devops-dev-compliance-development-dzfngw8v     |
+|  2025-08-25T08:03:26+00:00 |  aws-devops-dev-compliance-development-gwenbxgb     |
+|  2025-09-07T17:55:59+00:00 |  aws-devops-dev-logs-development-dzfngw8v           |
+|  2025-08-25T08:03:26+00:00 |  aws-devops-dev-logs-development-gwenbxgb           |
+|  2025-09-08T05:42:34+00:00 |  aws-devops-dev-static-assets-development-dzfngw8v  |
+|  2025-08-25T09:33:31+00:00 |  aws-devops-dev-static-assets-development-gwenbxgb  |
+|  2025-09-07T23:37:58+00:00 |  aws-devops-dev-user-content                        |
+|  2025-09-08T12:03:15+00:00 |  aws-devops-terraform-state-unified-xewhyolb        |
+|  2025-08-25T06:43:11+00:00 |  diatonic-prod-application-production-kkfasrcr      |
+|  2025-08-25T06:43:11+00:00 |  diatonic-prod-backup-production-kkfasrcr           |
+|  2025-08-25T06:43:11+00:00 |  diatonic-prod-compliance-production-kkfasrcr       |
+|  2025-08-25T06:43:11+00:00 |  diatonic-prod-data-lake-production-kkfasrcr        |
+|  2025-08-25T12:10:22+00:00 |  diatonic-prod-frontend-bnhhi105                    |
+|  2025-08-25T06:43:11+00:00 |  diatonic-prod-logs-production-kkfasrcr             |
+|  2025-08-25T06:43:11+00:00 |  diatonic-prod-static-assets-production-kkfasrcr    |
+|  2025-09-07T17:36:33+00:00 |  minio-standalone-dev-minio-backups-10b24c3f        |
+|  2025-09-07T17:36:33+00:00 |  minio-standalone-dev-minio-data-10b24c3f           |
+|  2025-09-07T17:36:33+00:00 |  minio-standalone-dev-minio-logs-10b24c3f           |
+|  2025-09-07T17:36:33+00:00 |  minio-standalone-dev-minio-uploads-10b24c3f        |
++----------------------------+-----------------------------------------------------+

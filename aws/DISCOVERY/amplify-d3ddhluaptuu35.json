@@ -1,0 +1,78 @@
+{
+    "app": {
+        "appId": "d3ddhluaptuu35",
+        "appArn": "arn:aws:amplify:us-east-2:313476888312:apps/d3ddhluaptuu35",
+        "name": "diatonic-ai-workbench",
+        "tags": {},
+        "description": "Diatonic AI Workbench - Main application (renamed from staging)",
+        "repository": "https://github.com/diatonic-ai/diatonic-ai-workbench",
+        "platform": "WEB",
+        "createTime": "2025-09-08T16:28:54.560000-05:00",
+        "updateTime": "2025-09-16T23:44:02.780000-05:00",
+        "iamServiceRoleArn": "arn:aws:iam::313476888312:role/diatonic-ai-amplify-service-role",
+        "environmentVariables": {
+            "AMPLIFY_DIFF_DEPLOY": "false",
+            "NODE_VERSION": "18.20.0",
+            "NPM_VERSION": "10.5.0",
+            "VITE_API_GATEWAY_STAGE": "dev",
+            "VITE_API_GATEWAY_URL": "https://api.diatonic.ai",
+            "VITE_APP_DOMAIN": "app.diatonic.ai",
+            "VITE_APP_NAME": "Diatonic AI",
+            "VITE_APP_URL": "https://app.diatonic.ai",
+            "VITE_APP_VERSION": "1.0.0",
+            "VITE_AWS_COGNITO_IDENTITY_POOL_ID": "us-east-2:a2e34991-8c53-4a48-82ad-3e6cac24bf6e",
+            "VITE_AWS_COGNITO_USER_POOL_CLIENT_ID": "255nrv65p74othncgirpi06e5m",
+            "VITE_AWS_COGNITO_USER_POOL_ID": "us-east-2_S9gdn0Gj7",
+            "VITE_AWS_REGION": "us-east-2",
+            "VITE_BILLING_API_URL": "https://api.diatonic.ai/billing",
+            "VITE_CLOUDFRONT_DOMAIN": "cdn.diatonic.ai",
+            "VITE_DYNAMODB_FILES_TABLE": "diatonic-ai-dev-files",
+            "VITE_DYNAMODB_SESSIONS_TABLE": "diatonic-ai-dev-sessions",
+            "VITE_DYNAMODB_USER_DATA_TABLE": "diatonic-ai-dev-files",
+            "VITE_ENABLE_ANALYTICS": "false",
+            "VITE_ENABLE_CSP": "true",
+            "VITE_ENABLE_DEBUG_LOGGING": "false",
+            "VITE_ENABLE_FILE_UPLOAD": "true",
+            "VITE_ENABLE_HSTS": "true",
+            "VITE_ENABLE_PERFORMANCE_MONITORING": "true",
+            "VITE_ENABLE_SECURE_HEADERS": "true",
+            "VITE_ENABLE_SUBDOMAIN_ROUTING": "false",
+            "VITE_PRICE_ENTERPRISE": "price_enterprise_id",
+            "VITE_PRICE_PREMIUM_ANNUAL": "price_premium_annual_id",
+            "VITE_PRICE_PREMIUM_MONTHLY": "price_premium_monthly_id",
+            "VITE_S3_BUCKET_NAME": "diatonic-ai-dev-assets",
+            "VITE_S3_REGION": "cdn.diatonic.ai",
+            "VITE_STRIPE_MODE": "live",
+            "VITE_STRIPE_PUBLISHABLE_KEY": "pk_live_your_stripe_key_here",
+            "VITE_TENANT_ID": "diatonic",
+            "_LIVE_UPDATES": "[{\"pkg\":\"@aws-amplify/cli\",\"type\":\"npm\",\"version\":\"latest\"}]"
+        },
+        "defaultDomain": "d3ddhluaptuu35.amplifyapp.com",
+        "enableBranchAutoBuild": false,
+        "enableBranchAutoDeletion": false,
+        "enableBasicAuth": false,
+        "customRules": [
+            {
+                "source": "/<*>",
+                "target": "/index.html",
+                "status": "404-200"
+            }
+        ],
+        "productionBranch": {
+            "lastDeployTime": "2025-09-16T23:46:02.287000-05:00",
+            "status": "FAILED",
+            "branchName": "main"
+        },
+        "buildSpec": "version: 1\n# AWS Amplify Build Specification for React+Vite+shadcn+Tailwind+TypeScript\n# Optimized for modern React applications with AWS SDK integration\n\n# Environment variables (will be set in Amplify Console or via CLI)\nenvironment:\n  variables:\n    NODE_ENV: production\n    VITE_NODE_ENV: production\n    # AWS configuration will be automatically provided by Amplify\n    VITE_AWS_REGION: us-east-2\n    # Application configuration\n    VITE_APP_NAME: \"AI Nexus Workbench\"\n    VITE_APP_VERSION: \"1.0.0\"\n    VITE_APP_DOMAIN: \"localhost:8080\"\n    # Feature flags\n    VITE_ENABLE_DEBUG_LOGGING: \"false\"\n    VITE_ENABLE_ANALYTICS: \"true\"\n    VITE_ENABLE_PERFORMANCE_MONITORING: \"true\"\n\nfrontend:\n  phases:\n    # Pre-build phase: Install dependencies and setup\n    preBuild:\n      commands:\n        - echo \"ð§ Starting pre-build phase for React+Vite+shadcn+Tailwind app\"\n        - echo \"ð¦ Node version:\" && node --version\n        - echo \"ð¦ npm version:\" && npm --version\n        \n        # Update npm and install dependencies\n        - npm install -g npm@latest\n        - echo \"ð¥ Installing dependencies...\"\n        - npm ci --production=false\n        \n        # Update browserslist database for optimal Tailwind/PostCSS compilation\n        - echo \"ð Updating browserslist...\"\n        - npm run update-browserslist || npx update-browserslist-db@latest\n        \n        # Verify AWS SDK configuration\n        - echo \"âï¸  AWS SDK modules available:\"\n        - ls node_modules/@aws-sdk/ | head -5\n        \n        # Verify shadcn/ui components\n        - echo \"ð¨ shadcn/ui components available:\"\n        - ls node_modules/@radix-ui/ | head -5\n        \n    # Build phase: Compile the application\n    build:\n      commands:\n        - echo \"ðï¸  Starting build phase for production...\"\n        \n        # Clean any previous builds\n        - npm run clean || rm -rf dist node_modules/.vite\n        \n        # Build the application with production optimizations\n        - echo \"ð Building React+Vite+Tailwind app...\"\n        - npm run build\n        \n        # Verify build output\n        - echo \"ð Build completed. Contents of dist/:\"\n        - ls -la dist/\n        \n        # Check build size and optimization\n        - echo \"ð Build size analysis:\"\n        - du -sh dist/\n        - find dist/ -name \"*.js\" -exec ls -lh {} \\; | head -5\n        \n        # Verify critical files exist\n        - test -f dist/index.html && echo \"â index.html exists\"\n        - test -d dist/assets && echo \"â assets directory exists\"\n        \n        # Create _redirects file for React Router SPA support\n        - echo \"ð Creating _redirects for SPA routing...\"\n        - echo \"/* /index.html 200\" > dist/_redirects\n        \n  # Build artifacts - what gets deployed\n  artifacts:\n    baseDirectory: dist\n    files:\n      - '**/*'\n  \n  # Cache configuration for faster builds\n  cache:\n    paths:\n      - node_modules/**/*\n      - .npm/**/*\n      - ~/.cache/yarn/**/*\n\n# Custom headers for optimal performance\ncustomHeaders:\n  - pattern: '**/*'\n    headers:\n      - key: 'Strict-Transport-Security'\n        value: 'max-age=31536000; includeSubDomains'\n      - key: 'X-Content-Type-Options'\n        value: 'nosniff'\n      - key: 'X-Frame-Options'\n        value: 'DENY'\n      - key: 'X-XSS-Protection'\n        value: '1; mode=block'\n      - key: 'Referrer-Policy'\n        value: 'strict-origin-when-cross-origin'\n  \n  # Optimize caching for static assets\n  - pattern: '/assets/**'\n    headers:\n      - key: 'Cache-Control'\n        value: 'public, max-age=31536000, immutable'\n  \n  - pattern: '*.js'\n    headers:\n      - key: 'Cache-Control'\n        value: 'public, max-age=31536000, immutable'\n  \n  - pattern: '*.css'\n    headers:\n      - key: 'Cache-Control'\n        value: 'public, max-age=31536000, immutable'\n  \n  - pattern: '*.woff2'\n    headers:\n      - key: 'Cache-Control'\n        value: 'public, max-age=31536000, immutable'\n\n# Performance monitoring\nmonitoring:\n  enabled: true\n  \n# Branch-specific configuration\nbranches:\n  main:\n    environment:\n      variables:\n        VITE_NODE_ENV: production\n        VITE_ENABLE_DEBUG_LOGGING: \"false\"\n  \n  develop:\n    environment:\n      variables:\n        VITE_NODE_ENV: development\n        VITE_ENABLE_DEBUG_LOGGING: \"true\"\n        VITE_ENABLE_ANALYTICS: \"false\"\n",
+        "customHeaders": "",
+        "enableAutoBranchCreation": false,
+        "repositoryCloneMethod": "TOKEN",
+        "cacheConfig": {
+            "type": "AMPLIFY_MANAGED_NO_COOKIES"
+        },
+        "webhookCreateTime": "2025-09-16T23:44:02.520000-05:00",
+        "jobConfig": {
+            "buildComputeType": "STANDARD_8GB"
+        }
+    }
+}

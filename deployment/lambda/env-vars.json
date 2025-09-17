@@ -1,0 +1,17 @@
+{
+  "Variables": {
+    "DEFAULT_ORGANIZATION_ID": "dev-org",
+    "COURSES_TABLE": "aws-devops-dev-courses", 
+    "ENABLE_DEBUG_MODE": "true",
+    "ENROLLMENTS_TABLE": "aws-devops-dev-enrollments",
+    "CREATE_TEST_DATA": "true",
+    "NODE_ENV": "dev",
+    "ENABLE_TENANT_ISOLATION": "true", 
+    "LESSONS_TABLE": "aws-devops-dev-lessons",
+    "PROGRESS_TABLE": "aws-devops-dev-lesson-progress",
+    "LOG_LEVEL": "debug",
+    "CORS_ORIGIN": "https://dev.diatonic.ai",
+    "DYNAMODB_REGION": "us-east-2",
+    "S3_BUCKET_NAME": "aiworkbench-education-content-prod"
+  }
+}

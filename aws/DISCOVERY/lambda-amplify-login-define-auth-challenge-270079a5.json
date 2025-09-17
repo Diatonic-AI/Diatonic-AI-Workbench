@@ -1,0 +1,38 @@
+{
+    "FunctionName": "amplify-login-define-auth-challenge-270079a5",
+    "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:amplify-login-define-auth-challenge-270079a5",
+    "Runtime": "nodejs20.x",
+    "Role": "arn:aws:iam::313476888312:role/amplify-login-lambda-270079a5",
+    "Handler": "index.handler",
+    "CodeSize": 1798,
+    "Description": "",
+    "Timeout": 15,
+    "MemorySize": 256,
+    "LastModified": "2025-09-09T07:22:29.076+0000",
+    "CodeSha256": "kTFtxiRCTWb0Q2yQPpPbyDsL2Ytk3xNRTLe5NQz8njI=",
+    "Version": "$LATEST",
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "0ee8e628-64ca-4a41-be84-8e226b31fb0d",
+    "State": "Active",
+    "LastUpdateStatus": "Successful",
+    "PackageType": "Zip",
+    "Architectures": [
+        "x86_64"
+    ],
+    "EphemeralStorage": {
+        "Size": 512
+    },
+    "SnapStart": {
+        "ApplyOn": "None",
+        "OptimizationStatus": "Off"
+    },
+    "RuntimeVersionConfig": {
+        "RuntimeVersionArn": "arn:aws:lambda:us-east-2::runtime:1ffa4c233e75382c8a39aa96770f3b81af75cba9794a5c2a1750c1ee63cdfe10"
+    },
+    "LoggingConfig": {
+        "LogFormat": "Text",
+        "LogGroup": "/aws/lambda/amplify-login-define-auth-challenge-270079a5"
+    }
+}

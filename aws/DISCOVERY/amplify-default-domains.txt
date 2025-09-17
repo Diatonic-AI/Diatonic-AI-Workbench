@@ -1,0 +1,10 @@
+{
+  "name": "diatonic-ai-workbench-staging",
+  "appId": "d3ddhluaptuu35",
+  "defaultDomain": "d3ddhluaptuu35.amplifyapp.com"
+}
+{
+  "name": "diatonic-ai-workbench-development",
+  "appId": "ddfry2y14h2zr",
+  "defaultDomain": "ddfry2y14h2zr.amplifyapp.com"
+}

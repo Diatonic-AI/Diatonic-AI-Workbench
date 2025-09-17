@@ -12,11 +12,21 @@
     "moduleDetection": "force",
     "noEmit": true,
 
-    /* Linting */
+    /* Enhanced Type Checking */
     "strict": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": true
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@aws-lambda-powertools/logger/types": ["node_modules/@aws-lambda-powertools/logger/types"],
+      "@aws-lambda-powertools/metrics/types": ["node_modules/@aws-lambda-powertools/metrics/types"],
+      "@aws-lambda-powertools/tracer/types": ["node_modules/@aws-lambda-powertools/tracer/types"],
+      "@aws-lambda-powertools/commons/types": ["node_modules/@aws-lambda-powertools/commons/types"]
+    }
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "*.config.js", "*.config.ts"]
 }

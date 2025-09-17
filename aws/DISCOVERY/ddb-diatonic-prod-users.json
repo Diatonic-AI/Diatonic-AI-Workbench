@@ -1,0 +1,75 @@
+{
+    "Table": {
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "email",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "user_id",
+                "AttributeType": "S"
+            }
+        ],
+        "TableName": "diatonic-prod-users",
+        "KeySchema": [
+            {
+                "AttributeName": "user_id",
+                "KeyType": "HASH"
+            }
+        ],
+        "TableStatus": "ACTIVE",
+        "CreationDateTime": "2025-08-25T06:41:51.419000-05:00",
+        "ProvisionedThroughput": {
+            "NumberOfDecreasesToday": 0,
+            "ReadCapacityUnits": 0,
+            "WriteCapacityUnits": 0
+        },
+        "TableSizeBytes": 0,
+        "ItemCount": 0,
+        "TableArn": "arn:aws:dynamodb:us-east-2:313476888312:table/diatonic-prod-users",
+        "TableId": "5318a704-4f4b-45f8-aeb4-be99e1ccedf7",
+        "BillingModeSummary": {
+            "BillingMode": "PAY_PER_REQUEST",
+            "LastUpdateToPayPerRequestDateTime": "2025-08-25T06:41:51.419000-05:00"
+        },
+        "GlobalSecondaryIndexes": [
+            {
+                "IndexName": "email-index",
+                "KeySchema": [
+                    {
+                        "AttributeName": "email",
+                        "KeyType": "HASH"
+                    }
+                ],
+                "Projection": {
+                    "ProjectionType": "ALL"
+                },
+                "IndexStatus": "ACTIVE",
+                "ProvisionedThroughput": {
+                    "NumberOfDecreasesToday": 0,
+                    "ReadCapacityUnits": 0,
+                    "WriteCapacityUnits": 0
+                },
+                "IndexSizeBytes": 0,
+                "ItemCount": 0,
+                "IndexArn": "arn:aws:dynamodb:us-east-2:313476888312:table/diatonic-prod-users/index/email-index",
+                "WarmThroughput": {
+                    "ReadUnitsPerSecond": 12000,
+                    "WriteUnitsPerSecond": 4000,
+                    "Status": "ACTIVE"
+                }
+            }
+        ],
+        "SSEDescription": {
+            "Status": "ENABLED",
+            "SSEType": "KMS",
+            "KMSMasterKeyArn": "arn:aws:kms:us-east-2:313476888312:key/db926bb8-67e9-4928-9a58-90e645e0ab5a"
+        },
+        "DeletionProtectionEnabled": false,
+        "WarmThroughput": {
+            "ReadUnitsPerSecond": 12000,
+            "WriteUnitsPerSecond": 4000,
+            "Status": "ACTIVE"
+        }
+    }
+}

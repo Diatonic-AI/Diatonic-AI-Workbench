@@ -1,0 +1,11 @@
+{
+    "tableName": "diatonic-ai-user-profiles",
+    "partitionKey": "id",
+    "partitionKeyType": "S",
+    "sortKey": "",
+    "sortKeyType": "",
+    "gsi": [],
+    "stream": [],
+    "serverSideEncryption": false,
+    "pointInTimeRecovery": false
+}

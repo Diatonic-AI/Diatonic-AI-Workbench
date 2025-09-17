@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 
 // Sign In Component
 interface SignInProps {
@@ -34,8 +34,9 @@ export const SignIn: React.FC<SignInProps> = ({
     try {
       await signIn(formData.username, formData.password);
       onSuccess?.();
-    } catch (error: any) {
-      setError(error.message || 'An error occurred during sign in');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred during sign in';
+      setError(errorMessage);
     }
   };
 
@@ -43,7 +44,7 @@ export const SignIn: React.FC<SignInProps> = ({
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
         <CardTitle>Welcome Back</CardTitle>
-        <CardDescription>Sign in to your AI Nexus Workbench account</CardDescription>
+        <CardDescription>Sign in to your Diatonic AI account</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
@@ -168,8 +169,9 @@ export const SignUp: React.FC<SignUpProps> = ({ onSwitchToSignIn, onSuccess }) =
     try {
       await signUp(formData.username, formData.email, formData.password);
       onSuccess?.(formData.username);
-    } catch (error: any) {
-      setError(error.message || 'An error occurred during sign up');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred during sign up';
+      setError(errorMessage);
     }
   };
 
@@ -177,7 +179,7 @@ export const SignUp: React.FC<SignUpProps> = ({ onSwitchToSignIn, onSuccess }) =
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
         <CardTitle>Create Account</CardTitle>
-        <CardDescription>Join the AI Nexus Workbench community</CardDescription>
+        <CardDescription>Join the Diatonic AI community</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
@@ -309,8 +311,9 @@ export const ConfirmSignUp: React.FC<ConfirmSignUpProps> = ({
     try {
       await confirmSignUp(username, confirmationCode);
       onSuccess?.();
-    } catch (error: any) {
-      setError(error.message || 'Invalid confirmation code');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Invalid confirmation code';
+      setError(errorMessage);
     }
   };
 
@@ -321,8 +324,9 @@ export const ConfirmSignUp: React.FC<ConfirmSignUpProps> = ({
     try {
       await resendConfirmationCode(username);
       onResendCode?.();
-    } catch (error: any) {
-      setError(error.message || 'Failed to resend confirmation code');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to resend confirmation code';
+      setError(errorMessage);
     } finally {
       setIsResending(false);
     }

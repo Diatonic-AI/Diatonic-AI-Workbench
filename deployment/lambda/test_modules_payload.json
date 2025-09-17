@@ -1,0 +1,21 @@
+{
+  "httpMethod": "GET",
+  "path": "/education/modules",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "queryStringParameters": null,
+  "body": null,
+  "requestContext": {
+    "httpMethod": "GET",
+    "resourcePath": "/education/modules",
+    "authorizer": {
+      "claims": {
+        "sub": "test-user-12345",
+        "custom:tenant": "test-tenant",
+        "custom:role": "basic"
+      }
+    }
+  },
+  "pathParameters": null
+}

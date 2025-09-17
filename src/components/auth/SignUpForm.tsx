@@ -20,7 +20,7 @@ const SignUpForm: React.FC = () => {
   return (
     <AuthLayout 
       title="Create Your Account" 
-      subtitle="Join the AI Nexus Workbench community"
+      subtitle="Join the Diatonic AI community"
     >
       <SignUp
         onSwitchToSignIn={handleSwitchToSignIn}

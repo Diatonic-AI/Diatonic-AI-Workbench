@@ -30,15 +30,16 @@ const developmentConfig: AWSConfig = {
     identityPoolId: import.meta.env.VITE_AWS_COGNITO_IDENTITY_POOL_ID || '',
   },
   apiGateway: {
-    endpoint: import.meta.env.VITE_API_GATEWAY_URL || 'https://dev-api.diatonic.ai',
+    endpoint: import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_GATEWAY_URL || 'https://api.dev.diatonic.ai',
     region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
   },
   s3: {
-    bucket: import.meta.env.VITE_S3_BUCKET_NAME || 'ai-nexus-workbench-dev',
-    region: import.meta.env.VITE_S3_REGION || 'us-east-2',
+    bucket: import.meta.env.VITE_AWS_S3_BUCKET || import.meta.env.VITE_S3_BUCKET_NAME || 'aws-devops-dev-static-assets-development-gwenbxgb',
+    region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
   },
   dynamodb: {
     region: import.meta.env.VITE_AWS_REGION || 'us-east-2',
+    endpoint: import.meta.env.VITE_DYNAMODB_ENDPOINT || 'http://localhost:8002',
   },
 };
 
@@ -93,6 +94,48 @@ const getEnvironment = (): 'development' | 'staging' | 'production' => {
   return 'development';
 };
 
+// Get OAuth domain based on environment
+const getOAuthDomain = (environment: string, region: string): string => {
+  // Use explicit domain from environment variable if provided
+  if (import.meta.env.VITE_AUTH_DOMAIN) {
+    return import.meta.env.VITE_AUTH_DOMAIN;
+  }
+  
+  // Environment-specific domain mapping
+  switch (environment) {
+    case 'production':
+      return `ai-nexus-bnhhi105.auth.${region}.amazoncognito.com`;
+    case 'staging':
+      return `ai-nexus-workbench-staging.auth.${region}.amazoncognito.com`;
+    default:
+      return `ai-nexus-workbench-dev-auth.auth.${region}.amazoncognito.com`;
+  }
+};
+
+// Get redirect URLs based on environment and type
+const getRedirectUrls = (environment: string, type: 'signin' | 'signout'): string[] => {
+  const baseUrls = {
+    development: ['http://localhost:8080/', 'https://dev.diatonic.ai/'],
+    staging: ['https://staging.diatonic.ai/'],
+    production: ['https://app.diatonic.ai/', 'https://diatonic.ai/'] // app.diatonic.ai = toolset/lab, diatonic.ai = frontend
+  };
+  
+  const envUrls = baseUrls[environment as keyof typeof baseUrls] || baseUrls.development;
+  
+  if (type === 'signin') {
+    // Add auth callback paths for sign-in
+    return envUrls.map(url => {
+      if (url.includes('localhost')) {
+        return url; // Keep localhost as-is
+      }
+      return url.endsWith('/') ? `${url}auth/callback` : `${url}/auth/callback`;
+    });
+  } else {
+    // Use base URLs for sign-out
+    return envUrls;
+  }
+};
+
 // Get configuration based on environment
 export const getAWSConfig = (): AWSConfig => {
   const environment = getEnvironment();
@@ -121,10 +164,10 @@ export const initializeAWS = (): void => {
         signUpVerificationMethod: 'code',
         loginWith: {
           oauth: {
-            domain: `ai-nexus-workbench-${getEnvironment()}.auth.${config.region}.amazoncognito.com`,
+            domain: import.meta.env.VITE_AUTH_DOMAIN || getOAuthDomain(getEnvironment(), config.region),
             scopes: ['openid', 'profile', 'email'],
-            redirectSignIn: ['http://localhost:8080/', 'https://dev.diatonic.ai/'],
-            redirectSignOut: ['http://localhost:8080/', 'https://dev.diatonic.ai/'],
+            redirectSignIn: getRedirectUrls(getEnvironment(), 'signin'),
+            redirectSignOut: getRedirectUrls(getEnvironment(), 'signout'),
             responseType: 'code'
           },
           username: true,
@@ -192,6 +235,50 @@ export const validateAWSConfig = (): boolean => {
   console.log(`✅ AWS configuration validated for ${environment}`);
   return true;
 };
+
+// API Gateway Configuration Singleton for Lead Management
+export class APIGatewayConfig {
+  private static instance: APIGatewayConfig;
+  private config: AWSConfig;
+
+  private constructor() {
+    this.config = getAWSConfig();
+  }
+
+  public static getInstance(): APIGatewayConfig {
+    if (!APIGatewayConfig.instance) {
+      APIGatewayConfig.instance = new APIGatewayConfig();
+    }
+    return APIGatewayConfig.instance;
+  }
+
+  public getEndpoint(): string {
+    return this.config.apiGateway.endpoint;
+  }
+
+  public getRegion(): string {
+    return this.config.apiGateway.region;
+  }
+
+  public getFullEndpoint(path?: string): string {
+    const baseEndpoint = this.config.apiGateway.endpoint;
+    const environment = getEnvironment();
+    
+    // Add environment stage if not already present
+    let endpoint = baseEndpoint;
+    if (!endpoint.includes('/dev') && !endpoint.includes('/staging') && !endpoint.includes('/prod')) {
+      const stage = environment === 'production' ? 'prod' : 
+                   environment === 'staging' ? 'staging' : 'dev';
+      endpoint = `${baseEndpoint}/${stage}`;
+    }
+    
+    return path ? `${endpoint}${path.startsWith('/') ? '' : '/'}${path}` : endpoint;
+  }
+
+  public refresh(): void {
+    this.config = getAWSConfig();
+  }
+}
 
 // Error handling configuration
 export const awsErrorConfig = {

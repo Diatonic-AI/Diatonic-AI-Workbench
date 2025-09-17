@@ -1,0 +1,10 @@
+{
+  "profile": "default",
+  "region": "us-east-2",
+  "identity": {
+    "UserId": "313476888312",
+    "Account": "313476888312",
+    "Arn": "arn:aws:iam::313476888312:root"
+  },
+  "ts": 1758085269.472355
+}

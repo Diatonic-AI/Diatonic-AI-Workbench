@@ -1,0 +1,120 @@
+{
+    "CertificateSummaryList": [
+        {
+            "CertificateArn": "arn:aws:acm:us-east-1:313476888312:certificate/cb8c2da5-bc07-47d5-87fd-17d9a33df5c2",
+            "DomainName": "dev.diatonic.ai",
+            "SubjectAlternativeNameSummaries": [
+                "dev.diatonic.ai",
+                "www.dev.diatonic.ai",
+                "*.diatonic.ai",
+                "app.dev.diatonic.ai",
+                "api.dev.diatonic.ai",
+                "admin.dev.diatonic.ai"
+            ],
+            "HasAdditionalSubjectAlternativeNames": false,
+            "Status": "ISSUED",
+            "Type": "AMAZON_ISSUED",
+            "KeyAlgorithm": "RSA-2048",
+            "KeyUsages": [
+                "DIGITAL_SIGNATURE",
+                "KEY_ENCIPHERMENT"
+            ],
+            "ExtendedKeyUsages": [
+                "TLS_WEB_SERVER_AUTHENTICATION"
+            ],
+            "ExportOption": "DISABLED",
+            "InUse": false,
+            "Exported": false,
+            "RenewalEligibility": "INELIGIBLE",
+            "NotBefore": "2025-08-24T19:00:00-05:00",
+            "NotAfter": "2026-09-23T18:59:59-05:00",
+            "CreatedAt": "2025-08-25T04:50:57.211000-05:00",
+            "IssuedAt": "2025-08-25T04:51:27.504000-05:00"
+        },
+        {
+            "CertificateArn": "arn:aws:acm:us-east-1:313476888312:certificate/dc9c6366-ed4c-47d1-a39f-aaaf721f3f47",
+            "DomainName": "diatonic.ai",
+            "SubjectAlternativeNameSummaries": [
+                "diatonic.ai",
+                "www.diatonic.ai",
+                "app.diatonic.ai"
+            ],
+            "HasAdditionalSubjectAlternativeNames": false,
+            "Status": "ISSUED",
+            "Type": "AMAZON_ISSUED",
+            "KeyAlgorithm": "RSA-2048",
+            "KeyUsages": [
+                "DIGITAL_SIGNATURE",
+                "KEY_ENCIPHERMENT"
+            ],
+            "ExtendedKeyUsages": [
+                "TLS_WEB_SERVER_AUTHENTICATION"
+            ],
+            "ExportOption": "DISABLED",
+            "InUse": false,
+            "Exported": false,
+            "RenewalEligibility": "INELIGIBLE",
+            "NotBefore": "2025-08-24T19:00:00-05:00",
+            "NotAfter": "2026-09-23T18:59:59-05:00",
+            "CreatedAt": "2025-08-25T05:54:52.086000-05:00",
+            "IssuedAt": "2025-08-25T06:12:08.169000-05:00"
+        },
+        {
+            "CertificateArn": "arn:aws:acm:us-east-1:313476888312:certificate/108aeeb9-35ed-4407-85ce-36543c6b8e15",
+            "DomainName": "diatonic.ai",
+            "SubjectAlternativeNameSummaries": [
+                "diatonic.ai",
+                "www.diatonic.ai",
+                "app.diatonic.ai",
+                "api.diatonic.ai"
+            ],
+            "HasAdditionalSubjectAlternativeNames": false,
+            "Status": "ISSUED",
+            "Type": "AMAZON_ISSUED",
+            "KeyAlgorithm": "RSA-2048",
+            "KeyUsages": [
+                "DIGITAL_SIGNATURE",
+                "KEY_ENCIPHERMENT"
+            ],
+            "ExtendedKeyUsages": [
+                "TLS_WEB_SERVER_AUTHENTICATION"
+            ],
+            "ExportOption": "DISABLED",
+            "InUse": true,
+            "Exported": false,
+            "RenewalEligibility": "ELIGIBLE",
+            "NotBefore": "2025-08-24T19:00:00-05:00",
+            "NotAfter": "2026-09-23T18:59:59-05:00",
+            "CreatedAt": "2025-08-25T06:06:51.030000-05:00",
+            "IssuedAt": "2025-08-25T06:12:08.184000-05:00"
+        },
+        {
+            "CertificateArn": "arn:aws:acm:us-east-1:313476888312:certificate/8084809d-c4a9-469d-9cdf-034aeeb19a55",
+            "DomainName": "workbench.diatonic.ai",
+            "SubjectAlternativeNameSummaries": [
+                "workbench.diatonic.ai",
+                "*.workbench.diatonic.ai",
+                "api.workbench.diatonic.ai"
+            ],
+            "HasAdditionalSubjectAlternativeNames": false,
+            "Status": "ISSUED",
+            "Type": "AMAZON_ISSUED",
+            "KeyAlgorithm": "RSA-2048",
+            "KeyUsages": [
+                "DIGITAL_SIGNATURE",
+                "KEY_ENCIPHERMENT"
+            ],
+            "ExtendedKeyUsages": [
+                "TLS_WEB_SERVER_AUTHENTICATION"
+            ],
+            "ExportOption": "DISABLED",
+            "InUse": false,
+            "Exported": false,
+            "RenewalEligibility": "INELIGIBLE",
+            "NotBefore": "2025-09-07T19:00:00-05:00",
+            "NotAfter": "2026-10-07T18:59:59-05:00",
+            "CreatedAt": "2025-09-08T00:28:24.743000-05:00",
+            "IssuedAt": "2025-09-08T00:32:54.808000-05:00"
+        }
+    ]
+}

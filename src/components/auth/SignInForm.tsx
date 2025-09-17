@@ -23,7 +23,7 @@ const SignInForm: React.FC = () => {
   return (
     <AuthLayout 
       title="Welcome Back" 
-      subtitle="Sign in to your AI Nexus Workbench account"
+      subtitle="Sign in to your Diatonic AI account"
     >
       <SignIn
         onSwitchToSignUp={handleSwitchToSignUp}

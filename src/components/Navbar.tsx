@@ -12,11 +12,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { WorkbbenchLogo } from "./WorkbbenchLogo";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/useAuth";
+import { usePermissions } from "@/hooks/usePermissions";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, isAuthenticated, signOut } = useAuth();
+  const { hasPermission } = usePermissions();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -39,11 +41,89 @@ const Navbar = () => {
               <WorkbbenchLogo className="h-8 w-auto" />
             </Link>
             <div className="hidden md:block ml-10 flex-grow">
-              <div className="flex items-center space-x-4">
-                <Link to="/education" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Education</Link>
-                <Link to="/toolset" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Toolset</Link>
-                <Link to="/lab" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">AI Lab</Link>
-                <Link to="/community" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Community</Link>
+              <div className="flex items-center space-x-6">
+                {/* Website Navigation Menu */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                    Services
+                    <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-56">
+                    <Link to="/services/toolset">
+                      <DropdownMenuItem className="cursor-pointer">
+                        <div>
+                          <div className="font-medium">AI Toolset</div>
+                          <div className="text-xs text-muted-foreground">Visual agent builder</div>
+                        </div>
+                      </DropdownMenuItem>
+                    </Link>
+                    <Link to="/services/lab">
+                      <DropdownMenuItem className="cursor-pointer">
+                        <div>
+                          <div className="font-medium">AI Lab</div>
+                          <div className="text-xs text-muted-foreground">Experimentation environment</div>
+                        </div>
+                      </DropdownMenuItem>
+                    </Link>
+                    <Link to="/services/observatory">
+                      <DropdownMenuItem className="cursor-pointer">
+                        <div>
+                          <div className="font-medium">Observatory</div>
+                          <div className="text-xs text-muted-foreground">Data visualization & analytics</div>
+                        </div>
+                      </DropdownMenuItem>
+                    </Link>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                    Features
+                    <svg className="ml-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-64">
+                    <DropdownMenuItem className="cursor-pointer">
+                      <div>
+                        <div className="font-medium">Visual Agent Builder</div>
+                        <div className="text-xs text-muted-foreground">Drag-and-drop AI agent creation</div>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                      <div>
+                        <div className="font-medium">Cloud Experimentation</div>
+                        <div className="text-xs text-muted-foreground">Secure AI model testing</div>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                      <div>
+                        <div className="font-medium">Real-time Collaboration</div>
+                        <div className="text-xs text-muted-foreground">Team-based AI development</div>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                      <div>
+                        <div className="font-medium">Advanced Analytics</div>
+                        <div className="text-xs text-muted-foreground">Performance insights & metrics</div>
+                      </div>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                
+                <Link to="/pricing" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  Pricing
+                </Link>
+                
+                <Link to="/community" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  Community
+                </Link>
+                
+                <Link to="/services/education" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  Education
+                </Link>
               </div>
             </div>
           </div>
@@ -54,13 +134,17 @@ const Navbar = () => {
                   <Search className="h-4 w-4 text-gray-400" />
                 </div>
                 <input
+                  id="navbar-search"
+                  name="search"
                   type="text"
+                  aria-label="Search"
                   className="bg-secondary/60 border border-white/10 text-white block w-full pl-10 pr-3 py-2 rounded-md text-sm"
                   placeholder="Search..."
+                  autoComplete="off"
                 />
               </div>
               {isAuthenticated && (
-                <Button variant="ghost" size="icon" className="rounded-full">
+                <Button variant="ghost" size="icon" className="rounded-full" aria-label="Notifications">
                   <Bell className="h-5 w-5" />
                 </Button>
               )}
@@ -119,7 +203,13 @@ const Navbar = () => {
             </div>
           </div>
           <div className="md:hidden flex items-center">
-            <Button variant="ghost" size="icon" onClick={toggleMenu}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={toggleMenu}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMenuOpen}
+            >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
@@ -129,10 +219,15 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-workbbench-dark-purple/95 backdrop-blur-md">
-            <Link to="/education" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Education</Link>
-            <Link to="/toolset" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Toolset</Link>
-            <Link to="/lab" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">AI Lab</Link>
+            {/* Website Navigation Menu - Mobile */}
+            <div className="text-white font-medium px-3 py-2 text-sm">Services</div>
+            <Link to="/toolset" className="text-gray-300 hover:text-white block px-6 py-2 rounded-md text-base font-medium">AI Toolset</Link>
+            <Link to="/lab" className="text-gray-300 hover:text-white block px-6 py-2 rounded-md text-base font-medium">AI Lab</Link>
+            <Link to="/observatory" className="text-gray-300 hover:text-white block px-6 py-2 rounded-md text-base font-medium">Observatory</Link>
+            
+            <Link to="/pricing" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Pricing</Link>
             <Link to="/community" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Community</Link>
+            <Link to="/education" className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Education</Link>
             <div className="pt-4 pb-3 border-t border-white/10">
               {isAuthenticated ? (
                 <>

@@ -1,0 +1,12 @@
+{
+    "Rules": [
+        {
+            "Name": "aws-devops-dev-alb-ssl-certificate-renewal",
+            "Arn": "arn:aws:events:us-east-2:313476888312:rule/aws-devops-dev-alb-ssl-certificate-renewal",
+            "EventPattern": "{\"detail\":{\"DaysToExpiry\":[{\"numeric\":[\"<=\",30]}]},\"detail-type\":[\"ACM Certificate Approaching Expiration\"],\"source\":[\"aws.acm\"]}",
+            "State": "ENABLED",
+            "Description": "Monitor SSL certificate renewal events",
+            "EventBusName": "default"
+        }
+    ]
+}

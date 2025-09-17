@@ -23,7 +23,7 @@ const Index = () => {
               </p>
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link to="/dashboard">
-                  <Button size="lg" className="bg-workbbench-purple hover:bg-workbbench-purple/90">
+                  <Button size="lg" className="bg-workbbench-purple hover:bg-workbbench-purple/90 text-white">
                     Get Started
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -53,7 +53,7 @@ const Index = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Four Core Pillars</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Workbbench combines education, powerful tools, experimentation and community to provide a complete AI ecosystem.
+              Diatonic AI combines education, powerful tools, experimentation and community to provide a complete AI ecosystem.
             </p>
           </div>
           
@@ -100,7 +100,7 @@ const Index = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Key Features</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Workbbench combines the best of AI tools with a vibrant social platform.
+              Diatonic AI combines the best of AI tools with a vibrant social platform.
             </p>
           </div>
           
@@ -156,10 +156,10 @@ const Index = () => {
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Join the AI Revolution?</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-              Start your journey with Workbbench today and become part of the global AI community.
+              Start your journey with Diatonic AI today and become part of the global AI community.
             </p>
             <Link to="/dashboard">
-              <Button size="lg" className="bg-workbbench-purple hover:bg-workbbench-purple/90">
+              <Button size="lg" className="bg-workbbench-purple hover:bg-workbbench-purple/90 text-white">
                 Get Started Now
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -175,7 +175,7 @@ const Index = () => {
             <div className="mb-8 md:mb-0">
               <div className="flex items-center mb-4">
                 <div className="w-8 h-8 rounded-md mr-2 bg-gradient-flow animate-flow"></div>
-                <span className="font-bold text-xl text-white">Workbbench</span>
+                <span className="font-bold text-xl text-white">Diatonic AI</span>
               </div>
               <p className="text-gray-400 max-w-md">
                 The comprehensive AI ecosystem for education, development, experimentation, and community.
@@ -196,30 +196,30 @@ const Index = () => {
               <div>
                 <h4 className="text-lg font-semibold mb-4">Resources</h4>
                 <ul className="space-y-2">
-                  <li><a href="#" className="text-gray-400 hover:text-white">Documentation</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Tutorials</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">API Reference</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Status</a></li>
+                  <li><Link to="/documentation" className="text-gray-400 hover:text-white">Documentation</Link></li>
+                  <li><Link to="/tutorials" className="text-gray-400 hover:text-white">Tutorials</Link></li>
+                  <li><Link to="/api-reference" className="text-gray-400 hover:text-white">API Reference</Link></li>
+                  <li><Link to="/status" className="text-gray-400 hover:text-white">Status</Link></li>
                 </ul>
               </div>
               
               <div>
                 <h4 className="text-lg font-semibold mb-4">Company</h4>
                 <ul className="space-y-2">
-                  <li><a href="#" className="text-gray-400 hover:text-white">About</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Blog</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Careers</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Contact</a></li>
+                  <li><Link to="/about" className="text-gray-400 hover:text-white">About</Link></li>
+                  <li><Link to="/blog" className="text-gray-400 hover:text-white">Blog</Link></li>
+                  <li><Link to="/careers" className="text-gray-400 hover:text-white">Careers</Link></li>
+                  <li><Link to="/contact" className="text-gray-400 hover:text-white">Contact</Link></li>
                 </ul>
               </div>
               
               <div>
                 <h4 className="text-lg font-semibold mb-4">Legal</h4>
                 <ul className="space-y-2">
-                  <li><a href="#" className="text-gray-400 hover:text-white">Terms</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Privacy</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Cookies</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Licenses</a></li>
+                  <li><Link to="/terms" className="text-gray-400 hover:text-white">Terms</Link></li>
+                  <li><Link to="/privacy" className="text-gray-400 hover:text-white">Privacy</Link></li>
+                  <li><Link to="/cookies" className="text-gray-400 hover:text-white">Cookies</Link></li>
+                  <li><Link to="/licenses" className="text-gray-400 hover:text-white">Licenses</Link></li>
                 </ul>
               </div>
             </div>

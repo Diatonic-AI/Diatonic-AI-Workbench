@@ -7,13 +7,20 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@aws-lambda-powertools/logger/types": ["node_modules/@aws-lambda-powertools/logger/types"],
+      "@aws-lambda-powertools/metrics/types": ["node_modules/@aws-lambda-powertools/metrics/types"],
+      "@aws-lambda-powertools/tracer/types": ["node_modules/@aws-lambda-powertools/tracer/types"],
+      "@aws-lambda-powertools/commons/types": ["node_modules/@aws-lambda-powertools/commons/types"]
     },
-    "noImplicitAny": false,
-    "noUnusedParameters": false,
     "skipLibCheck": true,
     "allowJs": true,
-    "noUnusedLocals": false,
-    "strictNullChecks": false
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   }
 }

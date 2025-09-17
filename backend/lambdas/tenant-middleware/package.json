@@ -1,0 +1,74 @@
+{
+  "name": "ai-nexus-tenant-middleware",
+  "version": "1.0.0",
+  "description": "Multi-tenant middleware Lambda for AI Nexus Workbench",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint *.js",
+    "lint:fix": "eslint *.js --fix",
+    "deploy": "npm run build && aws lambda update-function-code --function-name ai-nexus-tenant-middleware --zip-file fileb://deployment.zip",
+    "build": "zip -r deployment.zip index.js package.json node_modules/",
+    "local": "sam local start-api"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1691.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.57.0",
+    "aws-sam-cli": "^1.0.0",
+    "@types/jest": "^29.5.12",
+    "supertest": "^6.3.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "multi-tenant",
+    "middleware",
+    "cognito",
+    "dynamodb"
+  ],
+  "author": "AI Nexus Development Team",
+  "license": "MIT",
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "index.js",
+      "!coverage/**",
+      "!node_modules/**"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.js",
+      "**/?(*.)+(spec|test).js"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+      "no-console": "off",
+      "semi": ["error", "always"],
+      "quotes": ["error", "single"]
+    }
+  }
+}

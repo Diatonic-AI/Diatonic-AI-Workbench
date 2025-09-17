@@ -1,0 +1,40 @@
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.1-Ubuntu <<>> +trace www.diatonic.ai A AAAA CNAME
+;; global options: +cmd
+.			480271	IN	NS	b.root-servers.net.
+.			480271	IN	NS	c.root-servers.net.
+.			480271	IN	NS	d.root-servers.net.
+.			480271	IN	NS	e.root-servers.net.
+.			480271	IN	NS	f.root-servers.net.
+.			480271	IN	NS	g.root-servers.net.
+.			480271	IN	NS	h.root-servers.net.
+.			480271	IN	NS	i.root-servers.net.
+.			480271	IN	NS	j.root-servers.net.
+.			480271	IN	NS	k.root-servers.net.
+.			480271	IN	NS	l.root-servers.net.
+.			480271	IN	NS	m.root-servers.net.
+.			480271	IN	NS	a.root-servers.net.
+.			480271	IN	RRSIG	NS 8 0 518400 20250929050000 20250916040000 46441 . cFBxBffokh8O6dnehXXaWDAmPVCJHlYESvX44XnEPuk7tLXdPO4RGhL7 Ru+4G9sl3ZkyiBpMTGgingBKNHeVxizg19MAAlJbRE7+CXLFCYq9rVrB WV5pD82USmg0aKQOFbPuw2IhtahhVMI0h0LjK6iJpedmQeo9eSDv25bu 3pB1o02x4FPwy6tqrkFnPWeo605WehyQc9S8QFv8Rj1Yn4GcDVuO1/Wx 0kbd6FUQMS4c070lQAurwO47Ou0YR0ypT4BXi4xltHWh/Q1QOWj0WGNz HRLskVW+2lRFjsXE7rBnNLOJx6fyQaPvLA6Ir54HTeaAsOXMVry66mRV FeFJPQ==
+;; Received 1097 bytes from 75.75.75.75#53(75.75.75.75) in 11 ms
+
+ai.			172800	IN	NS	v2n0.nic.ai.
+ai.			172800	IN	NS	v2n1.nic.ai.
+ai.			172800	IN	NS	v0n0.nic.ai.
+ai.			172800	IN	NS	v0n2.nic.ai.
+ai.			172800	IN	NS	v0n3.nic.ai.
+ai.			172800	IN	NS	v0n1.nic.ai.
+ai.			86400	IN	DS	3799 8 2 8A8030D4661AE6FCF417349682AC058648371002E70E717E4CF2F11F 83543385
+ai.			86400	IN	RRSIG	DS 8 1 86400 20250929200000 20250916190000 46441 . H3zIkP+sGKOGtMar0F1pQmnE69WxuXse9zgU9rpMly+9e8dbhvkPkIu7 JopG2+bX28Ga4zF5ETTWAEYz3S/E2m8tY/9ETi9MmLB4p6n8i9XSFl2N IRZrwwChYsKA/QrUGkJ10hHx3W2y4aqd9DUrJzekn8nMA3A6+HYgQJ40 Y4ndcXucT9dZtc3yfoUGT14dZ6hahQnSqksIlrGG+2Reueaim5B0KnYm qKo109fEf/xmKJUqzeTwRP3QX1WLR0AfVKTvkxytxeyK3nXZhnbZBdD1 HnRMfptinpUuBUjHgA4IIew+SRD4uYElwJC4TDXzS2XEENinQ3In4jvA JfBD/w==
+;; Received 793 bytes from 2001:500:2::c#53(c.root-servers.net) in 17 ms
+
+diatonic.ai.		3600	IN	NS	jacob.ns.cloudflare.com.
+diatonic.ai.		3600	IN	NS	miki.ns.cloudflare.com.
+58cj07tk4r4uuu6m10c83sia655jfil6.ai. 3600 IN NSEC3 1 1 0 73 58E5J7RFAB1B4K4BBVCK7I2ETA2O1QKP NS SOA RRSIG DNSKEY NSEC3PARAM
+58cj07tk4r4uuu6m10c83sia655jfil6.ai. 3600 IN RRSIG NSEC3 8 2 3600 20251008032420 20250917022420 6279 ai. b4UqdsV2NMoiPdJa81n26QuxakgzSNvt9rkTQHMPL5ask4IHjrg2Sudv 1l1F3IHP9V1NQSMjhsNYtEw4aZDCPmUPyWvIFzEJ5A+NbB/iqGsSKuhr X5vzytX4mtj2qRCUlF8n26JGBqhTlrs62AgPCv+td/QcoTTfzk/+UJRh +Ns=
+j5lp4bsbde1pv21ttv8g8iri1rred0jj.ai. 3600 IN NSEC3 1 1 0 73 J5NA615BNFR9E4F8UHP33NNIUNO23NMK NS DS RRSIG
+j5lp4bsbde1pv21ttv8g8iri1rred0jj.ai. 3600 IN RRSIG NSEC3 8 2 3600 20250930152016 20250909142016 6279 ai. n/LA8DPBRsCpQFbfGfsvDIfe72XPacqE6UeeYqesK9T+1h4B5SGt+Ng9 DiV9HhsPmtjtJcH+8M+C8QIAveCFN9pJc4qVCrIEOsBqf+gTujIj3nqT Nop2pMYw51B/DNUgQCmuy0xTbswhz0UR9aDIHGZ/pC2DuYLF4c2U+x18 RSk=
+;; Received 585 bytes from 2001:500:a2::1#53(v0n2.nic.ai) in 11 ms
+
+www.diatonic.ai.	300	IN	CNAME	main.d3ddhluaptuu35.amplifyapp.com.
+;; Received 92 bytes from 172.64.35.162#53(jacob.ns.cloudflare.com) in 13 ms
+

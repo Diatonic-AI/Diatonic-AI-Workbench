@@ -9,8 +9,10 @@ import {
   CardTitle 
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Code, BookOpen, Users, BarChart2 } from "lucide-react";
+import { ArrowRight, Code, BookOpen, Users, BarChart2, Crown } from "lucide-react";
 import { Link } from "react-router-dom";
+import { usePermissions } from "@/hooks/usePermissions";
+import { PermissionGate } from "@/components/permissions/PermissionGate";
 
 // Mock data for recent projects
 const RECENT_PROJECTS = [
@@ -79,13 +81,15 @@ const RECOMMENDATIONS = [
 ];
 
 const Dashboard = () => {
+  const { role, getRoleDisplayName } = usePermissions();
+  
   return (
     <DashboardLayout>
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold">Welcome back!</h1>
           <p className="text-muted-foreground">
-            Here's a summary of your recent activity
+            Here's a summary of your recent activity ({getRoleDisplayName()})
           </p>
         </div>
 
@@ -129,30 +133,70 @@ const Dashboard = () => {
                   <CardTitle>Quick Actions</CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-2 gap-3">
-                  <Link to="/toolset">
-                    <Button variant="outline" className="w-full">
-                      <Code className="mr-2 h-4 w-4" />
-                      New Project
-                    </Button>
-                  </Link>
-                  <Link to="/community">
-                    <Button variant="outline" className="w-full">
-                      <Users className="mr-2 h-4 w-4" />
-                      Join Community
-                    </Button>
-                  </Link>
+                  {/* Toolset - requires project creation permission */}
+                  <PermissionGate 
+                    permission="studio.create_project"
+                    showUpgradePrompt={false}
+                    fallback={
+                      <Button variant="outline" className="w-full opacity-50 cursor-not-allowed" disabled>
+                        <Code className="mr-2 h-4 w-4" />
+                        New Project
+                      </Button>
+                    }
+                  >
+                    <Link to="/toolset">
+                      <Button variant="outline" className="w-full">
+                        <Code className="mr-2 h-4 w-4" />
+                        New Project
+                      </Button>
+                    </Link>
+                  </PermissionGate>
+                  
+                  {/* Community - accessible to all authenticated users */}
+                  <PermissionGate 
+                    permission="community.view_public_content"
+                    showUpgradePrompt={false}
+                    fallback={
+                      <Button variant="outline" className="w-full opacity-50 cursor-not-allowed" disabled>
+                        <Users className="mr-2 h-4 w-4" />
+                        Join Community
+                      </Button>
+                    }
+                  >
+                    <Link to="/community">
+                      <Button variant="outline" className="w-full">
+                        <Users className="mr-2 h-4 w-4" />
+                        Join Community
+                      </Button>
+                    </Link>
+                  </PermissionGate>
+                  
+                  {/* Education is always accessible */}
                   <Link to="/education">
                     <Button variant="outline" className="w-full">
                       <BookOpen className="mr-2 h-4 w-4" />
                       Start Learning
                     </Button>
                   </Link>
-                  <Link to="/observatory">
-                    <Button variant="outline" className="w-full">
-                      <BarChart2 className="mr-2 h-4 w-4" />
-                      Visualize Data
-                    </Button>
-                  </Link>
+                  
+                  {/* Observatory - requires analytics permission */}
+                  <PermissionGate 
+                    permission="observatory.personal_analytics"
+                    showUpgradePrompt={false}
+                    fallback={
+                      <Button variant="outline" className="w-full opacity-50 cursor-not-allowed" disabled>
+                        <BarChart2 className="mr-2 h-4 w-4" />
+                        Visualize Data
+                      </Button>
+                    }
+                  >
+                    <Link to="/observatory">
+                      <Button variant="outline" className="w-full">
+                        <BarChart2 className="mr-2 h-4 w-4" />
+                        Visualize Data
+                      </Button>
+                    </Link>
+                  </PermissionGate>
                 </CardContent>
               </Card>
 
@@ -188,6 +232,28 @@ const Dashboard = () => {
                   </div>
                 </CardContent>
               </Card>
+              
+              {/* Show upgrade prompt for Basic users */}
+              {role === 'basic' && (
+                <Card className="border-dashed border-primary/50">
+                  <CardHeader className="text-center pb-4">
+                    <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/20">
+                      <Crown className="h-6 w-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-lg">Upgrade to Organization</CardTitle>
+                    <CardDescription>Unlock advanced tools, team collaboration, and priority support!</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="flex justify-center">
+                      <Button variant="default" className="min-w-32">
+                        <Crown className="mr-2 h-4 w-4" />
+                        Upgrade Now
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </div>
 

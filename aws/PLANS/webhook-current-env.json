@@ -1,0 +1,11 @@
+{
+    "STRIPE_WEBHOOK_SECRET_ARN": "arn:aws:secretsmanager:us-east-2:313476888312:secret:/ai-nexus/diatonicvisuals/stripe/webhook_signing_secret-WULq8Z",
+    "TABLE_INVOICES": "ai-nexus-dev-stripe-invoices",
+    "TABLE_IDEMPOTENCY": "ai-nexus-dev-stripe-idempotency",
+    "ENABLE_EVENTBRIDGE": "true",
+    "EVENTBRIDGE_BUS_NAME": "ai-nexus-dev-stripe-event-bus",
+    "TENANT_ID": "diatonicvisuals",
+    "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions",
+    "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers",
+    "LOG_LEVEL": "info"
+}

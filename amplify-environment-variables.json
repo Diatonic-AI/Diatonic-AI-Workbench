@@ -1,0 +1,50 @@
+{
+  "AMPLIFY_ENVIRONMENT_VARIABLES": {
+    "NODE_VERSION": "18.20.0",
+    "NPM_VERSION": "10.5.0",
+    "_LIVE_UPDATES": "[{\"pkg\":\"@aws-amplify/cli\",\"type\":\"npm\",\"version\":\"latest\"}]",
+    "AMPLIFY_DIFF_DEPLOY": "false",
+    "AMPLIFY_MONOREPO_APP_ROOT": "apps/ai-nexus-workbench",
+    
+    "VITE_AWS_REGION": "us-east-2",
+    "VITE_AWS_COGNITO_USER_POOL_ID": "us-east-2_S9gdn0Gj7",
+    "VITE_AWS_COGNITO_USER_POOL_CLIENT_ID": "255nrv65p74othncgirpi06e5m",
+    "VITE_AWS_COGNITO_IDENTITY_POOL_ID": "us-east-2:a2e34991-8c53-4a48-82ad-3e6cac24bf6e",
+    
+    "VITE_API_GATEWAY_URL": "https://api.diatonic.ai",
+    "VITE_API_GATEWAY_STAGE": "prod",
+    
+    "VITE_S3_BUCKET_NAME": "diatonic-ai-prod-assets",
+    "VITE_S3_REGION": "us-east-2",
+    "VITE_CLOUDFRONT_DOMAIN": "cdn.diatonic.ai",
+    
+    "VITE_DYNAMODB_USER_DATA_TABLE": "diatonic-ai-prod-user-data",
+    "VITE_DYNAMODB_FILES_TABLE": "diatonic-ai-prod-files",
+    "VITE_DYNAMODB_SESSIONS_TABLE": "diatonic-ai-prod-sessions",
+    
+    "VITE_APP_NAME": "Diatonic AI",
+    "VITE_APP_VERSION": "1.0.0",
+    "VITE_APP_DOMAIN": "app.diatonic.ai",
+    "VITE_APP_URL": "https://app.diatonic.ai",
+    
+    "VITE_ENABLE_FILE_UPLOAD": "true",
+    "VITE_ENABLE_ANALYTICS": "false",
+    "VITE_ENABLE_DEBUG_LOGGING": "false",
+    "VITE_ENABLE_PERFORMANCE_MONITORING": "true",
+    "VITE_ENABLE_SUBDOMAIN_ROUTING": "false",
+    
+    "VITE_ENABLE_CSP": "true",
+    "VITE_ENABLE_HSTS": "true",
+    "VITE_ENABLE_SECURE_HEADERS": "true",
+    
+    "VITE_STRIPE_PUBLISHABLE_KEY": "pk_live_your_stripe_key_here",
+    "VITE_STRIPE_MODE": "live",
+    "VITE_TENANT_ID": "diatonic",
+    
+    "VITE_PRICE_PREMIUM_MONTHLY": "price_premium_monthly_id",
+    "VITE_PRICE_PREMIUM_ANNUAL": "price_premium_annual_id",
+    "VITE_PRICE_ENTERPRISE": "price_enterprise_id",
+    
+    "VITE_BILLING_API_URL": "https://api.diatonic.ai/billing"
+  }
+}

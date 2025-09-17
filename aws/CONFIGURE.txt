@@ -1,0 +1,6 @@
+      Name                    Value             Type    Location
+      ----                    -----             ----    --------
+   profile amplify-diatonic-ai-staging              env    ['AWS_PROFILE', 'AWS_DEFAULT_PROFILE']
+access_key     ****************IUKF shared-credentials-file    
+secret_key     ****************YZAT shared-credentials-file    
+    region                us-east-2              env    ['AWS_REGION', 'AWS_DEFAULT_REGION']

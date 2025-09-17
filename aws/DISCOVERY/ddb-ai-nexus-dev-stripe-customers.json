@@ -1,0 +1,83 @@
+{
+    "Table": {
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "stripe_customer_id",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "tenant_id",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "user_id",
+                "AttributeType": "S"
+            }
+        ],
+        "TableName": "ai-nexus-dev-stripe-customers",
+        "KeySchema": [
+            {
+                "AttributeName": "tenant_id",
+                "KeyType": "HASH"
+            },
+            {
+                "AttributeName": "user_id",
+                "KeyType": "RANGE"
+            }
+        ],
+        "TableStatus": "ACTIVE",
+        "CreationDateTime": "2025-09-08T01:34:11.040000-05:00",
+        "ProvisionedThroughput": {
+            "NumberOfDecreasesToday": 0,
+            "ReadCapacityUnits": 0,
+            "WriteCapacityUnits": 0
+        },
+        "TableSizeBytes": 0,
+        "ItemCount": 0,
+        "TableArn": "arn:aws:dynamodb:us-east-2:313476888312:table/ai-nexus-dev-stripe-customers",
+        "TableId": "e2879882-7010-40ed-8be8-a40babf4daf1",
+        "BillingModeSummary": {
+            "BillingMode": "PAY_PER_REQUEST",
+            "LastUpdateToPayPerRequestDateTime": "2025-09-08T01:34:11.040000-05:00"
+        },
+        "GlobalSecondaryIndexes": [
+            {
+                "IndexName": "stripe-customer-index",
+                "KeySchema": [
+                    {
+                        "AttributeName": "stripe_customer_id",
+                        "KeyType": "HASH"
+                    }
+                ],
+                "Projection": {
+                    "ProjectionType": "ALL"
+                },
+                "IndexStatus": "ACTIVE",
+                "ProvisionedThroughput": {
+                    "NumberOfDecreasesToday": 0,
+                    "ReadCapacityUnits": 0,
+                    "WriteCapacityUnits": 0
+                },
+                "IndexSizeBytes": 0,
+                "ItemCount": 0,
+                "IndexArn": "arn:aws:dynamodb:us-east-2:313476888312:table/ai-nexus-dev-stripe-customers/index/stripe-customer-index",
+                "WarmThroughput": {
+                    "ReadUnitsPerSecond": 12000,
+                    "WriteUnitsPerSecond": 4000,
+                    "Status": "ACTIVE"
+                }
+            }
+        ],
+        "SSEDescription": {
+            "Status": "ENABLED",
+            "SSEType": "KMS",
+            "KMSMasterKeyArn": "arn:aws:kms:us-east-2:313476888312:key/db926bb8-67e9-4928-9a58-90e645e0ab5a"
+        },
+        "DeletionProtectionEnabled": false,
+        "WarmThroughput": {
+            "ReadUnitsPerSecond": 12000,
+            "WriteUnitsPerSecond": 4000,
+            "Status": "ACTIVE"
+        }
+    }
+}

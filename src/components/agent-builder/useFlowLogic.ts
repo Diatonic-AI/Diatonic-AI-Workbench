@@ -1,4 +1,3 @@
-
 import { useState, useCallback } from 'react';
 import { 
   Edge, 
@@ -27,74 +26,102 @@ export function useFlowLogic() {
 
   const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
     setSelectedNode(node);
-    // Safely set node name, ensuring it's a string
-    setNodeName(typeof node.data?.label === 'string' ? node.data.label : '');
     
-    // Type guard to check if node is an LLM node
-    if (node.type === 'llm' && typeof node.data?.prompt === 'string') {
-      setNodePrompt(node.data.prompt);
-    } else {
+    // Safely set node name, ensuring it's a string and handling edge cases
+    try {
+      const label = node.data?.label;
+      if (typeof label === 'string') {
+        setNodeName(label);
+      } else if (label !== null && label !== undefined) {
+        setNodeName(String(label));
+      } else {
+        setNodeName('');
+      }
+      
+      // Type guard to check if node is an LLM node and safely get prompt
+      if (node.type === 'llm' && node.data && typeof node.data.prompt === 'string') {
+        setNodePrompt(node.data.prompt);
+      } else {
+        setNodePrompt('');
+      }
+    } catch (error) {
+      console.warn('Error processing node data:', error);
+      setNodeName('');
       setNodePrompt('');
     }
   }, []);
 
   const updateSelectedNode = useCallback(() => {
     if (selectedNode) {
-      if (selectedNode.type === 'llm') {
-        const updatedData = {
-          ...selectedNode.data,
-          label: nodeName,
-          prompt: nodePrompt
-        };
-        
-        setNodes(nodes.map(node => 
-          node.id === selectedNode.id ? { ...node, data: updatedData } : node
-        ));
-      } else {
-        const updatedData = {
-          ...selectedNode.data,
-          label: nodeName
-        };
-        
-        setNodes(nodes.map(node => 
-          node.id === selectedNode.id ? { ...node, data: updatedData } : node
-        ));
+      try {
+        if (selectedNode.type === 'llm') {
+          const updatedData = {
+            ...selectedNode.data,
+            label: String(nodeName || ''),
+            prompt: String(nodePrompt || '')
+          };
+          
+          setNodes(nodes.map(node => 
+            node.id === selectedNode.id ? { ...node, data: updatedData } : node
+          ));
+        } else {
+          const updatedData = {
+            ...selectedNode.data,
+            label: String(nodeName || '')
+          };
+          
+          setNodes(nodes.map(node => 
+            node.id === selectedNode.id ? { ...node, data: updatedData } : node
+          ));
+        }
+      } catch (error) {
+        console.error('Error updating selected node:', error);
       }
     }
   }, [selectedNode, nodeName, nodePrompt, nodes, setNodes]);
 
   const addNewNode = useCallback(() => {
-    // Determine a reasonable position for the new node
-    const yPos = nodes.length > 0 
-      ? Math.max(...nodes.map(n => n.position.y)) + 125 
-      : 100;
-    
-    let newNodeData: NodeData = {
-      label: `New ${newNodeType.charAt(0).toUpperCase() + newNodeType.slice(1)} Node`
-    };
-    
-    if (newNodeType === 'llm') {
-      (newNodeData as LLMNodeData).prompt = 'Enter your prompt here...';
+    try {
+      // Determine a reasonable position for the new node
+      const yPos = nodes.length > 0 
+        ? Math.max(...nodes.map(n => n.position.y)) + 125 
+        : 100;
+      
+      const newNodeData: NodeData = {
+        label: `New ${newNodeType.charAt(0).toUpperCase() + newNodeType.slice(1)} Node`
+      };
+      
+      if (newNodeType === 'llm') {
+        (newNodeData as LLMNodeData).prompt = 'Enter your prompt here...';
+      }
+      
+      const newNode: Node = {
+        id: `node-${Date.now()}`,
+        type: newNodeType,
+        data: newNodeData,
+        position: { x: 250, y: yPos },
+      };
+      
+      setNodes((nds) => [...nds, newNode]);
+    } catch (error) {
+      console.error('Error adding new node:', error);
     }
-    
-    const newNode: Node = {
-      id: `node-${Date.now()}`,
-      type: newNodeType,
-      data: newNodeData,
-      position: { x: 250, y: yPos },
-    };
-    
-    setNodes((nds) => [...nds, newNode]);
   }, [newNodeType, nodes, setNodes]);
 
   const deleteSelectedNode = useCallback(() => {
     if (selectedNode) {
-      setNodes(nodes.filter(node => node.id !== selectedNode.id));
-      // Also remove any connected edges
-      setEdges(edges.filter(edge => 
-        edge.source !== selectedNode.id && edge.target !== selectedNode.id
-      ));
-      setSelectedNode(null);
+      try {
+        setNodes(nodes.filter(node => node.id !== selectedNode.id));
+        // Also remove any connected edges
+        setEdges(edges.filter(edge => 
+          edge.source !== selectedNode.id && edge.target !== selectedNode.id
+        ));
+        setSelectedNode(null);
+        setNodeName('');
+        setNodePrompt('');
+      } catch (error) {
+        console.error('Error deleting selected node:', error);
+      }
     }
   }, [selectedNode, nodes, edges, setNodes, setEdges]);
 

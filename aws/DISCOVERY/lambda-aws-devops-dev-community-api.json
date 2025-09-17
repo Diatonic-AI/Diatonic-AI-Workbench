@@ -1,0 +1,54 @@
+{
+    "FunctionName": "aws-devops-dev-community-api",
+    "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:aws-devops-dev-community-api",
+    "Runtime": "nodejs18.x",
+    "Role": "arn:aws:iam::313476888312:role/aws-devops-dev-comprehensive-backend-lambda-role",
+    "Handler": "index.handler",
+    "CodeSize": 3489,
+    "Description": "",
+    "Timeout": 30,
+    "MemorySize": 256,
+    "LastModified": "2025-09-10T18:21:41.648+0000",
+    "CodeSha256": "bzvVRJHsE2RTohws2q/nRkZ2IFf4aoZW5bNdesi9ORo=",
+    "Version": "$LATEST",
+    "DeadLetterConfig": {
+        "TargetArn": "arn:aws:sqs:us-east-2:313476888312:aws-devops-dev-community-dlq"
+    },
+    "Environment": {
+        "Variables": {
+            "DEFAULT_ORGANIZATION_ID": "dev-org",
+            "ENABLE_DEBUG_MODE": "true",
+            "POSTS_TABLE": "aws-devops-dev-community-posts",
+            "COMMENTS_TABLE": "aws-devops-dev-community-comments",
+            "NODE_ENV": "dev",
+            "ENABLE_TENANT_ISOLATION": "true",
+            "LOG_LEVEL": "debug",
+            "CORS_ORIGIN": "https://dev.diatonic.ai",
+            "DYNAMODB_REGION": "us-east-2"
+        }
+    },
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "b1350ee8-973c-45d8-af83-bc1c0c620aa4",
+    "State": "Active",
+    "LastUpdateStatus": "Successful",
+    "PackageType": "Zip",
+    "Architectures": [
+        "x86_64"
+    ],
+    "EphemeralStorage": {
+        "Size": 512
+    },
+    "SnapStart": {
+        "ApplyOn": "None",
+        "OptimizationStatus": "Off"
+    },
+    "RuntimeVersionConfig": {
+        "RuntimeVersionArn": "arn:aws:lambda:us-east-2::runtime:383248ddd42b9c40948071c40a8f726625554b9d343cee049792b82a21330b2c"
+    },
+    "LoggingConfig": {
+        "LogFormat": "Text",
+        "LogGroup": "/aws/lambda/aws-devops-dev-community-api"
+    }
+}

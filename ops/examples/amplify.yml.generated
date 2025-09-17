@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - n -v || npm i -g n
+        - if [ -f .nvmrc ]; then n $(cat .nvmrc); else n 18; fi
+        - node -v
+        - npm ci
+    build:
+      commands:
+        - npm run update-browserslist && vite build
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*

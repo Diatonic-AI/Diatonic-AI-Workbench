@@ -1,0 +1,45 @@
+{
+    "FunctionName": "aws-devops-dev-leads",
+    "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:aws-devops-dev-leads",
+    "Runtime": "nodejs18.x",
+    "Role": "arn:aws:iam::313476888312:role/aws-devops-dev-lambda-leads-role",
+    "Handler": "index.handler",
+    "CodeSize": 14663920,
+    "Description": "",
+    "Timeout": 30,
+    "MemorySize": 256,
+    "LastModified": "2025-09-16T20:05:24.000+0000",
+    "CodeSha256": "/VNh/w79W0jKpSp5l9CJznoU06LJMFJOJMsiK4EgzyY=",
+    "Version": "$LATEST",
+    "Environment": {
+        "Variables": {
+            "LEAD_ACTIVITIES_TABLE": "aws-devops-dev-lead-activities",
+            "LEADS_TABLE": "aws-devops-dev-leads",
+            "FRONTEND_URL": "http://localhost:3000"
+        }
+    },
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "b615ee3d-eb23-49f9-9f12-713583a11944",
+    "State": "Active",
+    "LastUpdateStatus": "Successful",
+    "PackageType": "Zip",
+    "Architectures": [
+        "x86_64"
+    ],
+    "EphemeralStorage": {
+        "Size": 512
+    },
+    "SnapStart": {
+        "ApplyOn": "None",
+        "OptimizationStatus": "Off"
+    },
+    "RuntimeVersionConfig": {
+        "RuntimeVersionArn": "arn:aws:lambda:us-east-2::runtime:383248ddd42b9c40948071c40a8f726625554b9d343cee049792b82a21330b2c"
+    },
+    "LoggingConfig": {
+        "LogFormat": "Text",
+        "LogGroup": "/aws/lambda/aws-devops-dev-leads"
+    }
+}

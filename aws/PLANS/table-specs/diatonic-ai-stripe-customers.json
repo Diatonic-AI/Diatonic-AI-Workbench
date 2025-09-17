@@ -1,0 +1,80 @@
+{
+  "TableName": "diatonic-ai-stripe-customers",
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "stripe_customer_id",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "tenant_id",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "user_id",
+      "AttributeType": "S"
+    }
+  ],
+  "KeySchema": [
+    {
+      "AttributeName": "tenant_id",
+      "KeyType": "HASH"
+    },
+    {
+      "AttributeName": "user_id",
+      "KeyType": "RANGE"
+    }
+  ],
+  "BillingMode": "PAY_PER_REQUEST",
+  "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "stripe-customer-index",
+      "KeySchema": [
+        {
+          "AttributeName": "stripe_customer_id",
+          "KeyType": "HASH"
+        }
+      ],
+      "Projection": {
+        "ProjectionType": "ALL"
+      }
+    }
+  ],
+  "SSESpecification": {
+    "Enabled": true,
+    "SSEType": "KMS"
+  },
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "diatonic-ai-platform"
+    },
+    {
+      "Key": "Owner",
+      "Value": "daclab-ai"
+    },
+    {
+      "Key": "Environment",
+      "Value": "dev"
+    },
+    {
+      "Key": "Service",
+      "Value": "stripe-billing"
+    },
+    {
+      "Key": "CostCenter",
+      "Value": "engineering"
+    },
+    {
+      "Key": "MigratedFrom",
+      "Value": "ai-nexus-dev-stripe-customers"
+    },
+    {
+      "Key": "CreatedBy",
+      "Value": "migration-automation"
+    },
+    {
+      "Key": "CreatedDate",
+      "Value": "2025-09-17"
+    }
+  ]
+}

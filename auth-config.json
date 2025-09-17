@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "cognitoConfig": {
+    "resourceName": "ainexusworkbenchAuth",
+    "identityPoolName": "ainexusworkbenchIdentityPool",
+    "allowUnauthenticatedIdentities": true,
+    "autoVerifyUserAttributes": ["email"],
+    "mfaConfiguration": "OFF",
+    "requiredAttributes": ["email"],
+    "userPoolName": "ainexusworkbenchUserPool",
+    "signInAliases": ["email"],
+    "adminCreateUserConfig": {
+      "allowAdminCreateUserOnly": false
+    }
+  }
+}

@@ -1,0 +1,95 @@
+account,region,env,old_table,new_table,service,owner,notes,risk_level
+# Template for DynamoDB table renaming - FILL OUT BEFORE PROCEEDING
+# 
+# Current Analysis (70 tables total):
+# - aws-devops-* (59 tables): 58 dev + 1 terraform state lock
+# - diatonic-prod-* (6 tables): production tables - HIGH RISK
+# - ai-nexus-dev-* (4 tables): development tables
+# - diatonic-ai-workbench-dev (1 table): development table
+#
+# INSTRUCTIONS:
+# 1. Fill in new_table column with desired names
+# 2. Specify owner for each service area
+# 3. Set risk_level: LOW (dev), HIGH (prod), CRITICAL (state-lock)
+# 4. Add notes for special handling requirements
+#
+
+# AI Nexus Development Tables (4 tables) - APPROVED FOR RENAME
+313476888312,us-east-2,dev,ai-nexus-dev-stripe-customers,diatonic-ai-stripe-customers,diatonic-stripe,daclab-ai,Stripe payment processing,LOW
+313476888312,us-east-2,dev,ai-nexus-dev-stripe-idempotency,diatonic-ai-stripe-idempotency,diatonic-stripe,daclab-ai,Stripe idempotency tracking,LOW
+313476888312,us-east-2,dev,ai-nexus-dev-stripe-invoices,diatonic-ai-stripe-invoices,diatonic-stripe,daclab-ai,Stripe invoice management,LOW
+313476888312,us-east-2,dev,ai-nexus-dev-stripe-subscriptions,diatonic-ai-stripe-subscriptions,diatonic-stripe,daclab-ai,Stripe subscription management,LOW
+
+# AWS DevOps Development Tables (58 tables)
+313476888312,us-east-2,dev,aws-devops-dev-activity-feed,PLEASE_FILL_NEW_NAME,aws-devops-core,OWNER_NAME,Activity tracking,LOW
+313476888312,us-east-2,dev,aws-devops-dev-agent-execution-history,PLEASE_FILL_NEW_NAME,aws-devops-agents,OWNER_NAME,Agent execution logs,LOW
+313476888312,us-east-2,dev,aws-devops-dev-agent-flows,PLEASE_FILL_NEW_NAME,aws-devops-agents,OWNER_NAME,Agent workflow definitions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-agent-templates,PLEASE_FILL_NEW_NAME,aws-devops-agents,OWNER_NAME,Agent templates,LOW
+313476888312,us-east-2,dev,aws-devops-dev-agent-versions,PLEASE_FILL_NEW_NAME,aws-devops-agents,OWNER_NAME,Agent version control,LOW
+313476888312,us-east-2,dev,aws-devops-dev-agents,PLEASE_FILL_NEW_NAME,aws-devops-agents,OWNER_NAME,Agent definitions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-aggregated-analytics,PLEASE_FILL_NEW_NAME,aws-devops-analytics,OWNER_NAME,Aggregated metrics,LOW
+313476888312,us-east-2,dev,aws-devops-dev-application-settings,PLEASE_FILL_NEW_NAME,aws-devops-core,OWNER_NAME,Application configuration,LOW
+313476888312,us-east-2,dev,aws-devops-dev-cognito-group-mappings,PLEASE_FILL_NEW_NAME,aws-devops-auth,OWNER_NAME,Cognito group management,LOW
+313476888312,us-east-2,dev,aws-devops-dev-community-comments,PLEASE_FILL_NEW_NAME,aws-devops-community,OWNER_NAME,Community comments,LOW
+313476888312,us-east-2,dev,aws-devops-dev-community-posts,PLEASE_FILL_NEW_NAME,aws-devops-community,OWNER_NAME,Community posts,LOW
+313476888312,us-east-2,dev,aws-devops-dev-courses,PLEASE_FILL_NEW_NAME,aws-devops-education,OWNER_NAME,Course catalog,LOW
+313476888312,us-east-2,dev,aws-devops-dev-dashboard-metrics,PLEASE_FILL_NEW_NAME,aws-devops-analytics,OWNER_NAME,Dashboard data,LOW
+313476888312,us-east-2,dev,aws-devops-dev-datasets,PLEASE_FILL_NEW_NAME,aws-devops-data,OWNER_NAME,Dataset management,LOW
+313476888312,us-east-2,dev,aws-devops-dev-education-courses,PLEASE_FILL_NEW_NAME,aws-devops-education,OWNER_NAME,Educational courses,LOW
+313476888312,us-east-2,dev,aws-devops-dev-enrollments,PLEASE_FILL_NEW_NAME,aws-devops-education,OWNER_NAME,Course enrollments,LOW
+313476888312,us-east-2,dev,aws-devops-dev-experiment-run-logs,PLEASE_FILL_NEW_NAME,aws-devops-lab,OWNER_NAME,Experiment execution logs,LOW
+313476888312,us-east-2,dev,aws-devops-dev-experiment-runs,PLEASE_FILL_NEW_NAME,aws-devops-lab,OWNER_NAME,Experiment runs,LOW
+313476888312,us-east-2,dev,aws-devops-dev-experiments,PLEASE_FILL_NEW_NAME,aws-devops-lab,OWNER_NAME,Experiment definitions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-flow-node-configs,PLEASE_FILL_NEW_NAME,aws-devops-flows,OWNER_NAME,Flow node configurations,LOW
+313476888312,us-east-2,dev,aws-devops-dev-flow-templates,PLEASE_FILL_NEW_NAME,aws-devops-flows,OWNER_NAME,Flow templates,LOW
+313476888312,us-east-2,dev,aws-devops-dev-group-memberships,PLEASE_FILL_NEW_NAME,aws-devops-auth,OWNER_NAME,Group membership tracking,LOW
+313476888312,us-east-2,dev,aws-devops-dev-groups,PLEASE_FILL_NEW_NAME,aws-devops-auth,OWNER_NAME,Group definitions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-lab-experiments,PLEASE_FILL_NEW_NAME,aws-devops-lab,OWNER_NAME,Lab experiments,LOW
+313476888312,us-east-2,dev,aws-devops-dev-lab-model-registry,PLEASE_FILL_NEW_NAME,aws-devops-lab,OWNER_NAME,Model registry,LOW
+313476888312,us-east-2,dev,aws-devops-dev-lead-activities,PLEASE_FILL_NEW_NAME,aws-devops-leads,OWNER_NAME,Lead activity tracking,LOW
+313476888312,us-east-2,dev,aws-devops-dev-leads,PLEASE_FILL_NEW_NAME,aws-devops-leads,OWNER_NAME,Lead management,LOW
+313476888312,us-east-2,dev,aws-devops-dev-lesson-progress,PLEASE_FILL_NEW_NAME,aws-devops-education,OWNER_NAME,Learning progress,LOW
+313476888312,us-east-2,dev,aws-devops-dev-lessons,PLEASE_FILL_NEW_NAME,aws-devops-education,OWNER_NAME,Lesson content,LOW
+313476888312,us-east-2,dev,aws-devops-dev-metrics-timeseries,PLEASE_FILL_NEW_NAME,aws-devops-analytics,OWNER_NAME,Time series metrics,LOW
+313476888312,us-east-2,dev,aws-devops-dev-models,PLEASE_FILL_NEW_NAME,aws-devops-ml,OWNER_NAME,ML model definitions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-notification-subscriptions,PLEASE_FILL_NEW_NAME,aws-devops-notifications,OWNER_NAME,Notification subscriptions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-notifications,PLEASE_FILL_NEW_NAME,aws-devops-notifications,OWNER_NAME,Notification management,LOW
+313476888312,us-east-2,dev,aws-devops-dev-organization-data,PLEASE_FILL_NEW_NAME,aws-devops-orgs,OWNER_NAME,Organization data,LOW
+313476888312,us-east-2,dev,aws-devops-dev-organization-memberships,PLEASE_FILL_NEW_NAME,aws-devops-orgs,OWNER_NAME,Organization memberships,LOW
+313476888312,us-east-2,dev,aws-devops-dev-organization-settings,PLEASE_FILL_NEW_NAME,aws-devops-orgs,OWNER_NAME,Organization settings,LOW
+313476888312,us-east-2,dev,aws-devops-dev-project-memberships,PLEASE_FILL_NEW_NAME,aws-devops-projects,OWNER_NAME,Project memberships,LOW
+313476888312,us-east-2,dev,aws-devops-dev-projects,PLEASE_FILL_NEW_NAME,aws-devops-projects,OWNER_NAME,Project definitions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-prompts-library,PLEASE_FILL_NEW_NAME,aws-devops-ai,OWNER_NAME,AI prompt library,LOW
+313476888312,us-east-2,dev,aws-devops-dev-quiz-results,PLEASE_FILL_NEW_NAME,aws-devops-education,OWNER_NAME,Quiz results,LOW
+313476888312,us-east-2,dev,aws-devops-dev-quizzes,PLEASE_FILL_NEW_NAME,aws-devops-education,OWNER_NAME,Quiz definitions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-reactions,PLEASE_FILL_NEW_NAME,aws-devops-community,OWNER_NAME,User reactions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-role-permissions,PLEASE_FILL_NEW_NAME,aws-devops-auth,OWNER_NAME,Role permissions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-roles,PLEASE_FILL_NEW_NAME,aws-devops-auth,OWNER_NAME,Role definitions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-subscription-billing,PLEASE_FILL_NEW_NAME,aws-devops-billing,OWNER_NAME,Billing management,LOW
+313476888312,us-east-2,dev,aws-devops-dev-subscription-limits,PLEASE_FILL_NEW_NAME,aws-devops-billing,OWNER_NAME,Subscription limits,LOW
+313476888312,us-east-2,dev,aws-devops-dev-system-logs,PLEASE_FILL_NEW_NAME,aws-devops-core,OWNER_NAME,System logging,LOW
+313476888312,us-east-2,dev,aws-devops-dev-team-memberships,PLEASE_FILL_NEW_NAME,aws-devops-teams,OWNER_NAME,Team memberships,LOW
+313476888312,us-east-2,dev,aws-devops-dev-toolset-items,PLEASE_FILL_NEW_NAME,aws-devops-toolset,OWNER_NAME,Toolset management,LOW
+313476888312,us-east-2,dev,aws-devops-dev-user-content-metadata,PLEASE_FILL_NEW_NAME,aws-devops-users,OWNER_NAME,User content metadata,LOW
+313476888312,us-east-2,dev,aws-devops-dev-user-permissions,PLEASE_FILL_NEW_NAME,aws-devops-users,OWNER_NAME,User permissions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-user-profiles,PLEASE_FILL_NEW_NAME,aws-devops-users,OWNER_NAME,User profiles,LOW
+313476888312,us-east-2,dev,aws-devops-dev-user-progress,PLEASE_FILL_NEW_NAME,aws-devops-users,OWNER_NAME,User progress tracking,LOW
+313476888312,us-east-2,dev,aws-devops-dev-user-quotas,PLEASE_FILL_NEW_NAME,aws-devops-users,OWNER_NAME,User quotas,LOW
+313476888312,us-east-2,dev,aws-devops-dev-user-sessions,PLEASE_FILL_NEW_NAME,aws-devops-users,OWNER_NAME,User sessions,LOW
+313476888312,us-east-2,dev,aws-devops-dev-users,PLEASE_FILL_NEW_NAME,aws-devops-users,OWNER_NAME,User management,LOW
+313476888312,us-east-2,dev,aws-devops-dev-workspace-memberships,PLEASE_FILL_NEW_NAME,aws-devops-workspaces,OWNER_NAME,Workspace memberships,LOW
+313476888312,us-east-2,dev,aws-devops-dev-workspaces,PLEASE_FILL_NEW_NAME,aws-devops-workspaces,OWNER_NAME,Workspace definitions,LOW
+
+# Infrastructure Tables (1 table) - CRITICAL RISK
+313476888312,us-east-2,infra,aws-devops-terraform-state-lock,PLEASE_FILL_NEW_NAME,terraform,OWNER_NAME,Terraform state locking - CRITICAL,CRITICAL
+
+# Diatonic Workbench Development (1 table)
+313476888312,us-east-2,dev,diatonic-ai-workbench-dev,PLEASE_FILL_NEW_NAME,diatonic-workbench,OWNER_NAME,AI workbench development,LOW
+
+# Diatonic Production Tables (6 tables) - HIGH RISK ⚠️
+313476888312,us-east-2,prod,diatonic-prod-ai-conversations,PLEASE_FILL_NEW_NAME,diatonic-ai,OWNER_NAME,AI conversations - PRODUCTION,HIGH
+313476888312,us-east-2,prod,diatonic-prod-ai-models,PLEASE_FILL_NEW_NAME,diatonic-ai,OWNER_NAME,AI models - PRODUCTION,HIGH
+313476888312,us-east-2,prod,diatonic-prod-ai-sessions,PLEASE_FILL_NEW_NAME,diatonic-ai,OWNER_NAME,AI sessions - PRODUCTION,HIGH
+313476888312,us-east-2,prod,diatonic-prod-projects,PLEASE_FILL_NEW_NAME,diatonic-projects,OWNER_NAME,Projects - PRODUCTION,HIGH
+313476888312,us-east-2,prod,diatonic-prod-user-files,PLEASE_FILL_NEW_NAME,diatonic-users,OWNER_NAME,User files - PRODUCTION,HIGH
+313476888312,us-east-2,prod,diatonic-prod-users,PLEASE_FILL_NEW_NAME,diatonic-users,OWNER_NAME,User management - PRODUCTION,HIGH

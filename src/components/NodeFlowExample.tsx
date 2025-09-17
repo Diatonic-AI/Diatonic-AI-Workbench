@@ -337,12 +337,12 @@ const NodeFlowExample = () => {
   const getNodeAnimationClass = (nodeId: string) => {
     if (!nodeAnimating && !isHovering) return '';
     
-    const delay = nodeId === 'node1' ? 0 : 
-                 nodeId === 'node2' ? 0.2 : 
-                 nodeId === 'node3' ? 0.4 : 0.6;
+    const delayClass = nodeId === 'node1' ? 'delay-0' : 
+                      nodeId === 'node2' ? 'delay-200' : 
+                      nodeId === 'node3' ? 'delay-300' : 'delay-500';
     
     return animationState === 'adding-node' ? 
-      `transform transition-transform duration-500 delay-[${delay}s] scale-95 hover:scale-105` : '';
+      `transform transition-transform duration-500 ${delayClass} scale-95 hover:scale-105` : '';
   };
   
   // Generate bezier curve paths for connections - improved smoothness
@@ -560,7 +560,7 @@ const NodeFlowExample = () => {
                 <Button 
                   onClick={handleConfigAction} 
                   size="sm" 
-                  className={`bg-workbbench-purple hover:bg-workbbench-purple/90 ${buttonAnimating ? 'animate-[scale_0.5s_ease]' : ''}`}
+                  className={`bg-workbbench-purple hover:bg-workbbench-purple/90 text-white ${buttonAnimating ? 'animate-[scale_0.5s_ease]' : ''}`}
                 >
                   Try For Free
                   <ArrowRight className="ml-2 h-4 w-4" />

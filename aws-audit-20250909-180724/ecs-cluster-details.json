@@ -1,0 +1,7 @@
+{
+    "ClusterName": "aws-devops-dev-cluster",
+    "Status": "ACTIVE",
+    "RunningTasksCount": 1,
+    "ActiveServicesCount": 1,
+    "RegisteredContainerInstancesCount": 0
+}

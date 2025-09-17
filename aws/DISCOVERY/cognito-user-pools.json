@@ -1,0 +1,30 @@
+{
+    "UserPools": [
+        {
+            "Id": "us-east-2_0jcHVQUx7",
+            "Name": "amplify_backend_manager_d3ddhluaptuu35",
+            "LambdaConfig": {
+                "CustomMessage": "arn:aws:lambda:us-east-2:313476888312:function:amplify-login-custom-message-270079a5",
+                "DefineAuthChallenge": "arn:aws:lambda:us-east-2:313476888312:function:amplify-login-define-auth-challenge-270079a5",
+                "CreateAuthChallenge": "arn:aws:lambda:us-east-2:313476888312:function:amplify-login-create-auth-challenge-270079a5",
+                "VerifyAuthChallengeResponse": "arn:aws:lambda:us-east-2:313476888312:function:amplify-login-verify-auth-challenge-270079a5"
+            },
+            "LastModifiedDate": "2025-09-09T02:22:30.793000-05:00",
+            "CreationDate": "2025-09-09T02:22:30.793000-05:00"
+        },
+        {
+            "Id": "us-east-2_hnlgmxl8t",
+            "Name": "diatonic-prod-users",
+            "LambdaConfig": {},
+            "LastModifiedDate": "2025-08-25T07:10:03.790000-05:00",
+            "CreationDate": "2025-08-25T07:10:03.790000-05:00"
+        },
+        {
+            "Id": "us-east-2_xkNeOGMu1",
+            "Name": "ai-nexus-workbench-dev-user-pool",
+            "LambdaConfig": {},
+            "LastModifiedDate": "2025-09-08T00:35:22.397000-05:00",
+            "CreationDate": "2025-09-07T18:37:56.058000-05:00"
+        }
+    ]
+}

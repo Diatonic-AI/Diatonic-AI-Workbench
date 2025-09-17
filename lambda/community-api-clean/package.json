@@ -1,0 +1,22 @@
+{
+  "name": "ai-nexus-community-api-clean",
+  "version": "1.0.0",
+  "description": "Lightweight AI Nexus Community API Lambda Function",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "community",
+    "api",
+    "dynamodb",
+    "lightweight"
+  ],
+  "author": "AI Nexus Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

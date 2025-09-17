@@ -1,0 +1,33 @@
+{
+    "domainAssociations": [
+        {
+            "domainAssociationArn": "arn:aws:amplify:us-east-2:313476888312:apps/d3ddhluaptuu35/domains/diatonic.ai",
+            "domainName": "diatonic.ai",
+            "enableAutoSubDomain": true,
+            "domainStatus": "AVAILABLE",
+            "updateStatus": "UPDATE_COMPLETE",
+            "certificateVerificationDNSRecord": "_6bed95c6b7b0ef39ef28da5b78620e14.diatonic.ai. CNAME _27bf23a2ae9afb2c30e441b33ffd4da3.xlfgrmvvlj.acm-validations.aws.",
+            "subDomains": [
+                {
+                    "subDomainSetting": {
+                        "branchName": "main"
+                    },
+                    "verified": false,
+                    "dnsRecord": "* CNAME dxz4p4iipx5lm.cloudfront.net"
+                },
+                {
+                    "subDomainSetting": {
+                        "prefix": "www",
+                        "branchName": "main"
+                    },
+                    "verified": false,
+                    "dnsRecord": "www CNAME dxz4p4iipx5lm.cloudfront.net"
+                }
+            ],
+            "certificate": {
+                "type": "AMPLIFY_MANAGED",
+                "certificateVerificationDNSRecord": "_6bed95c6b7b0ef39ef28da5b78620e14.diatonic.ai. CNAME _27bf23a2ae9afb2c30e441b33ffd4da3.xlfgrmvvlj.acm-validations.aws."
+            }
+        }
+    ]
+}

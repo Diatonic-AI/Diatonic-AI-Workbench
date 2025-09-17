@@ -1,0 +1,26 @@
+{
+  "name": "ai-nexus-education-api",
+  "version": "1.0.0",
+  "description": "AI Nexus Workbench Education API Lambda Function",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "education",
+    "api",
+    "dynamodb",
+    "multi-tenant"
+  ],
+  "author": "AI Nexus Team",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1490.0",
+    "uuid": "^9.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

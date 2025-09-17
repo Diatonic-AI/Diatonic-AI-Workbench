@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
 import { LLMNodeData } from '../types';
@@ -9,11 +8,15 @@ interface LLMNodeProps {
 }
 
 export function LLMNode({ data, isConnectable }: LLMNodeProps) {
+  // Safe string conversion to avoid primitive conversion errors
+  const safeLabel = String(data?.label || 'LLM Node');
+  const safePrompt = String(data?.prompt || 'No prompt configured');
+
   return (
     <div className="p-3 rounded-md bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-primary/30">
-      <div className="font-medium text-sm mb-2">{data.label}</div>
+      <div className="font-medium text-sm mb-2">{safeLabel}</div>
       <div className="text-xs text-muted-foreground">
-        {data.prompt ? data.prompt : 'No prompt configured'}
+        {safePrompt}
       </div>
       
       <Handle

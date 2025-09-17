@@ -1,0 +1,67 @@
+{
+    "Items": [
+        {
+            "ApiKeyRequired": false,
+            "AuthorizationType": "JWT",
+            "AuthorizerId": "tg9fpv",
+            "RouteId": "784sv0c",
+            "RouteKey": "GET /billing/status",
+            "Target": "integrations/3r3gl5r"
+        },
+        {
+            "ApiKeyRequired": false,
+            "AuthorizationType": "JWT",
+            "AuthorizerId": "tg9fpv",
+            "RouteId": "aohd1hu",
+            "RouteKey": "POST /billing/cancel-subscription",
+            "Target": "integrations/8e0r6m5"
+        },
+        {
+            "ApiKeyRequired": false,
+            "AuthorizationType": "JWT",
+            "AuthorizerId": "tg9fpv",
+            "RouteId": "d6tulc9",
+            "RouteKey": "POST /billing/create-setup-intent",
+            "Target": "integrations/n3liiym"
+        },
+        {
+            "ApiKeyRequired": false,
+            "AuthorizationType": "JWT",
+            "AuthorizerId": "tg9fpv",
+            "RouteId": "d99rm34",
+            "RouteKey": "POST /billing/create-portal-session",
+            "Target": "integrations/5lyc820"
+        },
+        {
+            "ApiKeyRequired": false,
+            "AuthorizationType": "NONE",
+            "RouteId": "hp1cpi6",
+            "RouteKey": "POST /stripe/webhook",
+            "Target": "integrations/xx3213u"
+        },
+        {
+            "ApiKeyRequired": false,
+            "AuthorizationType": "JWT",
+            "AuthorizerId": "tg9fpv",
+            "RouteId": "s34967l",
+            "RouteKey": "POST /billing/create-checkout-session",
+            "Target": "integrations/u9mqt0a"
+        },
+        {
+            "ApiKeyRequired": false,
+            "AuthorizationType": "JWT",
+            "AuthorizerId": "tg9fpv",
+            "RouteId": "xiaoeau",
+            "RouteKey": "POST /billing/update-subscription",
+            "Target": "integrations/xocghps"
+        },
+        {
+            "ApiKeyRequired": false,
+            "AuthorizationType": "JWT",
+            "AuthorizerId": "tg9fpv",
+            "RouteId": "yaxdwl0",
+            "RouteKey": "GET /billing/invoices",
+            "Target": "integrations/n6665e0"
+        }
+    ]
+}

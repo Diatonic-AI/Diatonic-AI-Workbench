@@ -1,0 +1,43 @@
+{
+    "Table": {
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "event_id",
+                "AttributeType": "S"
+            }
+        ],
+        "TableName": "ai-nexus-dev-stripe-idempotency",
+        "KeySchema": [
+            {
+                "AttributeName": "event_id",
+                "KeyType": "HASH"
+            }
+        ],
+        "TableStatus": "ACTIVE",
+        "CreationDateTime": "2025-09-08T01:34:11.230000-05:00",
+        "ProvisionedThroughput": {
+            "NumberOfDecreasesToday": 0,
+            "ReadCapacityUnits": 0,
+            "WriteCapacityUnits": 0
+        },
+        "TableSizeBytes": 0,
+        "ItemCount": 0,
+        "TableArn": "arn:aws:dynamodb:us-east-2:313476888312:table/ai-nexus-dev-stripe-idempotency",
+        "TableId": "9c31aa5a-93dc-4d79-a382-79e69f73c421",
+        "BillingModeSummary": {
+            "BillingMode": "PAY_PER_REQUEST",
+            "LastUpdateToPayPerRequestDateTime": "2025-09-08T01:34:11.230000-05:00"
+        },
+        "SSEDescription": {
+            "Status": "ENABLED",
+            "SSEType": "KMS",
+            "KMSMasterKeyArn": "arn:aws:kms:us-east-2:313476888312:key/db926bb8-67e9-4928-9a58-90e645e0ab5a"
+        },
+        "DeletionProtectionEnabled": false,
+        "WarmThroughput": {
+            "ReadUnitsPerSecond": 12000,
+            "WriteUnitsPerSecond": 4000,
+            "Status": "ACTIVE"
+        }
+    }
+}

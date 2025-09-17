@@ -1,0 +1,67 @@
+{
+    "FunctionName": "aws-devops-dev-main-api",
+    "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:aws-devops-dev-main-api",
+    "Runtime": "nodejs18.x",
+    "Role": "arn:aws:iam::313476888312:role/aws-devops-dev-main-api-lambda-role",
+    "Handler": "api/handler.handler",
+    "CodeSize": 21577962,
+    "Description": "",
+    "Timeout": 30,
+    "MemorySize": 512,
+    "LastModified": "2025-09-12T04:10:43.000+0000",
+    "CodeSha256": "0eDtGeK1UihISaah5aVfIX3Jj0mTedsVl/KLBPV5Dv0=",
+    "Version": "$LATEST",
+    "DeadLetterConfig": {
+        "TargetArn": "arn:aws:sqs:us-east-2:313476888312:aws-devops-dev-lambda-dlq"
+    },
+    "Environment": {
+        "Variables": {
+            "ORGANIZATION_SETTINGS_TABLE": "aws-devops-dev-organization-settings",
+            "ROLES_TABLE": "aws-devops-dev-roles",
+            "SYSTEM_LOGS_TABLE": "aws-devops-dev-system-logs",
+            "USER_PERMISSIONS_TABLE": "aws-devops-dev-user-permissions",
+            "ROLE_PERMISSIONS_TABLE": "aws-devops-dev-role-permissions",
+            "SUBSCRIPTION_LIMITS_TABLE": "aws-devops-dev-subscription-limits",
+            "USERS_TABLE": "aws-devops-dev-users",
+            "ENVIRONMENT": "dev",
+            "SUBSCRIPTION_BILLING_TABLE": "aws-devops-dev-subscription-billing",
+            "API_VERSION": "v1",
+            "CORS_ORIGINS": "[\"http://localhost:3000\",\"http://localhost:5173\",\"*\"]",
+            "USER_POOL_ID": "us-east-2_xkNeOGMu1",
+            "COGNITO_GROUP_MAPPINGS_TABLE": "aws-devops-dev-cognito-group-mappings",
+            "USER_PROFILES_TABLE": "aws-devops-dev-user-profiles",
+            "USER_SESSIONS_TABLE": "aws-devops-dev-user-sessions",
+            "USER_QUOTAS_TABLE": "aws-devops-dev-user-quotas",
+            "NODE_ENV": "dev",
+            "TEAM_MEMBERSHIPS_TABLE": "aws-devops-dev-team-memberships",
+            "LOG_LEVEL": "DEBUG",
+            "STRIPE_SECRET_PATH": "/ai-nexus/diatonicvisuals/stripe/secret_key",
+            "STRIPE_WEBHOOK_SECRET_PATH": "/ai-nexus/diatonicvisuals/stripe/webhook_signing_secret",
+            "USER_POOL_CLIENT_ID": "4ldimauhip6pq3han3ot5u9qmv"
+        }
+    },
+    "TracingConfig": {
+        "Mode": "Active"
+    },
+    "RevisionId": "ae456352-5675-449a-baf4-60f2c71d8022",
+    "State": "Active",
+    "LastUpdateStatus": "Successful",
+    "PackageType": "Zip",
+    "Architectures": [
+        "x86_64"
+    ],
+    "EphemeralStorage": {
+        "Size": 512
+    },
+    "SnapStart": {
+        "ApplyOn": "None",
+        "OptimizationStatus": "Off"
+    },
+    "RuntimeVersionConfig": {
+        "RuntimeVersionArn": "arn:aws:lambda:us-east-2::runtime:383248ddd42b9c40948071c40a8f726625554b9d343cee049792b82a21330b2c"
+    },
+    "LoggingConfig": {
+        "LogFormat": "Text",
+        "LogGroup": "/aws/lambda/aws-devops-dev-main-api"
+    }
+}

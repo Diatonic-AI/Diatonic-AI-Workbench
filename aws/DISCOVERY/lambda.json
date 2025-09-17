@@ -1,0 +1,927 @@
+{
+    "Functions": [
+        {
+            "FunctionName": "aws-devops-dev-education-api",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:aws-devops-dev-education-api",
+            "Runtime": "nodejs18.x",
+            "Role": "arn:aws:iam::313476888312:role/aws-devops-dev-comprehensive-backend-lambda-role",
+            "Handler": "index.handler",
+            "CodeSize": 4989084,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 256,
+            "LastModified": "2025-09-16T18:08:17.000+0000",
+            "CodeSha256": "t44GSIkOcRvhdhN9ZYuCt4RzqGFYpWSeZmm103pGgmc=",
+            "Version": "$LATEST",
+            "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sqs:us-east-2:313476888312:aws-devops-dev-education-dlq"
+            },
+            "Environment": {
+                "Variables": {
+                    "DEFAULT_ORGANIZATION_ID": "dev-org",
+                    "ENABLE_TENANT_ISOLATION": "true",
+                    "S3_BUCKET_NAME": "aiworkbench-education-content-prod",
+                    "CORS_ORIGIN": "https://dev.diatonic.ai",
+                    "DYNAMODB_REGION": "us-east-2",
+                    "COURSES_TABLE": "aws-devops-dev-courses",
+                    "ENABLE_DEBUG_MODE": "true",
+                    "ENROLLMENTS_TABLE": "aws-devops-dev-enrollments",
+                    "CREATE_TEST_DATA": "true",
+                    "NODE_ENV": "dev",
+                    "LESSONS_TABLE": "aws-devops-dev-lessons",
+                    "PROGRESS_TABLE": "aws-devops-dev-lesson-progress",
+                    "LOG_LEVEL": "debug"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "2e878c19-1ec5-46e0-a1ea-f35568deb21d",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/aws-devops-dev-education-api"
+            }
+        },
+        {
+            "FunctionName": "ai-nexus-dev-stripe-get-subscription-status",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-get-subscription-status",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/ai-nexus-dev-stripe-lambda-execution-role",
+            "Handler": "index.handler",
+            "CodeSize": 311,
+            "Description": "",
+            "Timeout": 15,
+            "MemorySize": 256,
+            "LastModified": "2025-09-08T06:34:57.249+0000",
+            "CodeSha256": "bO3YC93Xxtkv+oXttgfgBaYU7Tr708mX9aityLQURbY=",
+            "Version": "$LATEST",
+            "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sqs:us-east-2:313476888312:ai-nexus-dev-stripe-dlq"
+            },
+            "Environment": {
+                "Variables": {
+                    "TENANT_ID": "diatonicvisuals",
+                    "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions",
+                    "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers",
+                    "LOG_LEVEL": "info"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "2df662d1-89a2-4c65-922c-fba36d282f16",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/ai-nexus-dev-stripe-get-subscription-status"
+            }
+        },
+        {
+            "FunctionName": "amplify-login-create-auth-challenge-270079a5",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:amplify-login-create-auth-challenge-270079a5",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/amplify-login-lambda-270079a5",
+            "Handler": "index.handler",
+            "CodeSize": 1192,
+            "Description": "",
+            "Timeout": 15,
+            "MemorySize": 256,
+            "LastModified": "2025-09-09T07:22:29.382+0000",
+            "CodeSha256": "jROyn08D7sCar+sKn+Jx6SzqoClJhbEnr5uQIEKkEpA=",
+            "Version": "$LATEST",
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "242b25e5-12c3-4bf5-ba0d-d3254e02f267",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/amplify-login-create-auth-challenge-270079a5"
+            }
+        },
+        {
+            "FunctionName": "diatonic-prod-cognito-triggers",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:diatonic-prod-cognito-triggers",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/diatonic-prod-lambda-execution",
+            "Handler": "index.handler",
+            "CodeSize": 1075,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 128,
+            "LastModified": "2025-08-25T12:10:04.711+0000",
+            "CodeSha256": "dsLfXO00EXJaP5JcCYhWQLJq0/LN3q3e9gB7KFxEgRU=",
+            "Version": "$LATEST",
+            "Environment": {
+                "Variables": {
+                    "USER_TABLE_NAME": "diatonic-prod-users",
+                    "USER_POOL_ID": "us-east-2_hnlgmxl8t"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "94cbb46a-17e9-4981-8838-1aa427647a88",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/diatonic-prod-cognito-triggers"
+            }
+        },
+        {
+            "FunctionName": "ai-nexus-dev-stripe-update-subscription",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-update-subscription",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/ai-nexus-dev-stripe-lambda-execution-role",
+            "Handler": "index.handler",
+            "CodeSize": 311,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 256,
+            "LastModified": "2025-09-08T06:34:45.726+0000",
+            "CodeSha256": "bO3YC93Xxtkv+oXttgfgBaYU7Tr708mX9aityLQURbY=",
+            "Version": "$LATEST",
+            "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sqs:us-east-2:313476888312:ai-nexus-dev-stripe-dlq"
+            },
+            "Environment": {
+                "Variables": {
+                    "PRICE_MAP_SSM_PATH": "/ai-nexus/diatonicvisuals/stripe/prices",
+                    "STRIPE_SECRET_ARN": "arn:aws:secretsmanager:us-east-2:313476888312:secret:/ai-nexus/diatonicvisuals/stripe/secret_key-Z9kKlc",
+                    "TENANT_ID": "diatonicvisuals",
+                    "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions",
+                    "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers",
+                    "LOG_LEVEL": "info"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "11ea64f5-2099-4125-837a-3f8444b67c80",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/ai-nexus-dev-stripe-update-subscription"
+            }
+        },
+        {
+            "FunctionName": "aws-devops-dev-leads",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:aws-devops-dev-leads",
+            "Runtime": "nodejs18.x",
+            "Role": "arn:aws:iam::313476888312:role/aws-devops-dev-lambda-leads-role",
+            "Handler": "index.handler",
+            "CodeSize": 14663920,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 256,
+            "LastModified": "2025-09-16T20:05:24.000+0000",
+            "CodeSha256": "/VNh/w79W0jKpSp5l9CJznoU06LJMFJOJMsiK4EgzyY=",
+            "Version": "$LATEST",
+            "Environment": {
+                "Variables": {
+                    "LEAD_ACTIVITIES_TABLE": "aws-devops-dev-lead-activities",
+                    "LEADS_TABLE": "aws-devops-dev-leads",
+                    "FRONTEND_URL": "http://localhost:3000"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "b615ee3d-eb23-49f9-9f12-713583a11944",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/aws-devops-dev-leads"
+            }
+        },
+        {
+            "FunctionName": "aws-devops-dev-auth-post-authentication",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:aws-devops-dev-auth-post-authentication",
+            "Runtime": "python3.9",
+            "Role": "arn:aws:iam::313476888312:role/aws-devops-dev-lambda-execution-role",
+            "Handler": "lambda_function.lambda_handler",
+            "CodeSize": 1524,
+            "Description": "",
+            "Timeout": 10,
+            "MemorySize": 128,
+            "LastModified": "2025-09-07T23:38:30.547+0000",
+            "CodeSha256": "yJXMuzNbbS7A/9Eva9iUkuPCkIozFXiyFLHohrg7BNA=",
+            "Version": "$LATEST",
+            "Environment": {
+                "Variables": {
+                    "SYSTEM_LOGS_TABLE": "aws-devops-dev-system-logs",
+                    "ENVIRONMENT": "dev",
+                    "USER_PROFILES_TABLE": "aws-devops-dev-user-profiles",
+                    "USER_SESSIONS_TABLE": "aws-devops-dev-user-sessions"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "e58ae9bf-868a-4b52-91a0-86af5f166be9",
+            "Layers": [
+                {
+                    "Arn": "arn:aws:lambda:us-east-2:313476888312:layer:aws-devops-dev-shared-layer:1",
+                    "CodeSize": 232
+                }
+            ],
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/aws-devops-dev-auth-post-authentication"
+            }
+        },
+        {
+            "FunctionName": "ai-nexus-dev-stripe-list-invoices",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-list-invoices",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/ai-nexus-dev-stripe-lambda-execution-role",
+            "Handler": "index.handler",
+            "CodeSize": 311,
+            "Description": "",
+            "Timeout": 15,
+            "MemorySize": 256,
+            "LastModified": "2025-09-08T06:34:51.484+0000",
+            "CodeSha256": "bO3YC93Xxtkv+oXttgfgBaYU7Tr708mX9aityLQURbY=",
+            "Version": "$LATEST",
+            "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sqs:us-east-2:313476888312:ai-nexus-dev-stripe-dlq"
+            },
+            "Environment": {
+                "Variables": {
+                    "TABLE_INVOICES": "ai-nexus-dev-stripe-invoices",
+                    "TENANT_ID": "diatonicvisuals",
+                    "LOG_LEVEL": "info"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "450053d0-32c7-40ae-b651-80984ce787c6",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/ai-nexus-dev-stripe-list-invoices"
+            }
+        },
+        {
+            "FunctionName": "aws-devops-dev-user-registration",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:aws-devops-dev-user-registration",
+            "Runtime": "python3.9",
+            "Role": "arn:aws:iam::313476888312:role/aws-devops-dev-lambda-execution-role",
+            "Handler": "lambda_function.lambda_handler",
+            "CodeSize": 2368,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 256,
+            "LastModified": "2025-09-07T23:38:18.945+0000",
+            "CodeSha256": "pFZJhAww/anHmkMovv+lgotIBN4FV1a5+D/aLAqH4jc=",
+            "Version": "$LATEST",
+            "Environment": {
+                "Variables": {
+                    "SYSTEM_LOGS_TABLE": "aws-devops-dev-system-logs",
+                    "ENVIRONMENT": "dev",
+                    "USER_POOL_ID": "us-east-2_xkNeOGMu1",
+                    "USER_PROFILES_TABLE": "aws-devops-dev-user-profiles"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "29e21164-438c-4456-9df0-b24f412acd93",
+            "Layers": [
+                {
+                    "Arn": "arn:aws:lambda:us-east-2:313476888312:layer:aws-devops-dev-shared-layer:1",
+                    "CodeSize": 232
+                }
+            ],
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/aws-devops-dev-user-registration"
+            }
+        },
+        {
+            "FunctionName": "amplify-login-verify-auth-challenge-270079a5",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:amplify-login-verify-auth-challenge-270079a5",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/amplify-login-lambda-270079a5",
+            "Handler": "index.handler",
+            "CodeSize": 2642,
+            "Description": "",
+            "Timeout": 15,
+            "MemorySize": 256,
+            "LastModified": "2025-09-09T07:22:28.728+0000",
+            "CodeSha256": "j118i+t422JOVQDy2ptJvWzCq5PHwF/7Jyoiwdkej4k=",
+            "Version": "$LATEST",
+            "Environment": {
+                "Variables": {}
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "fbb31a77-0cf5-41ed-8675-d8cb2b1d4c3a",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/amplify-login-verify-auth-challenge-270079a5"
+            }
+        },
+        {
+            "FunctionName": "amplify-login-define-auth-challenge-270079a5",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:amplify-login-define-auth-challenge-270079a5",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/amplify-login-lambda-270079a5",
+            "Handler": "index.handler",
+            "CodeSize": 1798,
+            "Description": "",
+            "Timeout": 15,
+            "MemorySize": 256,
+            "LastModified": "2025-09-09T07:22:29.076+0000",
+            "CodeSha256": "kTFtxiRCTWb0Q2yQPpPbyDsL2Ytk3xNRTLe5NQz8njI=",
+            "Version": "$LATEST",
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "0ee8e628-64ca-4a41-be84-8e226b31fb0d",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/amplify-login-define-auth-challenge-270079a5"
+            }
+        },
+        {
+            "FunctionName": "ai-nexus-dev-stripe-cancel-subscription",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-cancel-subscription",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/ai-nexus-dev-stripe-lambda-execution-role",
+            "Handler": "index.handler",
+            "CodeSize": 311,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 256,
+            "LastModified": "2025-09-08T06:35:14.584+0000",
+            "CodeSha256": "bO3YC93Xxtkv+oXttgfgBaYU7Tr708mX9aityLQURbY=",
+            "Version": "$LATEST",
+            "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sqs:us-east-2:313476888312:ai-nexus-dev-stripe-dlq"
+            },
+            "Environment": {
+                "Variables": {
+                    "STRIPE_SECRET_ARN": "arn:aws:secretsmanager:us-east-2:313476888312:secret:/ai-nexus/diatonicvisuals/stripe/secret_key-Z9kKlc",
+                    "TENANT_ID": "diatonicvisuals",
+                    "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions",
+                    "LOG_LEVEL": "info"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "4900703e-4441-4610-afe1-8fb67e624aea",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/ai-nexus-dev-stripe-cancel-subscription"
+            }
+        },
+        {
+            "FunctionName": "ai-nexus-dev-stripe-stripe-webhook-handler",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-stripe-webhook-handler",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/ai-nexus-dev-stripe-lambda-execution-role",
+            "Handler": "index.handler",
+            "CodeSize": 311,
+            "Description": "",
+            "Timeout": 60,
+            "MemorySize": 256,
+            "LastModified": "2025-09-08T06:51:29.000+0000",
+            "CodeSha256": "bO3YC93Xxtkv+oXttgfgBaYU7Tr708mX9aityLQURbY=",
+            "Version": "$LATEST",
+            "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sqs:us-east-2:313476888312:ai-nexus-dev-stripe-dlq"
+            },
+            "Environment": {
+                "Variables": {
+                    "STRIPE_WEBHOOK_SECRET_ARN": "arn:aws:secretsmanager:us-east-2:313476888312:secret:/ai-nexus/diatonicvisuals/stripe/webhook_signing_secret-WULq8Z",
+                    "TABLE_INVOICES": "ai-nexus-dev-stripe-invoices",
+                    "TABLE_IDEMPOTENCY": "ai-nexus-dev-stripe-idempotency",
+                    "ENABLE_EVENTBRIDGE": "true",
+                    "EVENTBRIDGE_BUS_NAME": "ai-nexus-dev-stripe-event-bus",
+                    "TENANT_ID": "diatonicvisuals",
+                    "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions",
+                    "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers",
+                    "LOG_LEVEL": "info"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "754b9658-1287-4721-82c5-b2092fa631bf",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/ai-nexus-dev-stripe-stripe-webhook-handler"
+            }
+        },
+        {
+            "FunctionName": "aws-devops-dev-user-profile-management",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:aws-devops-dev-user-profile-management",
+            "Runtime": "python3.9",
+            "Role": "arn:aws:iam::313476888312:role/aws-devops-dev-lambda-execution-role",
+            "Handler": "lambda_function.lambda_handler",
+            "CodeSize": 2940,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 256,
+            "LastModified": "2025-09-07T23:38:24.740+0000",
+            "CodeSha256": "o3zo+2e6hbTuG589/KS6e0achmWuNf77t8QFWQG7O+M=",
+            "Version": "$LATEST",
+            "Environment": {
+                "Variables": {
+                    "SYSTEM_LOGS_TABLE": "aws-devops-dev-system-logs",
+                    "ENVIRONMENT": "dev",
+                    "USER_POOL_ID": "us-east-2_xkNeOGMu1",
+                    "USER_PROFILES_TABLE": "aws-devops-dev-user-profiles"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "50d8e085-26a3-4f2a-bec5-08136c13dbc9",
+            "Layers": [
+                {
+                    "Arn": "arn:aws:lambda:us-east-2:313476888312:layer:aws-devops-dev-shared-layer:1",
+                    "CodeSize": 232
+                }
+            ],
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/aws-devops-dev-user-profile-management"
+            }
+        },
+        {
+            "FunctionName": "ai-nexus-dev-stripe-create-checkout-session",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-create-checkout-session",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/ai-nexus-dev-stripe-lambda-execution-role",
+            "Handler": "index.handler",
+            "CodeSize": 311,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 256,
+            "LastModified": "2025-09-08T06:35:26.064+0000",
+            "CodeSha256": "bO3YC93Xxtkv+oXttgfgBaYU7Tr708mX9aityLQURbY=",
+            "Version": "$LATEST",
+            "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sqs:us-east-2:313476888312:ai-nexus-dev-stripe-dlq"
+            },
+            "Environment": {
+                "Variables": {
+                    "PRICE_MAP_SSM_PATH": "/ai-nexus/diatonicvisuals/stripe/prices",
+                    "STRIPE_SECRET_ARN": "arn:aws:secretsmanager:us-east-2:313476888312:secret:/ai-nexus/diatonicvisuals/stripe/secret_key-Z9kKlc",
+                    "TRIAL_PERIOD_DAYS": "14",
+                    "ENABLE_TAX": "true",
+                    "TENANT_ID": "diatonicvisuals",
+                    "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions",
+                    "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers",
+                    "LOG_LEVEL": "info",
+                    "ENABLE_PROMOTION_CODES": "true"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "cb6aa80d-b4d8-457c-92e9-4e0392b40a93",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/ai-nexus-dev-stripe-create-checkout-session"
+            }
+        },
+        {
+            "FunctionName": "diatonic-prod-api-handler",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:diatonic-prod-api-handler",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/diatonic-prod-lambda-execution",
+            "Handler": "index.handler",
+            "CodeSize": 535,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 128,
+            "LastModified": "2025-08-25T12:14:06.000+0000",
+            "CodeSha256": "5dBcbyflvkbDaj5w+UOv0aBx97N93AcmFSgl/ZSyaxM=",
+            "Version": "$LATEST",
+            "Environment": {
+                "Variables": {
+                    "USER_TABLE_NAME": "diatonic-prod-users",
+                    "PROJECT_TABLE_NAME": "diatonic-prod-projects",
+                    "USER_POOL_CLIENT_ID": "5r1q4atfr47vaprqtktujl0l6o",
+                    "USER_POOL_ID": "us-east-2_hnlgmxl8t"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "2c99db57-fcee-42a6-a2e4-543e73627ad1",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/diatonic-prod-api-handler"
+            }
+        },
+        {
+            "FunctionName": "ai-nexus-dev-stripe-create-setup-intent",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-create-setup-intent",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/ai-nexus-dev-stripe-lambda-execution-role",
+            "Handler": "index.handler",
+            "CodeSize": 311,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 256,
+            "LastModified": "2025-09-08T06:35:02.989+0000",
+            "CodeSha256": "bO3YC93Xxtkv+oXttgfgBaYU7Tr708mX9aityLQURbY=",
+            "Version": "$LATEST",
+            "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sqs:us-east-2:313476888312:ai-nexus-dev-stripe-dlq"
+            },
+            "Environment": {
+                "Variables": {
+                    "STRIPE_SECRET_ARN": "arn:aws:secretsmanager:us-east-2:313476888312:secret:/ai-nexus/diatonicvisuals/stripe/secret_key-Z9kKlc",
+                    "TENANT_ID": "diatonicvisuals",
+                    "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers",
+                    "LOG_LEVEL": "info"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "a2a91c8f-97b0-4c37-87ca-342a15509a0f",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/ai-nexus-dev-stripe-create-setup-intent"
+            }
+        },
+        {
+            "FunctionName": "aws-devops-dev-community-api",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:aws-devops-dev-community-api",
+            "Runtime": "nodejs18.x",
+            "Role": "arn:aws:iam::313476888312:role/aws-devops-dev-comprehensive-backend-lambda-role",
+            "Handler": "index.handler",
+            "CodeSize": 3489,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 256,
+            "LastModified": "2025-09-10T18:21:41.648+0000",
+            "CodeSha256": "bzvVRJHsE2RTohws2q/nRkZ2IFf4aoZW5bNdesi9ORo=",
+            "Version": "$LATEST",
+            "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sqs:us-east-2:313476888312:aws-devops-dev-community-dlq"
+            },
+            "Environment": {
+                "Variables": {
+                    "DEFAULT_ORGANIZATION_ID": "dev-org",
+                    "ENABLE_DEBUG_MODE": "true",
+                    "POSTS_TABLE": "aws-devops-dev-community-posts",
+                    "COMMENTS_TABLE": "aws-devops-dev-community-comments",
+                    "NODE_ENV": "dev",
+                    "ENABLE_TENANT_ISOLATION": "true",
+                    "LOG_LEVEL": "debug",
+                    "CORS_ORIGIN": "https://dev.diatonic.ai",
+                    "DYNAMODB_REGION": "us-east-2"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "b1350ee8-973c-45d8-af83-bc1c0c620aa4",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/aws-devops-dev-community-api"
+            }
+        },
+        {
+            "FunctionName": "amplify-login-custom-message-270079a5",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:amplify-login-custom-message-270079a5",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/amplify-login-lambda-270079a5",
+            "Handler": "index.handler",
+            "CodeSize": 2302,
+            "Description": "",
+            "Timeout": 15,
+            "MemorySize": 256,
+            "LastModified": "2025-09-09T07:22:29.683+0000",
+            "CodeSha256": "/1VNg56G0NBd8rdX/wmfmzq281MoXPPNfJEfLZ520q8=",
+            "Version": "$LATEST",
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "c4faed7c-1597-45f8-8b9f-2de784139a3b",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/amplify-login-custom-message-270079a5"
+            }
+        },
+        {
+            "FunctionName": "ai-nexus-dev-stripe-create-portal-session",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-create-portal-session",
+            "Runtime": "nodejs20.x",
+            "Role": "arn:aws:iam::313476888312:role/ai-nexus-dev-stripe-lambda-execution-role",
+            "Handler": "index.handler",
+            "CodeSize": 311,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 256,
+            "LastModified": "2025-09-08T06:35:20.305+0000",
+            "CodeSha256": "bO3YC93Xxtkv+oXttgfgBaYU7Tr708mX9aityLQURbY=",
+            "Version": "$LATEST",
+            "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sqs:us-east-2:313476888312:ai-nexus-dev-stripe-dlq"
+            },
+            "Environment": {
+                "Variables": {
+                    "STRIPE_SECRET_ARN": "arn:aws:secretsmanager:us-east-2:313476888312:secret:/ai-nexus/diatonicvisuals/stripe/secret_key-Z9kKlc",
+                    "TENANT_ID": "diatonicvisuals",
+                    "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers",
+                    "LOG_LEVEL": "info"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "PassThrough"
+            },
+            "RevisionId": "18f478e2-6156-4dbe-b4c5-8af5801163e9",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/ai-nexus-dev-stripe-create-portal-session"
+            }
+        },
+        {
+            "FunctionName": "aws-devops-dev-main-api",
+            "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:aws-devops-dev-main-api",
+            "Runtime": "nodejs18.x",
+            "Role": "arn:aws:iam::313476888312:role/aws-devops-dev-main-api-lambda-role",
+            "Handler": "api/handler.handler",
+            "CodeSize": 21577962,
+            "Description": "",
+            "Timeout": 30,
+            "MemorySize": 512,
+            "LastModified": "2025-09-12T04:10:43.000+0000",
+            "CodeSha256": "0eDtGeK1UihISaah5aVfIX3Jj0mTedsVl/KLBPV5Dv0=",
+            "Version": "$LATEST",
+            "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sqs:us-east-2:313476888312:aws-devops-dev-lambda-dlq"
+            },
+            "Environment": {
+                "Variables": {
+                    "ORGANIZATION_SETTINGS_TABLE": "aws-devops-dev-organization-settings",
+                    "ROLES_TABLE": "aws-devops-dev-roles",
+                    "SYSTEM_LOGS_TABLE": "aws-devops-dev-system-logs",
+                    "USER_PERMISSIONS_TABLE": "aws-devops-dev-user-permissions",
+                    "ROLE_PERMISSIONS_TABLE": "aws-devops-dev-role-permissions",
+                    "SUBSCRIPTION_LIMITS_TABLE": "aws-devops-dev-subscription-limits",
+                    "USERS_TABLE": "aws-devops-dev-users",
+                    "ENVIRONMENT": "dev",
+                    "SUBSCRIPTION_BILLING_TABLE": "aws-devops-dev-subscription-billing",
+                    "API_VERSION": "v1",
+                    "CORS_ORIGINS": "[\"http://localhost:3000\",\"http://localhost:5173\",\"*\"]",
+                    "USER_POOL_ID": "us-east-2_xkNeOGMu1",
+                    "COGNITO_GROUP_MAPPINGS_TABLE": "aws-devops-dev-cognito-group-mappings",
+                    "USER_PROFILES_TABLE": "aws-devops-dev-user-profiles",
+                    "USER_SESSIONS_TABLE": "aws-devops-dev-user-sessions",
+                    "USER_QUOTAS_TABLE": "aws-devops-dev-user-quotas",
+                    "NODE_ENV": "dev",
+                    "TEAM_MEMBERSHIPS_TABLE": "aws-devops-dev-team-memberships",
+                    "LOG_LEVEL": "DEBUG",
+                    "STRIPE_SECRET_PATH": "/ai-nexus/diatonicvisuals/stripe/secret_key",
+                    "STRIPE_WEBHOOK_SECRET_PATH": "/ai-nexus/diatonicvisuals/stripe/webhook_signing_secret",
+                    "USER_POOL_CLIENT_ID": "4ldimauhip6pq3han3ot5u9qmv"
+                }
+            },
+            "TracingConfig": {
+                "Mode": "Active"
+            },
+            "RevisionId": "ae456352-5675-449a-baf4-60f2c71d8022",
+            "PackageType": "Zip",
+            "Architectures": [
+                "x86_64"
+            ],
+            "EphemeralStorage": {
+                "Size": 512
+            },
+            "SnapStart": {
+                "ApplyOn": "None",
+                "OptimizationStatus": "Off"
+            },
+            "LoggingConfig": {
+                "LogFormat": "Text",
+                "LogGroup": "/aws/lambda/aws-devops-dev-main-api"
+            }
+        }
+    ]
+}

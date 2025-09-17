@@ -1,0 +1,71 @@
+<!-- diatonic-ai-icon.svg (v2) -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1080" height="1080" viewBox="0 0 1080 1080"
+     role="img" aria-labelledby="title desc"
+     fill="none" stroke="currentColor" stroke-width="40"
+     stroke-linecap="round" stroke-linejoin="round">
+  <title id="title">Diatonic AI — Frequency × Intelligence</title>
+  <desc id="desc">A precise, smooth sine waveform with seven scale nodes inside a circular frame.</desc>
+
+  <defs>
+    <!-- Clip so the waveform cleanly fits inside the ring -->
+    <clipPath id="clipCircle">
+      <circle cx="540" cy="540" r="470"/>
+    </clipPath>
+  </defs>
+
+  <!-- Outer ring -->
+  <circle cx="540" cy="540" r="490"/>
+
+  <!-- Frequency baseline (subtle guide) -->
+  <circle cx="540" cy="540" r="0" opacity="0"/>
+
+  <!-- Smooth sine waveform (quadratic chain using T for continuity) -->
+  <g clip-path="url(#clipCircle)">
+    <path id="sine" d="
+      M120 540
+      Q180 360 240 540
+      T360 540
+      T480 540
+      T600 540
+      T720 540
+      T840 540
+      T960 540" />
+
+    <!-- Secondary harmonic (lighter, smaller amplitude for musical character) -->
+    <path opacity="0.45" stroke-width="28" d="
+      M120 540
+      Q150 450 180 540
+      T240 540
+      T300 540
+      T360 540
+      T420 540
+      T480 540
+      T540 540
+      T600 540
+      T660 540
+      T720 540
+      T780 540
+      T840 540
+      T900 540
+      T960 540" />
+  </g>
+
+  <!-- Diatonic scale nodes mapped to peaks/troughs/center -->
+  <g id="nodes" stroke="none" fill="currentColor">
+    <!-- peak -->
+    <circle cx="180" cy="360" r="22"/>
+    <!-- trough -->
+    <circle cx="300" cy="720" r="22"/>
+    <!-- peak -->
+    <circle cx="420" cy="360" r="22"/>
+    <!-- center (tonic/reference) -->
+    <circle cx="540" cy="540" r="24"/>
+    <!-- peak -->
+    <circle cx="660" cy="360" r="22"/>
+    <!-- trough -->
+    <circle cx="780" cy="720" r="22"/>
+    <!-- peak -->
+    <circle cx="900" cy="360" r="22"/>
+  </g>
+</svg>

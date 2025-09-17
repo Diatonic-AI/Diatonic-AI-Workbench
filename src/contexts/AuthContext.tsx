@@ -1,16 +1,29 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { getCurrentUser, signOut, fetchAuthSession, AuthUser } from 'aws-amplify/auth';
+import type { AuthUser } from 'aws-amplify/auth';
+import {
+  getCurrentUser,
+  fetchAuthSession,
+  signIn,
+  signUp,
+  signOut,
+  confirmSignUp,
+  resetPassword,
+  confirmResetPassword,
+  resendSignUpCode,
+} from 'aws-amplify/auth';
 import { initializeAWS, validateAWSConfig } from '@/lib/aws-config';
+import { PermissionUtils, UserRole } from '@/lib/permissions';
 
 // User interface
 interface User {
   id: string;
   email: string;
   username: string;
-  name?: string;
-  avatar?: string;
+  name: string;
+  avatar: string;
   emailVerified: boolean;
   groups: string[];
+  role: UserRole;
 }
 
 // Authentication context interface
@@ -49,7 +62,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // Validate configuration first
         const isValid = validateAWSConfig();
         if (!isValid) {
-          console.warn('⚠️ AWS configuration is incomplete, some features may not work');
+          console.warn('⚠️ AWS configuration is incomplete, running in offline mode');
+          // Still allow the app to function without AWS
+          setIsInitialized(true);
+          setIsLoading(false);
+          return;
         }
 
         // Initialize AWS services
@@ -60,6 +77,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         await checkAuthState();
       } catch (error) {
         console.error('Failed to initialize AWS services:', error);
+        console.log('📱 Running in offline mode - authentication disabled');
+        setIsInitialized(true);
         setIsLoading(false);
       }
     };
@@ -88,24 +107,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const session = await fetchAuthSession();
       const idToken = session.tokens?.idToken;
+      const groups = (idToken?.payload['cognito:groups'] as string[]) || [];
+      const role = PermissionUtils.mapCognitoGroupsToRole(groups);
       
       return {
         id: authUser.userId,
         email: authUser.signInDetails?.loginId || '',
         username: authUser.username,
-        name: idToken?.payload?.name as string || authUser.username,
-        emailVerified: idToken?.payload?.email_verified as boolean || false,
-        groups: (idToken?.payload['cognito:groups'] as string[]) || [],
-        avatar: idToken?.payload?.picture as string || undefined,
+        name: (idToken?.payload?.name as string) || authUser.username,
+        emailVerified: (idToken?.payload?.email_verified as boolean) || false,
+        groups,
+        role,
+        avatar: (idToken?.payload?.picture as string) || '',
       };
     } catch (error) {
       console.error('Error parsing user from auth:', error);
+      const fallbackGroups: string[] = [];
       return {
         id: authUser.userId,
         email: '',
         username: authUser.username,
+        name: authUser.username,
+        avatar: '',
         emailVerified: false,
-        groups: [],
+        groups: fallbackGroups,
+        role: PermissionUtils.mapCognitoGroupsToRole(fallbackGroups),
       };
     }
   };
@@ -118,7 +144,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     setIsLoading(true);
     try {
-      const { signIn } = await import('aws-amplify/auth');
       const result = await signIn({ username, password });
       
       if (result.isSignedIn) {
@@ -141,7 +166,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     try {
-      const { signUp } = await import('aws-amplify/auth');
       await signUp({
         username,
         password,
@@ -171,7 +195,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Confirm sign up function
   const handleConfirmSignUp = async (username: string, confirmationCode: string): Promise<void> => {
     try {
-      const { confirmSignUp } = await import('aws-amplify/auth');
       await confirmSignUp({ username, confirmationCode });
     } catch (error) {
       console.error('Confirm sign up error:', error);
@@ -182,7 +205,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Forgot password function
   const handleForgotPassword = async (username: string): Promise<void> => {
     try {
-      const { resetPassword } = await import('aws-amplify/auth');
       await resetPassword({ username });
     } catch (error) {
       console.error('Forgot password error:', error);
@@ -197,7 +219,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     newPassword: string
   ): Promise<void> => {
     try {
-      const { confirmResetPassword } = await import('aws-amplify/auth');
       await confirmResetPassword({ username, confirmationCode, newPassword });
     } catch (error) {
       console.error('Confirm forgot password error:', error);
@@ -208,7 +229,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Resend confirmation code function
   const handleResendConfirmationCode = async (username: string): Promise<void> => {
     try {
-      const { resendSignUpCode } = await import('aws-amplify/auth');
       await resendSignUpCode({ username });
     } catch (error) {
       console.error('Resend confirmation code error:', error);

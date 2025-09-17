@@ -1,0 +1,48 @@
+{
+    "Tags": [
+        {
+            "Key": "App",
+            "Value": "ai-nexus-workbench"
+        },
+        {
+            "Key": "Project",
+            "Value": "ai-nexus"
+        },
+        {
+            "Key": "Owner",
+            "Value": "development-team"
+        },
+        {
+            "Key": "ManagedBy",
+            "Value": "terraform"
+        },
+        {
+            "Key": "Tenant",
+            "Value": "diatonicvisuals"
+        },
+        {
+            "Key": "CostCenter",
+            "Value": "development"
+        },
+        {
+            "Key": "Environment",
+            "Value": "dev"
+        },
+        {
+            "Key": "Team",
+            "Value": "ai-nexus-dev"
+        },
+        {
+            "Key": "Module",
+            "Value": "stripe-billing"
+        },
+        {
+            "Key": "Monitoring",
+            "Value": "basic"
+        },
+        {
+            "Key": "BackupPolicy",
+            "Value": "none"
+        }
+    ]
+}

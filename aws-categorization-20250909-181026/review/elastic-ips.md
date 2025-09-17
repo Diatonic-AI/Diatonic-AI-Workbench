@@ -1,0 +1,23 @@
+# Elastic IPs - REVIEW
+
+## Analysis Required
+Found 1 Elastic IPs:
+1. Check which are associated with active resources
+2. Identify unassociated IPs (these incur charges)
+3. Remove unassociated IPs
+
+## Note
+Unassociated Elastic IPs cost money. Any unused IPs should be released immediately.
+
+## Data
+---------------------------------------------------------------------------------------------
+|                                     DescribeAddresses                                     |
++-----------------------------+------------------------------+-------------+----------------+
+|        AllocationId         |        AssociationId         | InstanceId  |   PublicIp     |
++-----------------------------+------------------------------+-------------+----------------+
+|  eipalloc-036452078337c0fe2 |  eipassoc-00d078e8cf258d6b3  |  None       |  13.59.239.142 |
+|  eipalloc-0ae30120ef594c1ae |  eipassoc-072bf1b55bd12d62f  |  None       |  18.218.67.135 |
+|  eipalloc-0a740d4d563ffc4e3 |  eipassoc-00d822227a03800b2  |  None       |  18.219.204.53 |
+|  eipalloc-0b4ef7fad34341a81 |  eipassoc-02ed1324079fc7251  |  None       |  3.12.191.225  |
+|  eipalloc-0429198faa9d8e565 |  eipassoc-0a2a66c291337dbe8  |  None       |  3.142.22.43   |
++-----------------------------+------------------------------+-------------+----------------+

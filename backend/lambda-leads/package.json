@@ -1,0 +1,22 @@
+{
+  "name": "ai-nexus-lead-management",
+  "version": "1.0.0",
+  "description": "AI Nexus Workbench - Lead Management Lambda Function",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1691.0",
+    "uuid": "^9.0.1"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "lead-management",
+    "dynamodb",
+    "ai-nexus"
+  ],
+  "author": "AI Nexus Team",
+  "license": "MIT"
+}

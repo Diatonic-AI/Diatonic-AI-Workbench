@@ -1,0 +1,111 @@
+{
+  "dependency_analysis": {
+    "generated_at": "2025-09-17T02:41:00Z",
+    "scope": "AI Nexus tables only",
+    "discovery_method": "Lambda environment variable scanning"
+  },
+  "table_dependencies": {
+    "ai-nexus-dev-stripe-customers": {
+      "consumers": [
+        "ai-nexus-dev-stripe-get-subscription-status",
+        "ai-nexus-dev-stripe-update-subscription", 
+        "ai-nexus-dev-stripe-stripe-webhook-handler",
+        "ai-nexus-dev-stripe-create-checkout-session",
+        "ai-nexus-dev-stripe-create-setup-intent",
+        "ai-nexus-dev-stripe-create-portal-session"
+      ],
+      "consumer_count": 6,
+      "risk_level": "HIGH"
+    },
+    "ai-nexus-dev-stripe-subscriptions": {
+      "consumers": [
+        "ai-nexus-dev-stripe-get-subscription-status",
+        "ai-nexus-dev-stripe-update-subscription",
+        "ai-nexus-dev-stripe-cancel-subscription", 
+        "ai-nexus-dev-stripe-stripe-webhook-handler",
+        "ai-nexus-dev-stripe-create-checkout-session"
+      ],
+      "consumer_count": 5,
+      "risk_level": "HIGH"
+    },
+    "ai-nexus-dev-stripe-invoices": {
+      "consumers": [
+        "ai-nexus-dev-stripe-list-invoices",
+        "ai-nexus-dev-stripe-stripe-webhook-handler"
+      ],
+      "consumer_count": 2,
+      "risk_level": "MEDIUM"
+    },
+    "ai-nexus-dev-stripe-idempotency": {
+      "consumers": [
+        "ai-nexus-dev-stripe-stripe-webhook-handler"
+      ],
+      "consumer_count": 1,
+      "risk_level": "LOW"
+    }
+  },
+  "lambda_functions": {
+    "ai-nexus-dev-stripe-get-subscription-status": {
+      "environment_variables": {
+        "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions",
+        "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers"
+      },
+      "tables_accessed": ["ai-nexus-dev-stripe-subscriptions", "ai-nexus-dev-stripe-customers"]
+    },
+    "ai-nexus-dev-stripe-update-subscription": {
+      "environment_variables": {
+        "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions", 
+        "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers"
+      },
+      "tables_accessed": ["ai-nexus-dev-stripe-subscriptions", "ai-nexus-dev-stripe-customers"]
+    },
+    "ai-nexus-dev-stripe-list-invoices": {
+      "environment_variables": {
+        "TABLE_INVOICES": "ai-nexus-dev-stripe-invoices"
+      },
+      "tables_accessed": ["ai-nexus-dev-stripe-invoices"]
+    },
+    "ai-nexus-dev-stripe-cancel-subscription": {
+      "environment_variables": {
+        "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions"
+      },
+      "tables_accessed": ["ai-nexus-dev-stripe-subscriptions"]
+    },
+    "ai-nexus-dev-stripe-stripe-webhook-handler": {
+      "environment_variables": {
+        "TABLE_INVOICES": "ai-nexus-dev-stripe-invoices",
+        "TABLE_IDEMPOTENCY": "ai-nexus-dev-stripe-idempotency",
+        "EVENTBRIDGE_BUS_NAME": "ai-nexus-dev-stripe-event-bus",
+        "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions",
+        "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers"
+      },
+      "tables_accessed": ["ai-nexus-dev-stripe-invoices", "ai-nexus-dev-stripe-idempotency", "ai-nexus-dev-stripe-subscriptions", "ai-nexus-dev-stripe-customers"],
+      "note": "Main webhook handler - critical function"
+    },
+    "ai-nexus-dev-stripe-create-checkout-session": {
+      "environment_variables": {
+        "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions",
+        "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers"
+      },
+      "tables_accessed": ["ai-nexus-dev-stripe-subscriptions", "ai-nexus-dev-stripe-customers"]
+    },
+    "ai-nexus-dev-stripe-create-setup-intent": {
+      "environment_variables": {
+        "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers"
+      },
+      "tables_accessed": ["ai-nexus-dev-stripe-customers"]
+    },
+    "ai-nexus-dev-stripe-create-portal-session": {
+      "environment_variables": {
+        "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers"
+      },
+      "tables_accessed": ["ai-nexus-dev-stripe-customers"]
+    }
+  },
+  "migration_impact": {
+    "total_functions_affected": 8,
+    "environment_variables_to_update": 13,
+    "critical_functions": ["ai-nexus-dev-stripe-stripe-webhook-handler"],
+    "migration_strategy_required": "environment_variable_update_with_deployment"
+  }
+}

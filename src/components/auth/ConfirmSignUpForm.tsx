@@ -8,7 +8,7 @@ const ConfirmSignUpForm: React.FC = () => {
   const location = useLocation();
   
   // Get username from navigation state
-  const username = (location.state as any)?.username || '';
+  const username = (location.state as { username?: string } | null)?.username || '';
 
   // Redirect to signup if no username provided
   React.useEffect(() => {

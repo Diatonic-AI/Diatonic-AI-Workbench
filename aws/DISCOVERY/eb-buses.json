@@ -1,0 +1,20 @@
+{
+    "EventBuses": [
+        {
+            "Name": "default",
+            "Arn": "arn:aws:events:us-east-2:313476888312:event-bus/default"
+        },
+        {
+            "Name": "ai-nexus-dev-stripe-event-bus",
+            "Arn": "arn:aws:events:us-east-2:313476888312:event-bus/ai-nexus-dev-stripe-event-bus",
+            "CreationTime": "2025-09-08T01:51:29.471000-05:00",
+            "LastModifiedTime": "2025-09-08T01:51:29.471000-05:00"
+        },
+        {
+            "Name": "aws.partner/stripe.com/ed_61TEN0dErlaWJQzTZ16Qafnx2xSQhCzmf0WoqI1pgQSG",
+            "Arn": "arn:aws:events:us-east-2:313476888312:event-bus/aws.partner/stripe.com/ed_61TEN0dErlaWJQzTZ16Qafnx2xSQhCzmf0WoqI1pgQSG",
+            "CreationTime": "2025-09-08T02:09:39.645000-05:00",
+            "LastModifiedTime": "2025-09-08T02:09:39.645000-05:00"
+        }
+    ]
+}

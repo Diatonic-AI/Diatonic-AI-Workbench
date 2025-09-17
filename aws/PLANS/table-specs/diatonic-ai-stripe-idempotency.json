@@ -1,0 +1,54 @@
+{
+  "TableName": "diatonic-ai-stripe-idempotency",
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "event_id",
+      "AttributeType": "S"
+    }
+  ],
+  "KeySchema": [
+    {
+      "AttributeName": "event_id",
+      "KeyType": "HASH"
+    }
+  ],
+  "BillingMode": "PAY_PER_REQUEST",
+  "SSESpecification": {
+    "Enabled": true,
+    "SSEType": "KMS"
+  },
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "diatonic-ai-platform"
+    },
+    {
+      "Key": "Owner",
+      "Value": "daclab-ai"
+    },
+    {
+      "Key": "Environment",
+      "Value": "dev"
+    },
+    {
+      "Key": "Service",
+      "Value": "stripe-billing"
+    },
+    {
+      "Key": "CostCenter",
+      "Value": "engineering"
+    },
+    {
+      "Key": "MigratedFrom",
+      "Value": "ai-nexus-dev-stripe-idempotency"
+    },
+    {
+      "Key": "CreatedBy",
+      "Value": "migration-automation"
+    },
+    {
+      "Key": "CreatedDate",
+      "Value": "2025-09-17"
+    }
+  ]
+}

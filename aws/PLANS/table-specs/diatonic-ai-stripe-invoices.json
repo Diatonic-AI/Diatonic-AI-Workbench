@@ -1,0 +1,88 @@
+{
+  "TableName": "diatonic-ai-stripe-invoices",
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "created",
+      "AttributeType": "N"
+    },
+    {
+      "AttributeName": "invoice_id",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "tenant_id",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "user_id",
+      "AttributeType": "S"
+    }
+  ],
+  "KeySchema": [
+    {
+      "AttributeName": "tenant_id",
+      "KeyType": "HASH"
+    },
+    {
+      "AttributeName": "invoice_id",
+      "KeyType": "RANGE"
+    }
+  ],
+  "BillingMode": "PAY_PER_REQUEST",
+  "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "user-created-index",
+      "KeySchema": [
+        {
+          "AttributeName": "user_id",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "created",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": {
+        "ProjectionType": "ALL"
+      }
+    }
+  ],
+  "SSESpecification": {
+    "Enabled": true,
+    "SSEType": "KMS"
+  },
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "diatonic-ai-platform"
+    },
+    {
+      "Key": "Owner",
+      "Value": "daclab-ai"
+    },
+    {
+      "Key": "Environment",
+      "Value": "dev"
+    },
+    {
+      "Key": "Service",
+      "Value": "stripe-billing"
+    },
+    {
+      "Key": "CostCenter",
+      "Value": "engineering"
+    },
+    {
+      "Key": "MigratedFrom",
+      "Value": "ai-nexus-dev-stripe-invoices"
+    },
+    {
+      "Key": "CreatedBy",
+      "Value": "migration-automation"
+    },
+    {
+      "Key": "CreatedDate",
+      "Value": "2025-09-17"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+    "Items": [
+        {
+            "AccessLogSettings": {
+                "DestinationArn": "arn:aws:logs:us-east-2:313476888312:log-group:/aws/apigateway/ai-nexus-dev-stripe-access-logs",
+                "Format": "{\"httpMethod\":\"$context.httpMethod\",\"requestId\":\"$context.requestId\",\"requestTime\":\"$context.requestTime\",\"responseLength\":\"$context.responseLength\",\"routeKey\":\"$context.routeKey\",\"sourceIp\":\"$context.identity.sourceIp\",\"status\":\"$context.status\",\"tenantId\":\"diatonicvisuals\",\"userAgent\":\"$context.identity.userAgent\"}"
+            },
+            "AutoDeploy": true,
+            "CreatedDate": "2025-09-08T06:36:56+00:00",
+            "DefaultRouteSettings": {
+                "DetailedMetricsEnabled": false
+            },
+            "DeploymentId": "tag2ua",
+            "Description": "Stripe billing API stage for dev",
+            "LastDeploymentStatusMessage": "Successfully deployed stage with deployment ID 'tag2ua'",
+            "LastUpdatedDate": "2025-09-08T06:37:10+00:00",
+            "RouteSettings": {},
+            "StageName": "billing",
+            "StageVariables": {},
+            "Tags": {
+                "App": "ai-nexus-workbench",
+                "Project": "ai-nexus",
+                "Owner": "development-team",
+                "ManagedBy": "terraform",
+                "Tenant": "diatonicvisuals",
+                "CostCenter": "development",
+                "Environment": "dev",
+                "Team": "ai-nexus-dev",
+                "Module": "stripe-billing",
+                "Monitoring": "basic",
+                "BackupPolicy": "none"
+            }
+        }
+    ]
+}

@@ -14,17 +14,24 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Linting */
-    "strict": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitAny": false,
-    "noFallthroughCasesInSwitch": false,
+    /* Enhanced Type Checking */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@aws-lambda-powertools/logger/types": ["node_modules/@aws-lambda-powertools/logger/types"],
+      "@aws-lambda-powertools/metrics/types": ["node_modules/@aws-lambda-powertools/metrics/types"],
+      "@aws-lambda-powertools/tracer/types": ["node_modules/@aws-lambda-powertools/tracer/types"],
+      "@aws-lambda-powertools/commons/types": ["node_modules/@aws-lambda-powertools/commons/types"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "eslint.config.js", "services/billing/validation", "services/billing/types", "services/billing/tsconfig.json", "services/billing/shared"]
 }

@@ -1,0 +1,91 @@
+{
+    "Table": {
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "created",
+                "AttributeType": "N"
+            },
+            {
+                "AttributeName": "invoice_id",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "tenant_id",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "user_id",
+                "AttributeType": "S"
+            }
+        ],
+        "TableName": "ai-nexus-dev-stripe-invoices",
+        "KeySchema": [
+            {
+                "AttributeName": "tenant_id",
+                "KeyType": "HASH"
+            },
+            {
+                "AttributeName": "invoice_id",
+                "KeyType": "RANGE"
+            }
+        ],
+        "TableStatus": "ACTIVE",
+        "CreationDateTime": "2025-09-08T01:34:11.036000-05:00",
+        "ProvisionedThroughput": {
+            "NumberOfDecreasesToday": 0,
+            "ReadCapacityUnits": 0,
+            "WriteCapacityUnits": 0
+        },
+        "TableSizeBytes": 0,
+        "ItemCount": 0,
+        "TableArn": "arn:aws:dynamodb:us-east-2:313476888312:table/ai-nexus-dev-stripe-invoices",
+        "TableId": "f6edb52f-a642-433d-bd33-93ef8f467c39",
+        "BillingModeSummary": {
+            "BillingMode": "PAY_PER_REQUEST",
+            "LastUpdateToPayPerRequestDateTime": "2025-09-08T01:34:11.036000-05:00"
+        },
+        "GlobalSecondaryIndexes": [
+            {
+                "IndexName": "user-created-index",
+                "KeySchema": [
+                    {
+                        "AttributeName": "user_id",
+                        "KeyType": "HASH"
+                    },
+                    {
+                        "AttributeName": "created",
+                        "KeyType": "RANGE"
+                    }
+                ],
+                "Projection": {
+                    "ProjectionType": "ALL"
+                },
+                "IndexStatus": "ACTIVE",
+                "ProvisionedThroughput": {
+                    "NumberOfDecreasesToday": 0,
+                    "ReadCapacityUnits": 0,
+                    "WriteCapacityUnits": 0
+                },
+                "IndexSizeBytes": 0,
+                "ItemCount": 0,
+                "IndexArn": "arn:aws:dynamodb:us-east-2:313476888312:table/ai-nexus-dev-stripe-invoices/index/user-created-index",
+                "WarmThroughput": {
+                    "ReadUnitsPerSecond": 12000,
+                    "WriteUnitsPerSecond": 4000,
+                    "Status": "ACTIVE"
+                }
+            }
+        ],
+        "SSEDescription": {
+            "Status": "ENABLED",
+            "SSEType": "KMS",
+            "KMSMasterKeyArn": "arn:aws:kms:us-east-2:313476888312:key/db926bb8-67e9-4928-9a58-90e645e0ab5a"
+        },
+        "DeletionProtectionEnabled": false,
+        "WarmThroughput": {
+            "ReadUnitsPerSecond": 12000,
+            "WriteUnitsPerSecond": 4000,
+            "Status": "ACTIVE"
+        }
+    }
+}

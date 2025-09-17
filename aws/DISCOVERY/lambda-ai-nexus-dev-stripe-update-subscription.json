@@ -1,0 +1,51 @@
+{
+    "FunctionName": "ai-nexus-dev-stripe-update-subscription",
+    "FunctionArn": "arn:aws:lambda:us-east-2:313476888312:function:ai-nexus-dev-stripe-update-subscription",
+    "Runtime": "nodejs20.x",
+    "Role": "arn:aws:iam::313476888312:role/ai-nexus-dev-stripe-lambda-execution-role",
+    "Handler": "index.handler",
+    "CodeSize": 311,
+    "Description": "",
+    "Timeout": 30,
+    "MemorySize": 256,
+    "LastModified": "2025-09-08T06:34:45.726+0000",
+    "CodeSha256": "bO3YC93Xxtkv+oXttgfgBaYU7Tr708mX9aityLQURbY=",
+    "Version": "$LATEST",
+    "DeadLetterConfig": {
+        "TargetArn": "arn:aws:sqs:us-east-2:313476888312:ai-nexus-dev-stripe-dlq"
+    },
+    "Environment": {
+        "Variables": {
+            "PRICE_MAP_SSM_PATH": "/ai-nexus/diatonicvisuals/stripe/prices",
+            "STRIPE_SECRET_ARN": "arn:aws:secretsmanager:us-east-2:313476888312:secret:/ai-nexus/diatonicvisuals/stripe/secret_key-Z9kKlc",
+            "TENANT_ID": "diatonicvisuals",
+            "TABLE_SUBSCRIPTIONS": "ai-nexus-dev-stripe-subscriptions",
+            "TABLE_CUSTOMERS": "ai-nexus-dev-stripe-customers",
+            "LOG_LEVEL": "info"
+        }
+    },
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "11ea64f5-2099-4125-837a-3f8444b67c80",
+    "State": "Active",
+    "LastUpdateStatus": "Successful",
+    "PackageType": "Zip",
+    "Architectures": [
+        "x86_64"
+    ],
+    "EphemeralStorage": {
+        "Size": 512
+    },
+    "SnapStart": {
+        "ApplyOn": "None",
+        "OptimizationStatus": "Off"
+    },
+    "RuntimeVersionConfig": {
+        "RuntimeVersionArn": "arn:aws:lambda:us-east-2::runtime:1ffa4c233e75382c8a39aa96770f3b81af75cba9794a5c2a1750c1ee63cdfe10"
+    },
+    "LoggingConfig": {
+        "LogFormat": "Text",
+        "LogGroup": "/aws/lambda/ai-nexus-dev-stripe-update-subscription"
+    }
+}

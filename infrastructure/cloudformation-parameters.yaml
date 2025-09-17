@@ -1,0 +1,91 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'AI Nexus Workbench - Parameter Store and Secrets Manager setup for dev'
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    Description: Environment name (dev, staging, prod)
+  
+  AppDomain:
+    Type: String
+    Default: dev.ainexus.dev
+    Description: Application domain
+  
+  EnableDebugLogs:
+    Type: String
+    Default: true
+    AllowedValues: [true, false]
+    Description: Enable debug logging
+
+Resources:
+  # Parameter Store parameters
+  AppNameParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub "/ai-nexus-workbench/${Environment}/app-name"
+      Type: String
+      Value: "AI Nexus Workbench"
+      Description: !Sub "Application name for ${Environment} environment"
+
+  AppVersionParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub "/ai-nexus-workbench/${Environment}/app-version"
+      Type: String
+      Value: "1.0.0"
+      Description: !Sub "Application version for ${Environment} environment"
+
+  AppDomainParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub "/ai-nexus-workbench/${Environment}/app-domain"
+      Type: String
+      Value: !Ref AppDomain
+      Description: !Sub "Application domain for ${Environment} environment"
+
+  # IAM Role for application
+  ApplicationExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "AINexusWorkbench-${Environment}-ExecutionRole"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+                - ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: ParameterStoreAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:GetParameter
+                  - ssm:GetParameters
+                  - ssm:GetParametersByPath
+                Resource: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/ai-nexus-workbench/${Environment}/*"
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                  - secretsmanager:DescribeSecret
+                Resource: !Sub "arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:ai-nexus-workbench/*"
+
+Outputs:
+  ApplicationExecutionRoleArn:
+    Description: ARN of the application execution role
+    Value: !GetAtt ApplicationExecutionRole.Arn
+    Export:
+      Name: !Sub "AINexusWorkbench-${Environment}-ExecutionRoleArn"
+
+  ParameterStoreNamespace:
+    Description: Parameter Store namespace for this environment
+    Value: !Sub "/ai-nexus-workbench/${Environment}/"
+    Export:
+      Name: !Sub "AINexusWorkbench-${Environment}-ParameterNamespace"

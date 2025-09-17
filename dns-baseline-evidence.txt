@@ -1,0 +1,57 @@
+# DNS Baseline Evidence - Before Changes
+# Generated: 2025-09-09T22:19:36Z
+
+# Apex domain
+$ dig +short diatonic.ai
+# (No response - apex domain not configured)
+
+# WWW subdomain
+$ dig +short www.diatonic.ai
+dxz4p4iipx5lm.cloudfront.net.
+3.167.183.113
+3.167.183.33
+3.167.183.98
+3.167.183.80
+
+# API subdomain  
+$ dig +short api.diatonic.ai
+# (No response - API domain not configured)
+
+# App subdomain
+$ dig +short app.diatonic.ai
+dxz4p4iipx5lm.cloudfront.net.
+3.167.183.113
+3.167.183.33
+3.167.183.98
+3.167.183.80
+
+# Social subdomain
+$ dig +short social.diatonic.ai
+dxz4p4iipx5lm.cloudfront.net.
+3.167.183.113
+3.167.183.33
+3.167.183.98
+3.167.183.80
+
+# Education subdomain
+$ dig +short edu.diatonic.ai
+dxz4p4iipx5lm.cloudfront.net.
+3.167.183.113
+3.167.183.33
+3.167.183.98
+3.167.183.80
+
+# Development API subdomain (currently working)  
+$ dig +short api-dev.diatonic.ai
+d-1m79bv1jz4.execute-api.us-east-2.amazonaws.com.
+3.135.206.199
+3.14.167.38
+
+# Trace for domain authority
+$ dig +trace diatonic.ai | grep NS
+diatonic.ai.		3600	IN	NS	jacob.ns.cloudflare.com.
+diatonic.ai.		3600	IN	NS	miki.ns.cloudflare.com.
+
+# Certificate validation record (should exist)
+$ dig +short _6bed95c6b7b0ef39ef28da5b78620e14.diatonic.ai
+# (Testing if ACM validation record exists)
