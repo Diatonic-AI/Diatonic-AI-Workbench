@@ -1,0 +1,14 @@
+{
+    "StackSummaries": [
+        {
+            "StackId": "arn:aws:cloudformation:us-east-2:313476888312:stack/amplify-ainexusworkbench-dev-7627f/3b52dd90-8d4d-11f0-aaf6-02f8af323be9",
+            "StackName": "amplify-ainexusworkbench-dev-7627f",
+            "TemplateDescription": "{\"createdOn\":\"Linux\",\"createdBy\":\"Amplify\",\"createdWith\":\"14.0.0\",\"stackType\":\"root\",\"metadata\":{\"whyContinueWithGen1\":\"Prefer not to answer\"}}",
+            "CreationTime": "2025-09-09T07:18:49.612000+00:00",
+            "StackStatus": "CREATE_COMPLETE",
+            "DriftInformation": {
+                "StackDriftStatus": "NOT_CHECKED"
+            }
+        }
+    ]
+}

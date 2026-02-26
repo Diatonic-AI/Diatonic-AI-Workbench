@@ -1,0 +1,118 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AmplifyRead",
+      "Effect": "Allow",
+      "Action": [
+        "amplify:GetApp",
+        "amplify:ListApps",
+        "amplify:GetBranch",
+        "amplify:ListBranches",
+        "amplify:ListBackendEnvironments",
+        "amplify:GetBackendEnvironment",
+        "amplify:ListJobs",
+        "amplify:GetJob"
+      ],
+      "Resource": [
+        "arn:aws:amplify:us-east-2:313476888312:apps/d3ddhluaptuu35",
+        "arn:aws:amplify:us-east-2:313476888312:apps/d3ddhluaptuu35/branches/*",
+        "arn:aws:amplify:us-east-2:313476888312:apps/d3ddhluaptuu35/backendenvironments/prod",
+        "arn:aws:amplify:us-east-2:313476888312:apps/d3ddhluaptuu35/jobs/*"
+      ]
+    },
+    {
+      "Sid": "CloudFormationDescribe",
+      "Effect": "Allow",
+      "Action": [
+        "cloudformation:DescribeStacks",
+        "cloudformation:ListStackResources",
+        "cloudformation:GetTemplate",
+        "cloudformation:DescribeStackEvents"
+      ],
+      "Resource": "arn:aws:cloudformation:us-east-2:313476888312:stack/amplify-diatonicaiworkbench-prod-*"
+    },
+    {
+      "Sid": "AppSyncRead",
+      "Effect": "Allow",
+      "Action": [
+        "appsync:ListGraphqlApis",
+        "appsync:GetGraphqlApi",
+        "appsync:ListApiKeys",
+        "appsync:ListDataSources",
+        "appsync:ListResolvers",
+        "appsync:GetResolver",
+        "appsync:ListTypes"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ApiGatewayV2Read",
+      "Effect": "Allow",
+      "Action": [
+        "apigatewayv2:GetApis",
+        "apigatewayv2:GetApi",
+        "apigatewayv2:GetStages",
+        "apigatewayv2:GetIntegrations"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "DynamoDBDescribe",
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:ListTables",
+        "dynamodb:DescribeTable",
+        "dynamodb:DescribeContinuousBackups",
+        "dynamodb:ListTagsOfResource"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "LambdaReadConfig",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:ListFunctions",
+        "lambda:GetFunctionConfiguration",
+        "lambda:ListAliases",
+        "lambda:GetAlias"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "CognitoRead",
+      "Effect": "Allow",
+      "Action": [
+        "cognito-idp:ListUserPools",
+        "cognito-idp:DescribeUserPool",
+        "cognito-idp:ListUserPoolClients",
+        "cognito-idp:DescribeUserPoolClient",
+        "cognito-identity:ListIdentityPools",
+        "cognito-identity:DescribeIdentityPool"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "S3ReadAmplifyArtifacts",
+      "Effect": "Allow",
+      "Action": [ 
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:GetObject",
+        "s3:GetObjectTagging" 
+      ],
+      "Resource": "*",
+      "Condition": { 
+        "StringLike": { 
+          "s3:prefix": [ "amplify-*", "amplifyapp*" ] 
+        } 
+      }
+    },
+    {
+      "Sid": "STSCallerIdentity",
+      "Effect": "Allow",
+      "Action": [ "sts:GetCallerIdentity" ],
+      "Resource": "*"
+    }
+  ]
+}

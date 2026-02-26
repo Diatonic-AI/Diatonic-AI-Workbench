@@ -1,0 +1,51 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyOutsideApprovedRegion",
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": "*",
+      "Condition": { 
+        "StringNotEquals": { 
+          "aws:RequestedRegion": ["us-east-2"] 
+        } 
+      }
+    },
+    {
+      "Sid": "DenyDestructiveActions",
+      "Effect": "Deny",
+      "Action": [
+        "iam:*",
+        "cloudformation:Delete*",
+        "cloudformation:UpdateStack",
+        "amplify:Delete*",
+        "amplify:Create*",
+        "amplify:Update*",
+        "amplify:StartDeployment",
+        "amplify:StartJob",
+        "apigateway:DELETE",
+        "apigateway:PATCH",
+        "apigateway:PUT",
+        "apigatewayv2:Delete*",
+        "apigatewayv2:Update*",
+        "apigatewayv2:Create*",
+        "dynamodb:Delete*",
+        "dynamodb:Update*",
+        "dynamodb:Put*",
+        "dynamodb:BatchWriteItem",
+        "lambda:Delete*",
+        "lambda:Update*",
+        "lambda:Create*",
+        "events:Delete*",
+        "events:Put*",
+        "events:EnableRule",
+        "events:DisableRule",
+        "s3:Delete*",
+        "s3:PutBucket*",
+        "s3:PutObject*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

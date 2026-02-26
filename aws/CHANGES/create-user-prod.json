@@ -1,0 +1,31 @@
+{
+    "User": {
+        "Path": "/",
+        "UserName": "diatonic-workbench-cli-prod",
+        "UserId": "AIDAUR7FNW34I5PCXBC7D",
+        "Arn": "arn:aws:iam::313476888312:user/diatonic-workbench-cli-prod",
+        "CreateDate": "2025-09-17T07:51:43+00:00",
+        "Tags": [
+            {
+                "Key": "Project",
+                "Value": "DiatonicAI"
+            },
+            {
+                "Key": "Owner",
+                "Value": "AndrewFortini"
+            },
+            {
+                "Key": "Env",
+                "Value": "prod"
+            },
+            {
+                "Key": "Service",
+                "Value": "workbench"
+            },
+            {
+                "Key": "CostCenter",
+                "Value": "dacaidevBackend"
+            }
+        ]
+    }
+}
