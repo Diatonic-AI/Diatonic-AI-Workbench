@@ -17,7 +17,7 @@
   "author": "AI Nexus Team",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.1490.0",
+    "aws-sdk": "^2.1693.0",
     "uuid": "^9.0.1"
   },
   "engines": {
