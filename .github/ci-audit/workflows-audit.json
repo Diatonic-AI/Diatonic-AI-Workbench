@@ -1,0 +1,218 @@
+{
+  "repo": "Diatonic-AI/Diatonic-AI-Workbench",
+  "failedRunsCount": 70,
+  "topFailedRuns": [
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/19220983866",
+      "createdAt": "2025-11-10T04:48:20Z",
+      "databaseId": 19220983866
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/19024167614",
+      "createdAt": "2025-11-03T04:44:10Z",
+      "databaseId": 19024167614
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18830509154",
+      "createdAt": "2025-10-27T05:07:47Z",
+      "databaseId": 18830509154
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18830230778",
+      "createdAt": "2025-10-27T04:51:06Z",
+      "databaseId": 18830230778
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18642576450",
+      "createdAt": "2025-10-20T04:57:40Z",
+      "databaseId": 18642576450
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18642559199",
+      "createdAt": "2025-10-20T04:56:07Z",
+      "databaseId": 18642559199
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18642451249",
+      "createdAt": "2025-10-20T04:48:36Z",
+      "databaseId": 18642451249
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18455587541",
+      "createdAt": "2025-10-13T04:57:43Z",
+      "databaseId": 18455587541
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18455565548",
+      "createdAt": "2025-10-13T04:55:42Z",
+      "databaseId": 18455565548
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18455529578",
+      "createdAt": "2025-10-13T04:52:41Z",
+      "databaseId": 18455529578
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18270493135",
+      "createdAt": "2025-10-06T04:57:00Z",
+      "databaseId": 18270493135
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18270402874",
+      "createdAt": "2025-10-06T04:49:45Z",
+      "databaseId": 18270402874
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18086238858",
+      "createdAt": "2025-09-29T04:57:12Z",
+      "databaseId": 18086238858
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18086182300",
+      "createdAt": "2025-09-29T04:53:15Z",
+      "databaseId": 18086182300
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18086182047",
+      "createdAt": "2025-09-29T04:53:14Z",
+      "databaseId": 18086182047
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18086105223",
+      "createdAt": "2025-09-29T04:48:34Z",
+      "databaseId": 18086105223
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/17905446646",
+      "createdAt": "2025-09-22T05:22:18Z",
+      "databaseId": 17905446646
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/17905431727",
+      "createdAt": "2025-09-22T05:21:28Z",
+      "databaseId": 17905431727
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/17905429945",
+      "createdAt": "2025-09-22T05:21:22Z",
+      "databaseId": 17905429945
+    },
+    {
+      "name": "Deploy to AWS Amplify",
+      "url": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/17905413711",
+      "createdAt": "2025-09-22T05:20:25Z",
+      "databaseId": 17905413711
+    }
+  ],
+  "longestJobs": [
+    {
+      "runUrl": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18830509154",
+      "jobName": "Code Quality & Testing",
+      "durationMinutes": 0.78,
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "conclusion": "failure"
+    },
+    {
+      "runUrl": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18830230778",
+      "jobName": "Code Quality & Testing",
+      "durationMinutes": 0.78,
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "conclusion": "failure"
+    },
+    {
+      "runUrl": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18455565548",
+      "jobName": "Code Quality & Testing",
+      "durationMinutes": 0.73,
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "conclusion": "failure"
+    },
+    {
+      "runUrl": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18086238858",
+      "jobName": "Code Quality & Testing",
+      "durationMinutes": 0.72,
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "conclusion": "failure"
+    },
+    {
+      "runUrl": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/17905431727",
+      "jobName": "Code Quality & Testing",
+      "durationMinutes": 0.7,
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "conclusion": "failure"
+    },
+    {
+      "runUrl": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/19024167614",
+      "jobName": "Code Quality & Testing",
+      "durationMinutes": 0.68,
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "conclusion": "failure"
+    },
+    {
+      "runUrl": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18642451249",
+      "jobName": "Code Quality & Testing",
+      "durationMinutes": 0.68,
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "conclusion": "failure"
+    },
+    {
+      "runUrl": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/18455529578",
+      "jobName": "Code Quality & Testing",
+      "durationMinutes": 0.68,
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "conclusion": "failure"
+    },
+    {
+      "runUrl": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/17905429945",
+      "jobName": "Code Quality & Testing",
+      "durationMinutes": 0.68,
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "conclusion": "failure"
+    },
+    {
+      "runUrl": "https://github.com/Diatonic-AI/Diatonic-AI-Workbench/actions/runs/17905413711",
+      "jobName": "Code Quality & Testing",
+      "durationMinutes": 0.68,
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "conclusion": "failure"
+    }
+  ]
+}
